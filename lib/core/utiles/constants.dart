@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Kconstants{
+class Kcolors{
  static final fontMain= GoogleFonts.poppins(
   color: Colors.white54, fontSize: 20,fontWeight: FontWeight.w300);
  static  Color blueBackground=const Color(0xFF6694F6);
  static  Color tealBackground=const Color(0xff088f8f);
+ static const  Color authBoxColor = Color(0xFFD9D9D9) ;
 }
 
+class Kpadding {
+  static const   authBoxPadding =  EdgeInsets.symmetric(horizontal: 20,vertical: 10);
+
+}
+
+class Kredius {
+  static  BorderRadius authBoxRadius = BorderRadius.circular(20);
+}
 
 class AppoButton extends StatelessWidget {
  const AppoButton({
@@ -37,7 +46,7 @@ class AppoButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(20)
     ),
     child: Center(
-     child: Text(title,style: Kconstants.fontMain.copyWith(color: fontColor),),
+     child: Text(title,style: Kcolors.fontMain.copyWith(color: fontColor),),
     ),
 
 
@@ -73,8 +82,8 @@ class DateCard extends StatelessWidget {
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
     children: [
      Icon(icon,color: const Color(0xFF6694F6),),
-     Text(info1,style: Kconstants.fontMain.copyWith(color: Colors.black,fontWeight: FontWeight.w600 ),),
-     Text(info2,style: Kconstants.fontMain.copyWith(color: Colors.black,fontWeight: FontWeight.w300 ),)
+     Text(info1,style: Kcolors.fontMain.copyWith(color: Colors.black,fontWeight: FontWeight.w600 ),),
+     Text(info2,style: Kcolors.fontMain.copyWith(color: Colors.black,fontWeight: FontWeight.w300 ),)
     ],
    ),
   );

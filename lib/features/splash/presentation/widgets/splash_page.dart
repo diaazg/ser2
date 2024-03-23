@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ser2/core/utiles/constants.dart';
-import 'package:ser2/core/widgets/splash_paint.dart';
+import 'package:ser2/features/splash/presentation/widgets/splash_paint.dart';
 
 class SplashPageElement extends StatelessWidget {
   const SplashPageElement(
@@ -39,7 +39,7 @@ class SplashPageElement extends StatelessWidget {
                 padding: const EdgeInsets.all(7.0),
                 child: Text(
                   description,
-                  style: Kconstants.fontMain,
+                  style: Kcolors.fontMain,
                   textAlign: TextAlign.center,
                 ),
               )

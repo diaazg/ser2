@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
-import 'package:ser2/core/widgets/splash_page.dart';
+import 'package:ser2/features/splash/presentation/widgets/splash_page.dart';
+import 'package:ser2/features/auth/presentation/views/login_page.dart';
 import 'package:ser2/features/splash/presentation/logic/pages_bloc/pages_bloc.dart';
 import 'package:ser2/features/splash/presentation/logic/pages_bloc/pages_state.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -72,16 +73,19 @@ class SplashScreen extends StatelessWidget {
                splashBloc.controller.nextPage(
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.ease);
+                      if(splashBloc.buttonText=='Get started'){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
+                      }
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Kconstants.blueBackground,
+              backgroundColor: Kcolors.blueBackground,
                 minimumSize: const Size(300, 70),
                 
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25))),
             child: Text(
               splashBloc.buttonText,
-              style:  Kconstants.fontMain
+              style:  Kcolors.fontMain
                   .copyWith(color: Colors.white, fontWeight: FontWeight.normal),
             ),
           )

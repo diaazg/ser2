@@ -9,7 +9,9 @@ class BoxBloc extends Cubit<BoxState> implements BoxAbstract {
 
   String? input;
   void setInput(String? changeInput) {
+    
     input = changeInput;
+
   }
 
   @override
@@ -32,6 +34,24 @@ class BoxBloc extends Cubit<BoxState> implements BoxAbstract {
       } else {
         emit(BoxUnValidState());
       }
+  }
+  
+  @override
+  void checkPassword(String? password) {
+    if(password==input){
+      emit(BoxValidateState());
+    }else{
+      emit(BoxUnValidState());
+    }
+  }
+  
+  @override
+  void validateUserName() {
+     if(input!.isEmpty || input!.contains(RegExp('[1-9]')) ){
+       emit(BoxUnValidState());
+     }else{
+      emit(BoxValidateState());
+     }
   }
 
   
