@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/auth/presentation/logic/box_bloc.dart';
+import 'package:ser2/features/auth/presentation/views/add_info.dart';
 
 class RegisterButton extends StatelessWidget {
  
@@ -36,10 +37,10 @@ class RegisterButton extends StatelessWidget {
             checkPassword.checkPassword(passwordBloc.input);
             Future.delayed(const Duration(milliseconds: 100), () {
               if (formkey.currentState!.validate()) {
-                
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>InfoPage(email: emailBloc.input, username: usernameBloc.input, password: passwordBloc.input)));
               } else {
                 
-                
+                print('Noo');
               }
             });
           },

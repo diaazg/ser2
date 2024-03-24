@@ -47,10 +47,15 @@ class BoxBloc extends Cubit<BoxState> implements BoxAbstract {
   
   @override
   void validateUserName() {
-     if(input!.isEmpty || input!.contains(RegExp('[1-9]')) ){
+     if(input ==null  ){
        emit(BoxUnValidState());
      }else{
-      emit(BoxValidateState());
+      if(input!.contains(RegExp('[1-9]'))){
+          emit(BoxUnValidState());
+      }else{
+              emit(BoxValidateState());
+      }
+      
      }
   }
 
