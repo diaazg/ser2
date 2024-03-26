@@ -2,6 +2,7 @@ import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/homePage/presentation/views/home_page.dart';
+import 'package:ser2/features/medicinesSchedule/presentation/views/mdecine_schedule.dart';
 import 'package:ser2/features/profile/presentation/views/profile_dashboard.dart';
 
 class NavBar extends StatefulWidget {
@@ -27,7 +28,7 @@ class _NavBarState extends State<NavBar> {
     ),
 
   ];
-  List<Widget> screens=[const ProfileDashboard(),const HomePage(),Container(color:Colors.blueAccent)];
+  List<Widget> screens=[const ProfileDashboard(),const HomePage(), MedicineSchedule()];
   int visit = 1;
   @override
   Widget build(BuildContext context) {
