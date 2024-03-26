@@ -11,6 +11,7 @@ class Kcolors{
 
 class Kpadding {
   static const   authBoxPadding =  EdgeInsets.symmetric(horizontal: 20,vertical: 10);
+  static const   pagePadding =  EdgeInsets.symmetric(vertical: 30, horizontal: 20);
 
 }
 

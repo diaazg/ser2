@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/core/widgets/nav_bar.dart';
 import 'package:ser2/features/auth/presentation/logic/box_bloc.dart';
 
 class LoginButton extends StatelessWidget {
@@ -30,7 +31,7 @@ class LoginButton extends StatelessWidget {
             passwordBloc.validatePassword();
             Future.delayed(const Duration(milliseconds: 100), () {
               if (formkey.currentState!.validate()) {
-                
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const NavBar()));
               } else {
                 
                 

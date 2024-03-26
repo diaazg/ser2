@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/auth/presentation/logic/box_bloc.dart';
 import 'package:ser2/features/auth/presentation/widget/info_boxes.dart';
+import 'package:ser2/features/auth/presentation/widget/title_widget.dart';
 
 class InfoPage extends StatefulWidget {
   const InfoPage(
@@ -18,6 +19,8 @@ class InfoPage extends StatefulWidget {
 }
 
 class _InfoPageState extends State<InfoPage> {
+ final _formkey = GlobalKey<FormState>();
+
   late String? password = widget.password;
   late String? email = widget.email;
   late String? username = widget.username;
@@ -98,30 +101,17 @@ class _InfoPageState extends State<InfoPage> {
               ),
               Center(
                   child: Form(
+                    key: _formkey,
                       child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'full_name',
-                    style: Kcolors.fontMain
-                        .copyWith(color: Colors.black, fontSize: 15),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
+                  TitleWidget(size: size, title: 'Full Name'),
                  InfoBox(size: size, bloc: fullNameBox, errMessage: 'Enter your name', hintText: 'Full name', height: 0.07, width: 0.9),
                   SizedBox(
                     height: size.height * 0.02,
                   ),
-                  Text(
-                    'date of birth',
-                    style: Kcolors.fontMain
-                        .copyWith(color: Colors.black, fontSize: 15),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                   InfoBox(size: size, bloc: dateBox, errMessage: 'Enter your date of birth', hintText: 'date of birth', height: 0.07, width: 0.9),
+                  TitleWidget(size: size, title: 'Date of birth'),
+                  InfoBox(size: size, bloc: dateBox, errMessage: 'Enter your date of birth', hintText: 'date of birth', height: 0.07, width: 0.9),
                   SizedBox(
                     height: size.height * 0.03,
                   ),
@@ -131,15 +121,7 @@ class _InfoPageState extends State<InfoPage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'weight',
-                            style: Kcolors.fontMain
-                                .copyWith(color: Colors.black, fontSize: 15),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.01,
-                          ),
-                          
+                          TitleWidget(size: size, title: 'Weight'),
                           InfoBox(size: size, bloc: poidBox, errMessage: 'fill the gape', hintText: 'Weight', height: 0.07, width: 0.4),
                           
                          
@@ -148,14 +130,7 @@ class _InfoPageState extends State<InfoPage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'height',
-                            style: Kcolors.fontMain
-                                .copyWith(color: Colors.black, fontSize: 15),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.01,
-                          ),
+                          TitleWidget(size: size, title: 'Height'),
                           InfoBox(size: size, bloc: longBox, errMessage: 'Enter your height', hintText: 'Height', height: 0.07, width: 0.4)
                         ],
                       ),
@@ -170,43 +145,20 @@ class _InfoPageState extends State<InfoPage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Country',
-                            style: Kcolors.fontMain
-                                .copyWith(color: Colors.black, fontSize: 15),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.01,
-                          ),
+                          TitleWidget(size: size, title: 'Country'),
                          InfoBox(size: size, bloc: countryBox, errMessage: 'Enter your country', hintText: 'Country', height: 0.07, width: 0.25)],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "City",
-                            style: Kcolors.fontMain.copyWith(
-                              color: Colors.black,
-                              fontSize: 15,
-                            ),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.01,
-                          ),
+                          TitleWidget(size: size, title: 'City'),
                           InfoBox(size: size, bloc: cityBox, errMessage: 'Enter your wilaya', hintText: 'Wilaya', height: 0.07, width: 0.25)
                         ],
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Town",
-                            style: Kcolors.fontMain
-                                .copyWith(color: Colors.black, fontSize: 15),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.01,
-                          ),
+                          TitleWidget(size: size, title: 'Town'),
                           InfoBox(size: size, bloc: townBox, errMessage: 'Enter your town', hintText: 'Town', height: 0.07, width: 0.25)
                         ],
                       ),
@@ -220,10 +172,19 @@ class _InfoPageState extends State<InfoPage> {
               AppoButton(
                   size: size,
                   title: 'Save',
-                  color: Color(0xFF496CCE),
+                  color: const Color(0xFF496CCE),
                   fontColor: Colors.white,
                   buttonFunc: () {
-                    
+                    fullNameBox.validateUserName();
+                    dateBox.validateUserName();
+                    poidBox.validateUserName();
+                    longBox.validateUserName();
+                    countryBox.validateUserName();
+                    cityBox.validateUserName();
+                    townBox.validateUserName();
+                    if(_formkey.currentState!.validate()){
+                      print('Valide') ;
+                    }
                   })
             ],
           ),
@@ -232,3 +193,5 @@ class _InfoPageState extends State<InfoPage> {
     ));
   }
 }
+
+

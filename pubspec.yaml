@@ -38,6 +38,8 @@ dependencies:
   flutter_bloc: ^8.1.4
   smooth_page_indicator: ^1.1.0
   google_fonts: ^6.2.1
+  awesome_bottom_bar: ^1.2.4
+  searchfield: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +63,7 @@ flutter:
 
 
   assets:
+     - images/logo.png
      - images/splash/
      - images/appointement/
      - images/MedicalRep/
@@ -69,3 +72,30 @@ flutter:
      - images/medicines/
      - images/logIn/
      - images/special/
+     - assets/page-1/images/icon-heart.png
+     - assets/page-1/images/icon-house.png
+     - assets/page-1/images/doctor-3.png
+     - assets/page-1/images/vector.png
+     - assets/page-1/images/icon-bell.png
+     - assets/page-1/images/x38.png
+     - assets/page-1/images/auto-group-x4gd.png
+     - assets/page-1/images/icon-brain.png
+     - assets/page-1/images/icon-eye.png
+     - assets/page-1/images/vector-12.png
+     - assets/page-1/images/doctor-5.png
+     - assets/page-1/images/ellipse-28.png
+     - assets/page-1/images/vector-9.png
+     - assets/page-1/images/doctor-2.png
+     - assets/page-1/images/auto-group-yvur.png
+     - assets/page-1/images/icon-cardiogram.png
+     - assets/page-1/images/vector-13.png
+     - assets/page-1/images/vector-8.png
+     - assets/page-1/images/icon-search.png
+     - assets/page-1/images/ellipse-32.png
+     - assets/page-1/images/vector-10.png
+     - assets/page-1/images/doctor-1.png
+     - assets/page-1/images/group.png
+     - assets/page-1/images/auto-group-cq2v.png
+     - assets/page-1/images/icon-filter-search.png
+     - assets/svg/
+     - images/splash.png
