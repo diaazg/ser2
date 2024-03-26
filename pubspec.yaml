@@ -40,6 +40,7 @@ dependencies:
   google_fonts: ^6.2.1
   awesome_bottom_bar: ^1.2.4
   searchfield: ^1.0.1
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:

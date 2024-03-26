@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/profile/presentation/views/malad_profile.dart';
 import 'package:ser2/features/profile/presentation/views/medical_history.dart';
+import 'package:ser2/features/profile/presentation/views/qr_code.dart';
 
 class ProfileDashboard extends StatelessWidget {
   const ProfileDashboard({super.key});
@@ -186,7 +187,9 @@ class ProfileDashboard extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
-              DashboardEelement(size: size, iconPath: '5', title: 'Qr code'),
+              DashboardEelement(size: size, iconPath: '5', title: 'Qr code',onTap: (){
+                goToPage(context, const MyQr(id: '1234567890llaa'));
+              },),
                SizedBox(
                 height: size.height * 0.02,
               ),
