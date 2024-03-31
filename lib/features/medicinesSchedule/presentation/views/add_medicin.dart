@@ -86,9 +86,7 @@ class _AddMedicinState extends State<AddMedicin> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const ReturnButton(),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
+              
               SizedBox(
                 height: size.height * 0.04,
               ),
@@ -98,51 +96,7 @@ class _AddMedicinState extends State<AddMedicin> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'medicName',
-                            style: Kcolors.fontMain
-                                .copyWith(color: Colors.black, fontSize: 15),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.01,
-                          ),
-                          Container(
-                            height: size.height * 0.07,
-                            width: size.width * 0.9,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 50),
-                              child: Center(
-                                child: SearchField(
-                                  searchStyle: Kcolors.fontMain.copyWith(
-                                      color: Colors.black, fontSize: 20),
-                                  onSubmit: (val) {
-                                    medicineName = val;
-                                  },
-                                  validator: (val) =>
-                                      val!.isEmpty ? 'Enter a name' : null,
-                                  searchInputDecoration: InputDecoration(
-                                      hintStyle: Kcolors.fontMain.copyWith(
-                                          color: Colors.black, fontSize: 20),
-                                      hintText: 'medicine name',
-                                      border: InputBorder.none),
-                                  suggestions: medicines
-                                      .map((e) => SearchFieldListItem(e,
-                                          child: Container(
-                                            width: size.width * 0.4,
-                                            padding: const EdgeInsets.all(10),
-                                            child: Text(e),
-                                          )))
-                                      .toList(),
-                                  suggestionState: Suggestion.expand,
-                                  hint: 'Medicine',
-                                ),
-                              ),
-                            ),
-                          ),
+                          
                           SizedBox(
                             height: size.height * 0.02,
                           ),
@@ -625,6 +579,68 @@ class AddMedicDay extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+
+class MedicInputListWidget extends StatelessWidget {
+  const MedicInputListWidget({super.key, required this.title, required this.hintText, required this.size});
+  final String title ;
+  final String hintText ;
+  final Size size ;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+                            title,
+                            style: Kcolors.fontMain
+                                .copyWith(color: Colors.black, fontSize: 15),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
+                          Container(
+                            height: size.height * 0.07,
+                            width: size.width * 0.9,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 50),
+                              child: Center(
+                                child: SearchField(
+                                  searchStyle: Kcolors.fontMain.copyWith(
+                                      color: Colors.black, fontSize: 20),
+                                  onSubmit: (val) {
+                                    medicineName = val;
+                                  },
+                                  validator: (val) =>
+                                      val!.isEmpty ? 'Enter a name' : null,
+                                  searchInputDecoration: InputDecoration(
+                                      hintStyle: Kcolors.fontMain.copyWith(
+                                          color: Colors.black, fontSize: 20),
+                                      
+                                      border: InputBorder.none),
+                                  suggestions: medicines
+                                      .map((e) => SearchFieldListItem(e,
+                                          child: Container(
+                                            width: size.width * 0.4,
+                                            padding: const EdgeInsets.all(10),
+                                            child: Text(e),
+                                          )))
+                                      .toList(),
+                                  suggestionState: Suggestion.expand,
+                                  hint: hintText,
+                                ),
+                              ),
+                            ),
+                          ),
+                         
+      ],
     );
   }
 }
