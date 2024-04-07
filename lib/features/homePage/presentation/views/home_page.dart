@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
+import 'package:ser2/features/doctors/presentation/views/all_doctors.dart';
 import 'package:ser2/features/homePage/data/entity/doctor_Model.dart';
 import 'package:ser2/features/homePage/presentation/widgets/special_card.dart';
 
@@ -18,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   List<String> pic = ["urology", "brain", "eye", "cardiogram"];
   List<Color> colors = [Colors.teal, Colors.pink, Colors.cyan, Colors.yellow];
   List<DoctorModel>nearbyDoctors=[];
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -296,7 +299,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   GestureDetector(
                     onTap: (){
-                      /* Navigator.push(context, MaterialPageRoute(builder: (context)=>AllDoctors())); */
+                       AllDoctorsBloc allDoctorsBloc = AllDoctorsBloc() ;
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=> AllDoctors(allDoctorsBloc: allDoctorsBloc,)));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,

@@ -70,6 +70,6 @@ class TypesInput extends StatelessWidget {
         })
       ],
     );
-    ;
+    
   }
 }
