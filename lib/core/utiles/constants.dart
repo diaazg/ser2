@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+enum Day { today , tomorrow } 
+
+
 class Kcolors{
  static final fontMain= GoogleFonts.poppins(
   color: Colors.white54, fontSize: 20,fontWeight: FontWeight.w300);

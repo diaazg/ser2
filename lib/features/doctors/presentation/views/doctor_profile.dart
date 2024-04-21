@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/features/doctors/presentation/widgets/book_apt.dart';
+import 'package:ser2/features/doctors/presentation/widgets/phone_nbr.dart';
 
 
 class DoctorProfile extends StatelessWidget {
@@ -53,15 +55,13 @@ class DoctorProfile extends StatelessWidget {
                       height: size.height * 0.2,
                       width: size.width * 0.4,
                       decoration: BoxDecoration(
-                          color: Color(0xFF6694F6),
+                          color: const Color(0xFF6694F6),
                           borderRadius: BorderRadius.circular(15)),
-                      child: Container(
-                        child: Center(
-                          child: Image.asset(
-                            "images/appointement/3.png",
-                            height: size.height * 0.2,
-                            width: size.width * 0.4,
-                          ),
+                      child: Center(
+                        child: Image.asset(
+                          "images/appointement/3.png",
+                          height: size.height * 0.2,
+                          width: size.width * 0.4,
                         ),
                       ),
                     ),
@@ -133,7 +133,7 @@ class DoctorProfile extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.04,
                       ),
-                      Text(
+                      const Text(
                           " 7 years of expecience , worked in France,Germany ")
                     ],
                   ),
@@ -144,7 +144,7 @@ class DoctorProfile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'docotrProfile/workingTime',
+                        'WorkingTime',
                         style: Kcolors.fontMain.copyWith(
                             color: Colors.black, fontWeight: FontWeight.w900),
                       ),
@@ -166,71 +166,8 @@ class DoctorProfile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GestureDetector(
-                        onTap: () async {
-                         /*  String number = phoneNbr!; //set the number here
-                          await FlutterPhoneDirectCaller.callNumber(
-                              number.toString()); */
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          height: size.height * 0.08,
-                          width: size.width * 0.4,
-                          decoration: BoxDecoration(
-                              color: const Color(0xFF496CCE),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Icon(
-                                Icons.call,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                phoneNbr!,
-                                style: Kcolors.fontMain.copyWith(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          /* Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => aptInfos(
-                                    long:long,
-                                        lati: lati,
-                                        docName: docName,
-                                        id: id,
-                                        wilaya: wilaya,
-                                        commune: commune,
-                                        specialite: specialite,
-                                       ind: ind,
-                                      ))); */
-
-                        },
-                        child: Container(
-                          height: size.height * 0.08,
-                          width: size.width * 0.4,
-                          decoration: BoxDecoration(
-                              color: Color(0xFF496CCE),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Center(
-                            child: Text(
-                              'bookApt',
-                              style: Kcolors.fontMain.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      )
+                      PhoneNbrButton(size: size, phoneNbr: phoneNbr),
+                      BookAptButton(size: size)
                     ],
                   )
                 ],
@@ -242,3 +179,5 @@ class DoctorProfile extends StatelessWidget {
     ));
   }
 }
+
+
