@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "12014682350",
+    "project_id": "sa7ti-f530e",
+    "storage_bucket": "sa7ti-f530e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12014682350:android:ba4be5981affc9d2cf33ff",
+        "android_client_info": {
+          "package_name": "com.example.ser2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbTjowgwJ6rhGPoWlXP-W7wUn8mLIRnDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

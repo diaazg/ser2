@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/core/widgets/nav_bar.dart';
@@ -25,13 +27,17 @@ class LoginButton extends StatelessWidget {
       decoration: BoxDecoration(
           color: const Color(0xFF6694F6), borderRadius: BorderRadius.circular(25)),
       child: TextButton(
-          onPressed: () {
+          onPressed: ()async {
             
             emailBloc.validateEmail();
             passwordBloc.validatePassword();
-            Future.delayed(const Duration(milliseconds: 100), () {
+            Future.delayed(const Duration(milliseconds: 100), ()async {
               if (formkey.currentState!.validate()) {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const NavBar()));
+               var response = await FirebaseAuth.instance.signInWithEmailAndPassword(email: emailBloc.input!, password: passwordBloc.input!);
+               print('aaaaaaaaaaaaaaaaaaaaaaaa');
+               print(response);
+               print('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+                /* Navigator.push(context, MaterialPageRoute(builder: (context)=>const NavBar())); */
               } else {
                 
                 
