@@ -13,10 +13,11 @@ class InfoPage extends StatefulWidget {
       {super.key,
       required this.email,
       required this.username,
-      required this.password});
+      required this.password, required this.townBox});
   final String? password;
   final String? email;
   final String? username;
+  final BoxBloc townBox ;
 
   @override
   State<InfoPage> createState() => _InfoPageState();
@@ -33,8 +34,7 @@ class _InfoPageState extends State<InfoPage> {
   final BoxBloc poidBox = BoxBloc();
   final BoxBloc longBox = BoxBloc();
   final BoxBloc countryBox = BoxBloc();
-  final BoxBloc cityBox = BoxBloc();
-  final BoxBloc townBox = BoxBloc();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -171,40 +171,27 @@ class _InfoPageState extends State<InfoPage> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TitleWidget(size: size, title: 'Country'),
-                                  InfoBox(
-                                      size: size,
-                                      bloc: countryBox,
-                                      errMessage: 'Enter your country',
-                                      hintText: 'Country',
-                                      height: 0.07,
-                                      width: 0.25)
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
                                   TitleWidget(size: size, title: 'City'),
-                                  InfoBox(
+                                  DropFillBox(
                                       size: size,
-                                      bloc: cityBox,
+                                      bloc: widget.townBox,
                                       errMessage: 'Enter your wilaya',
                                       hintText: 'Wilaya',
                                       height: 0.07,
-                                      width: 0.25)
+                                      width: 0.43, isWilaya: true,)
                                 ],
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   TitleWidget(size: size, title: 'Town'),
-                                  InfoBox(
+                                  DropFillBox(
                                       size: size,
-                                      bloc: townBox,
+                                      bloc: widget.townBox,
                                       errMessage: 'Enter your town',
                                       hintText: 'Town',
                                       height: 0.07,
-                                      width: 0.25)
+                                      width: 0.43, isWilaya: false,)
                                 ],
                               ),
                             ],
@@ -222,11 +209,11 @@ class _InfoPageState extends State<InfoPage> {
                   buttonFunc: () {
                     fullNameBox.validateUserName();
                     dateBox.validateDate();
-                    poidBox.validateUserName();
-                    longBox.validateUserName();
-                    countryBox.validateUserName();
-                    cityBox.validateUserName();
-                    townBox.validateUserName();
+                    poidBox.validateDouble();
+                    longBox.validateDouble();
+
+                    widget.townBox.validateWilaya();
+                    widget.townBox.validateCommune();
                     Future.delayed(const Duration(milliseconds: 100), () async {
                       if (_formkey.currentState!.validate()) {
                         FirebaseAuth authInstance = FirebaseAuth.instance;
@@ -240,9 +227,8 @@ class _InfoPageState extends State<InfoPage> {
                             dateOfBirth: dateBox.input!,
                             weight: double.parse(poidBox.input!),
                             height: double.parse(longBox.input!),
-                            country: countryBox.input!,
-                            city: cityBox.input!,
-                            town: townBox.input!,
+                            city: widget.townBox.city!,
+                            town: widget.townBox.town!,
                             email: email,
                             password: password,
                             userName: username!);

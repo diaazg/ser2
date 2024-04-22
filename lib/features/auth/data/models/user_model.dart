@@ -27,7 +27,6 @@ class UserModelReg extends UserModel {
   final String dateOfBirth;
   final double weight;
   final double height;
-  final String country;
   final String city;
   final String town;
   late String? uid;
@@ -37,7 +36,7 @@ class UserModelReg extends UserModel {
       required this.dateOfBirth,
       required this.weight,
       required this.height,
-      required this.country,
+      
       required this.city,
       required this.town,
       required super.email,
@@ -53,9 +52,8 @@ class UserModelReg extends UserModel {
       dateOfBirth: json['dateOfBirth'] as String,
       weight: json['weight'] as double,
       height: json['height'] as double,
-      country: json['country'] as String,
-      city: json['city'] as String,
-      town: json['town'] as String,
+      city: json['wilaya'] as String,
+      town: json['commune'] as String,
       userName: json['userName'] as String);
 
   Map<String, dynamic> toJson() => {
@@ -67,8 +65,8 @@ class UserModelReg extends UserModel {
         'dateOfBirth': dateOfBirth,
         'weight': weight,
         'height': height,
-        'country': country,
-        'town': town,
+        'commune':town,
+        'wilaya':city
       };
 
   List<Object?> get props => [
@@ -80,7 +78,7 @@ class UserModelReg extends UserModel {
         dateOfBirth,
         weight,
         height,
-        country,
+       
         town
       ];
 }

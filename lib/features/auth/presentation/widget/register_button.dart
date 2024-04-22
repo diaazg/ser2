@@ -42,14 +42,15 @@ class RegisterButton extends StatelessWidget {
               if (formkey.currentState!.validate()) {
              
             
-                    
+                BoxBloc townBox = BoxBloc();
+                townBox.setWilayaList();
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => InfoPage(
                             email: emailBloc.input,
                             username: usernameBloc.input,
-                            password: passwordBloc.input)));
+                            password: passwordBloc.input, townBox: townBox,)));
               } else {
                 print('Noo');
               }

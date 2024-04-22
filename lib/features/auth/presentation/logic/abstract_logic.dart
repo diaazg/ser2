@@ -6,6 +6,6 @@ abstract class BoxAbstract {
   void validatePassword();
   void checkPassword(String password);
   void validateUserName();
-  void validDouble();
+  void validateDouble();
 
 }
