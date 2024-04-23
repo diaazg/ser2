@@ -37,8 +37,9 @@ class LoginButton extends StatelessWidget {
             passwordBloc.validatePassword();
             Future.delayed(const Duration(milliseconds: 100), () async {
               if (formkey.currentState!.validate()) {
-                   FirebaseAuth authInstance = FirebaseAuth.instance;
-                   FirebaseFirestore storeInstance = FirebaseFirestore.instance;
+                FirebaseAuth authInstance = FirebaseAuth.instance;
+                  
+                FirebaseFirestore storeInstance = FirebaseFirestore.instance;
                 AuthRepoImp authRepo = AuthRepoImp(authInstance: authInstance, storeInstance: storeInstance);
                 UserModelLog userModel = UserModelLog(email: emailBloc.input,password: passwordBloc.input);
                var response = await authRepo.logIn(userModel);
@@ -47,6 +48,8 @@ class LoginButton extends StatelessWidget {
                }, (success){
                 print(success);
                } );
+
+              
                 /* Navigator.push(context, MaterialPageRoute(builder: (context)=>const NavBar())); */
               } else {}
             });

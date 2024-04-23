@@ -52,7 +52,7 @@ class SplashScreen extends StatelessWidget {
                 ),
 
               ),
-                               const SizedBox(
+            const SizedBox(
             height: 20,
           ),
           

@@ -60,4 +60,18 @@ class AuthRepoImp extends AuthRepo {
       return left(FirebaseFailure(errMessage: 'Oops error occurred try later'));
     }
   }
+  
+  @override
+
+  Stream<User?> get user {
+    return authInstance.authStateChanges().map((firebaseUser){
+      final user = firebaseUser ;
+      return user ;
+    } );
+  }
+  
+  @override
+  void logOut()async {
+   await authInstance.signOut();
+  }
 }
