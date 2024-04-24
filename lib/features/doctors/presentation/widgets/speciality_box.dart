@@ -1,25 +1,29 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
+import 'package:ser2/features/doctors/presentation/logic/doctorsEvent.dart';
 
 class SpecialBox extends StatelessWidget {
   const SpecialBox({
     super.key,
-    required this.allDoctorsBloc,
-    required this.size, required this.index,
+
+    required this.size, required this.index, required this.bloc,
   });
 
-  final AllDoctorsBloc allDoctorsBloc;
+
   final Size size;
   final int index ;
+
+  final AllDoctorsBloc bloc;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-         String  chooseSpecial = allDoctorsBloc.special[index];
-          allDoctorsBloc.setSpecial(chooseSpecial);
+      onTap: (){
+                                             String  chooseSpecial = bloc.special[index];
+          bloc.add(SetSpeciality(special: chooseSpecial)); 
       },
       child: Container(
         margin: const EdgeInsets.only(left: 10),
@@ -27,14 +31,14 @@ class SpecialBox extends StatelessWidget {
         width: size.width * 0.4,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: allDoctorsBloc.specialiy == allDoctorsBloc.special[index]
+            color:bloc.specialiy == bloc.special[index]
                 ? Kcolors.blueBackground
                 : const Color(0xFFEAEBEC)),
         child: Center(
           child: Text(
-            allDoctorsBloc.special[index],
+           bloc.special[index],
             style: Kcolors.fontMain.copyWith(
-                color: allDoctorsBloc.specialiy == allDoctorsBloc.special[index]
+                color: bloc.specialiy == bloc.special[index]
                     ? Colors.white
                     : Colors.black,
                 fontSize: 17,

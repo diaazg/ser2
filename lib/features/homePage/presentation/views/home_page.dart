@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:ser2/core/utiles/constants.dart';
+
+
+import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
-import 'package:ser2/features/doctors/presentation/logic/allDoctorsState.dart';
 import 'package:ser2/features/doctors/presentation/logic/doctorsEvent.dart';
 import 'package:ser2/features/doctors/presentation/views/all_doctors.dart';
-import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
+import 'package:ser2/features/homePage/presentation/logic/allDoctorsBloc.dart';
+import 'package:ser2/features/homePage/presentation/logic/allDoctorsState.dart';
+import 'package:ser2/features/homePage/presentation/logic/doctorsEvent.dart';
 import 'package:ser2/features/homePage/presentation/widgets/nearbyDocWidget.dart';
 import 'package:ser2/features/homePage/presentation/widgets/special_card.dart';
 
@@ -26,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   List<DoctorModel>nearbyDoctors=[];
   @override
   void initState() {
-    context.read<AllDoctorsBloc>().add(GetNearbyDoctorsEvent(wilaya: 'Béjaïa')); 
+    context.read<NearbyDoctorsBloc>().add(GetNearbyDoctorsEvent(wilaya: 'Tiaret')); 
     // TODO: implement initState
     super.initState();
   }
@@ -309,8 +313,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                   GestureDetector(
                     onTap: (){
-                       
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=> AllDoctors()));
+                       AllDoctorsBloc allDoctorsBloc = AllDoctorsBloc(context.read<NearbyDoctorsBloc>().doctorsRepo);
+                       allDoctorsBloc.add(SetSpeciality(special: "Urology"));
+                           /* context.read<AllDoctorsBloc>().add(SetSpeciality(special: "Urology")); */ 
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=> AllDoctors(bloc: allDoctorsBloc
+                       ,)));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -336,8 +343,8 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: size.height * 0.1 * 0.2,
               ),
-              BlocConsumer<AllDoctorsBloc,AllDoctorsState>(
-                listener: (BuildContext context, AllDoctorsState state) { 
+              BlocConsumer<NearbyDoctorsBloc,NearbyDoctorsState>(
+                listener: (BuildContext context, NearbyDoctorsState state) { 
                   if(state is DoctorNearbySuccess){
                     
                     nearbyDoctors = state.doctors;
@@ -354,7 +361,7 @@ class _HomePageState extends State<HomePage> {
                           return NearByDocWidget(size: size, nearbyDoctor: nearbyDoctors[index]);
                         }),
                   );
-                  }else if (state is DoctorSpecialFailure){
+                  }else if (state is DoctorNearbyFailure){
                     return Center(child: Text(state.failure.errMessage) ,);
                   }else{
                     return const Center(child: Text('Wait ..............') ,);

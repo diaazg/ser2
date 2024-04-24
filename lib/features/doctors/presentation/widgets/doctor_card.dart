@@ -4,11 +4,14 @@ import 'package:ser2/core/utiles/constants.dart';
 class DoctorCard extends StatelessWidget {
   const DoctorCard({
     super.key,
-    required this.size, this.onTap, 
+    required this.size, this.onTap, required this.docName, required this.specialite, 
   });
 
   final Size size;
   final Function()? onTap ;
+  final String docName ;
+  final String specialite;
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +55,14 @@ class DoctorCard extends StatelessWidget {
                 MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Dr-Diaa",
+                    docName,
                     style: Kcolors.fontMain.copyWith(
                         color: const Color(0xFFF3C0C0),
                         fontSize: 20,
                         fontWeight: FontWeight.w900),
                   ),
                   Text(
-                    "Specialiy : neurolist ",
+                    "Specialiy :  $specialite ",
                     style: Kcolors.fontMain.copyWith(
                         color: Colors.black,
                         fontSize: 15,

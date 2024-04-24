@@ -30,6 +30,7 @@ class NearByDocWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(20)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
               height: size.height * 0.15,
@@ -62,7 +63,7 @@ class NearByDocWidget extends StatelessWidget {
                     "Dr-${nearbyDoctor.fullName} ",
                     style: Kcolors.fontMain.copyWith(
                         color: Color(0xFFF3C0C0),
-                        fontSize: 20,
+                        fontSize: 15,
                         fontWeight: FontWeight.w900),
                   ),
                   Text(
@@ -96,13 +97,8 @@ class NearByDocWidget extends StatelessWidget {
                 ],
               ),
             ),
-           const  SizedBox(
-              width: 30,
-            ),
-           const Icon(
-              Icons.favorite,
-              color: Color(0xFFF3C0C0),
-            )
+
+
           ],
         ),
       ),

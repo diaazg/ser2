@@ -7,11 +7,7 @@ class SetSpeciality extends AllDoctorsEvent{
 
 }
 
-class GetNearbyDoctorsEvent extends AllDoctorsEvent {
-  final String wilaya;
 
-  GetNearbyDoctorsEvent({required this.wilaya});
-}
 
 class GetDoctorsBySpecialEvent extends AllDoctorsEvent {
   final String special ;

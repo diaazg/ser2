@@ -6,10 +6,13 @@ import 'package:ser2/features/doctors/presentation/views/doctor_profile.dart';
 import 'package:ser2/features/doctors/presentation/widgets/doctor_card.dart';
 import 'package:ser2/features/doctors/presentation/widgets/search_widget.dart';
 import 'package:ser2/features/doctors/presentation/widgets/speciality_box.dart';
+import 'package:ser2/features/homePage/presentation/widgets/nearbyDocWidget.dart';
 
 class AllDoctors extends StatelessWidget {
-  const AllDoctors({super.key});
+  const AllDoctors({super.key, required this.bloc});
 
+
+  final AllDoctorsBloc bloc;
  
 
   @override
@@ -20,8 +23,8 @@ class AllDoctors extends StatelessWidget {
       backgroundColor: const Color(0xFFEAEBEC),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: BlocBuilder<AllDoctorsBloc, AllDoctorsState>(
-            
+        child: BlocConsumer<AllDoctorsBloc, AllDoctorsState>(
+            bloc:bloc ,
             builder: (context, state) {
               return Column(
                 children: [
@@ -34,10 +37,10 @@ class AllDoctors extends StatelessWidget {
                     width: size.width,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount:     context.read<AllDoctorsBloc>().special.length,
+                        itemCount:     bloc.special.length,
                         itemBuilder: (BuildContext context, int index) {
                           return SpecialBox(
-                            allDoctorsBloc:     context.read<AllDoctorsBloc>(),
+                            bloc: bloc,
                             size: size,
                             index: index,
                           );
@@ -46,33 +49,33 @@ class AllDoctors extends StatelessWidget {
                   SizedBox(
                     height: size.height * 0.03,
                   ),
-                  Expanded(
+                 Builder(builder: (context){
+                  if(state is DoctorSpecialSuccess){
+                   if(state.doctors.isNotEmpty){
+                    return Expanded(
+                    
                     child: ListView.builder(
                         scrollDirection: Axis.vertical,
-                        itemCount: 10,
+                        itemCount: state.doctors.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return DoctorCard(
-                            size: size,
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const DoctorProfile(
-                                          docName: 'docName',
-                                          id: 'id',
-                                          specialite: 'specialite',
-                                          wilaya: 'wilaya',
-                                          commune: 'commune',
-                                          phoneNbr: 'phoneNbr',
-                                          lati: 222,
-                                          long: 222)));
-                            },
-                          );
+                          return NearByDocWidget(nearbyDoctor: state.doctors[index], size: size,);
                         }),
-                  )
+                  );
+                 
+                   }else{
+                    return const Center(child: Text('No doctor'),);
+                   }
+                  }else if(state is DoctorSpecialFailure){
+                    return Center(child: Text(state.failure.errMessage),);
+                  }else{
+                     return const Center(child: Text('wait ...'),);
+                  }
+                 })
+                
                 ],
               );
-            }),
+            }, listener: (BuildContext context, AllDoctorsState state) {  },),
+            
       ),
     ));
   }

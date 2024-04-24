@@ -16,21 +16,13 @@ class AllDoctorsBloc extends Bloc<AllDoctorsEvent,AllDoctorsState>{
         response.fold((failure){
                 emit(DoctorSpecialFailure(failure: failure));
                }, (success){
+                print('ssssssssssssssssssssss');
+                print(success);
+                print('sssssssssssssssssss');
                 emit(DoctorSpecialSuccess(doctors: success));
                } );
     },);
-        on<GetNearbyDoctorsEvent>((event, emit) async{
-      emit(DoctorLoading());
 
-      var response = await doctorsRepo.getNearbyDoctors(event.wilaya);
-        response.fold((failure){
-
-                emit(DoctorNearbyFailure(failure: failure));
-               }, (success){
-               
-                emit(DoctorNearbySuccess(doctors: success));
-               } );
-    });
   }
 
     List<String> special = [
@@ -48,7 +40,7 @@ class AllDoctorsBloc extends Bloc<AllDoctorsEvent,AllDoctorsState>{
 
   void setSpecial(String choosenSpecial){
     specialiy = choosenSpecial ;
-    emit(ChangeSpecialState(doctors: []));
+
   }
 
 

@@ -16,7 +16,7 @@ class DoctorsRepoImp implements DoctorsRepoAbs{
        
        CollectionReference doctorsCollection = storeInstance.collection('doctors');
 
-       QuerySnapshot querySnapshot = await doctorsCollection.get();
+       QuerySnapshot querySnapshot = await doctorsCollection.where('Speciality' , isEqualTo: special).get();
 
       List<DoctorModel> doctorsList =    querySnapshot.docs
       .map((doc) => DoctorModel.fromJson(doc.data() as Map<String,dynamic>))
