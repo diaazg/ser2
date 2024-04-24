@@ -375,14 +375,14 @@ class _HomePageState extends State<HomePage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      "Dr-${nearbyDoctors[index].doctorName} ",
+                                      "Dr-${nearbyDoctors[index].fullName} ",
                                       style: Kcolors.fontMain.copyWith(
                                           color: Color(0xFFF3C0C0),
                                           fontSize: 20,
                                           fontWeight: FontWeight.w900),
                                     ),
                                     Text(
-                                      "Specialiy : ${nearbyDoctors[index].specialite} ",
+                                      "Specialiy : ${nearbyDoctors[index].speciality} ",
                                       style: Kcolors.fontMain.copyWith(
                                           color: Colors.black,
                                           fontSize: 15,
