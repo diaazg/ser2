@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
+import 'package:ser2/features/doctors/presentation/logic/allDoctorsState.dart';
+import 'package:ser2/features/doctors/presentation/logic/doctorsEvent.dart';
 import 'package:ser2/features/doctors/presentation/views/all_doctors.dart';
-import 'package:ser2/features/homePage/data/models/doctor_Model.dart';
+import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
+import 'package:ser2/features/homePage/presentation/widgets/nearbyDocWidget.dart';
 import 'package:ser2/features/homePage/presentation/widgets/special_card.dart';
 
 
@@ -20,6 +24,12 @@ class _HomePageState extends State<HomePage> {
   List<String> pic = ["urology", "brain", "eye", "cardiogram"];
   List<Color> colors = [Colors.teal, Colors.pink, Colors.cyan, Colors.yellow];
   List<DoctorModel>nearbyDoctors=[];
+  @override
+  void initState() {
+    context.read<AllDoctorsBloc>().add(GetNearbyDoctorsEvent(wilaya: 'Béjaïa')); 
+    // TODO: implement initState
+    super.initState();
+  }
  
 
   @override
@@ -299,8 +309,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   GestureDetector(
                     onTap: (){
-                       AllDoctorsBloc allDoctorsBloc = AllDoctorsBloc() ;
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=> AllDoctors(allDoctorsBloc: allDoctorsBloc,)));
+                       
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=> AllDoctors()));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -326,104 +336,31 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: size.height * 0.1 * 0.2,
               ),
-              Expanded(
-                child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: nearbyDoctors.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        onTap: () {
-                          
-                        },
-                        child: Container(
-                          margin:const  EdgeInsets.only(bottom: 10),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 5, vertical: 5),
-                          height: size.height * 0.17,
-                          width: size.width * 0.95,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: size.height * 0.15,
-                                width: size.width * 0.3,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFFF3C0C0),
-                                    borderRadius:
-                                        BorderRadius.circular(20)),
-                                child: Container(
-                                  child: Center(
-                                    child: Image.asset(
-                                      "images/appointement/7.png",
-                                      height: size.height * 0.15,
-                                      width: size.width * 0.2,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 20),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Dr-${nearbyDoctors[index].doctorName} ",
-                                      style: Kcolors.fontMain.copyWith(
-                                          color: Color(0xFFF3C0C0),
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w900),
-                                    ),
-                                    Text(
-                                      "Specialiy : ${nearbyDoctors[index].specialite} ",
-                                      style: Kcolors.fontMain.copyWith(
-                                          color: Colors.black,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w900),
-                                    ),
-                                    Container(
-                                      padding:const  EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 10),
-                                      height: 40,
-                                      width: size.width * 0.3,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Color(0xFFF3C0C0)),
-                                      child: Center(
-                                        child: Text(
-                                          'More',
-                                          style: Kcolors.fontMain
-                                              .copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 15,
-                                                  fontWeight:
-                                                      FontWeight.w800),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                             const  SizedBox(
-                                width: 30,
-                              ),
-                             const Icon(
-                                Icons.favorite,
-                                color: Color(0xFFF3C0C0),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
+              BlocConsumer<AllDoctorsBloc,AllDoctorsState>(
+                listener: (BuildContext context, AllDoctorsState state) { 
+                  if(state is DoctorNearbySuccess){
+                    
+                    nearbyDoctors = state.doctors;
+                    
+                  }
+                 },
+                builder: (context,state) {
+                  if(state is DoctorNearbySuccess){
+                                      return Expanded(
+                    child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: nearbyDoctors.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return NearByDocWidget(size: size, nearbyDoctor: nearbyDoctors[index]);
+                        }),
+                  );
+                  }else if (state is DoctorSpecialFailure){
+                    return Center(child: Text(state.failure.errMessage) ,);
+                  }else{
+                    return const Center(child: Text('Wait ..............') ,);
+                  }
+                
+                },
               ),
             ],
           ),

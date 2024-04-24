@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsState.dart';
 import 'package:ser2/features/doctors/presentation/views/doctor_profile.dart';
@@ -9,9 +8,9 @@ import 'package:ser2/features/doctors/presentation/widgets/search_widget.dart';
 import 'package:ser2/features/doctors/presentation/widgets/speciality_box.dart';
 
 class AllDoctors extends StatelessWidget {
-  const AllDoctors({super.key, required this.allDoctorsBloc});
+  const AllDoctors({super.key});
 
-  final AllDoctorsBloc allDoctorsBloc;
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +21,7 @@ class AllDoctors extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: BlocBuilder<AllDoctorsBloc, AllDoctorsState>(
-            bloc: allDoctorsBloc,
+            
             builder: (context, state) {
               return Column(
                 children: [
@@ -35,10 +34,10 @@ class AllDoctors extends StatelessWidget {
                     width: size.width,
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: allDoctorsBloc.special.length,
+                        itemCount:     context.read<AllDoctorsBloc>().special.length,
                         itemBuilder: (BuildContext context, int index) {
                           return SpecialBox(
-                            allDoctorsBloc: allDoctorsBloc,
+                            allDoctorsBloc:     context.read<AllDoctorsBloc>(),
                             size: size,
                             index: index,
                           );
