@@ -3,7 +3,7 @@ import 'package:searchfield/searchfield.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
 import 'package:ser2/features/doctors/presentation/views/all_doctors.dart';
-import 'package:ser2/features/homePage/data/entity/doctor_Model.dart';
+import 'package:ser2/features/homePage/data/models/doctor_Model.dart';
 import 'package:ser2/features/homePage/presentation/widgets/special_card.dart';
 
 

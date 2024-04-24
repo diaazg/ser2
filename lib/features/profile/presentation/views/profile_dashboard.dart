@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/features/auth/presentation/logic/auth_bloc/auth_bloc.dart';
+import 'package:ser2/features/auth/presentation/logic/auth_bloc/auth_event.dart';
 import 'package:ser2/features/profile/presentation/views/malad_profile.dart';
 import 'package:ser2/features/profile/presentation/views/medical_history.dart';
 import 'package:ser2/features/profile/presentation/views/qr_code.dart';
@@ -193,7 +196,7 @@ class ProfileDashboard extends StatelessWidget {
                SizedBox(
                 height: size.height * 0.02,
               ),
-              DashboardEelement(size: size, iconPath: 'exit', title: 'Log out')],
+              DashboardEelement(size: size, iconPath: 'exit', title: 'Log out',onTap: () => context.read<AuthBloc>().add(LogOutEvent()),)],
           ),
         ),
       ),

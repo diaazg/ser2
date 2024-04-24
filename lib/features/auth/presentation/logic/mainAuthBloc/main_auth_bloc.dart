@@ -13,8 +13,6 @@ class MainAuthBloc extends Bloc<MainAuthEvent,MainAuthState> {
       add(AuthUserChanged(user: authUser));
     });
     on<AuthUserChanged>((event, emit) {
-    
-      
         if(event.user != null){
           emit(MainAuthState.authentificated(event.user!));
         }else{
