@@ -364,7 +364,7 @@ class _HomePageState extends State<HomePage> {
                   }else if (state is DoctorNearbyFailure){
                     return Center(child: Text(state.failure.errMessage) ,);
                   }else{
-                    return const Center(child: Text('Wait ..............') ,);
+                    return const Center(child: Text('Wait .........f.....') ,);
                   }
                 
                 },

@@ -5,8 +5,8 @@ import 'package:ser2/features/auth/data/models/user_model.dart';
 
 abstract class AuthRepo {
   
-  Future<Either<Failure,UserModelReg>> register(UserModelReg userModelReg) ;
-  Future<Either<Failure,UserModelReg>> logIn (UserModelLog infoLog) ;
+  Future<Either<Failure,UserModelInfo>> register(UserModelInfo userModelReg) ;
+  Future<Either<Failure,UserModelInfo>> logIn (UserModelLog infoLog) ;
   Stream<User?>get user ;
   void logOut();
   

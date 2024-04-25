@@ -12,7 +12,7 @@ class AuthRepoImp extends AuthRepo {
   AuthRepoImp({required this.authInstance, required this.storeInstance});
 
   @override
-  Future<Either<Failure, UserModelReg>> logIn(UserModelLog infoLog) async {
+  Future<Either<Failure, UserModelInfo>> logIn(UserModelLog infoLog) async {
     try {
       UserCredential userCredential =
           await authInstance.signInWithEmailAndPassword(
@@ -25,7 +25,7 @@ class AuthRepoImp extends AuthRepo {
 
       if (documentSnapshot.exists) {
         dynamic json = documentSnapshot.data()!;
-        UserModelReg userModel = UserModelReg.fromJson(json);
+        UserModelInfo userModel = UserModelInfo.fromJson(json);
         return right(userModel);
       } else {
         return left(
@@ -40,8 +40,8 @@ class AuthRepoImp extends AuthRepo {
   }
 
   @override
-  Future<Either<Failure, UserModelReg>> register(
-      UserModelReg userModelReg) async {
+  Future<Either<Failure, UserModelInfo>> register(
+      UserModelInfo userModelReg) async {
     try {
       UserCredential userCredential =
           await authInstance.createUserWithEmailAndPassword(

@@ -13,7 +13,7 @@ class LoginEvent extends AuthEvent {
 
 class RegisterEvent extends AuthEvent {
 
-   final UserModelReg userModelReg ;
+   final UserModelInfo userModelReg ;
 
   RegisterEvent({required this.userModelReg});
 

@@ -43,12 +43,12 @@ class AuthBloc extends Bloc<AuthEvent,AuthState> implements AuthBlocAbstract {
   }
 
   @override
-  Future<Either<Failure, UserModelReg>> login(UserModelLog userLog) async {
+  Future<Either<Failure, UserModelInfo>> login(UserModelLog userLog) async {
          return await authRepo.logIn(userLog);
   }
 
   @override
-  Future<Either<Failure, UserModelReg>>  register(UserModelReg userReg)async {
+  Future<Either<Failure, UserModelInfo>>  register(UserModelInfo userReg)async {
     return await authRepo.register(userReg);
   }
 

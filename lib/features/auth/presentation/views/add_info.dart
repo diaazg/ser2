@@ -239,7 +239,7 @@ class _InfoPageState extends State<InfoPage> {
                         Future.delayed(const Duration(milliseconds: 100),
                             () async {
                           if (_formkey.currentState!.validate()) {
-                            UserModelReg userModel = UserModelReg(
+                            UserModelInfo userModel = UserModelInfo(
                                 fullName: fullNameBox.input!,
                                 dateOfBirth: dateBox.input!,
                                 weight: double.parse(poidBox.input!),

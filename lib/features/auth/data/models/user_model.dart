@@ -21,7 +21,7 @@ class UserModelLog extends UserModel {
   List<Object?> get props => [email, password];
 }
 
-class UserModelReg extends UserModel {
+class UserModelInfo extends UserModel {
   final String userName;
   final String fullName;
   final String dateOfBirth;
@@ -31,7 +31,7 @@ class UserModelReg extends UserModel {
   final String town;
   late String? uid;
 
-  UserModelReg(
+  UserModelInfo(
       {required this.fullName,
       required this.dateOfBirth,
       required this.weight,
@@ -44,7 +44,7 @@ class UserModelReg extends UserModel {
       required this.userName,
       this.uid});
 
-  factory UserModelReg.fromJson(Map<String, dynamic> json) => UserModelReg(
+  factory UserModelInfo.fromJson(Map<String, dynamic> json) => UserModelInfo(
       uid: json['uid'] as String,
       email: json['email'] as String,
       password: json['password'] as String,

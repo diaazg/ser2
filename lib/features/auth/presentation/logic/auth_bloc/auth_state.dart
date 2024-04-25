@@ -9,7 +9,7 @@ class AuthInit extends AuthState {}
 
 
 class LoginSucces extends AuthState {
-  final UserModelReg userModelReg;
+  final UserModelInfo userModelReg;
 
   LoginSucces({required this.userModelReg});
 }
@@ -26,7 +26,7 @@ class LoginLoading extends AuthState {}
 
 
 class RegisterSuccess extends AuthState {
-  final UserModelReg userModelReg;
+  final UserModelInfo userModelReg;
 
   RegisterSuccess({required this.userModelReg});
 }

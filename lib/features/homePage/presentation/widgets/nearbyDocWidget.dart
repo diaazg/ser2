@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
+import 'package:ser2/features/doctors/presentation/views/doctor_profile.dart';
 
 class NearByDocWidget extends StatelessWidget {
   const NearByDocWidget({
@@ -17,7 +18,7 @@ class NearByDocWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorProfile(docName: nearbyDoctor.fullName, id: 'id', specialite:nearbyDoctor.speciality, wilaya:nearbyDoctor.speciality, commune:nearbyDoctor.commune, phoneNbr: nearbyDoctor.phoneNbr, about: nearbyDoctor.about,)));
       },
       child: Container(
         margin:const  EdgeInsets.only(bottom: 10),

@@ -11,10 +11,9 @@ class DoctorProfile extends StatelessWidget {
       required this.specialite,
       required this.wilaya,
       required this.commune,
-      required this.phoneNbr,
+      required this.phoneNbr, required this.about,
 
-        required this.lati,
-        required this.long,
+
        
       });
 
@@ -24,8 +23,8 @@ class DoctorProfile extends StatelessWidget {
   final String? wilaya;
   final String? id;
   final String? phoneNbr;
-  final double? lati;
-  final double? long;
+  final String about ;
+
 
   @override
   Widget build(BuildContext context) {
@@ -133,8 +132,8 @@ class DoctorProfile extends StatelessWidget {
                       SizedBox(
                         height: size.height * 0.04,
                       ),
-                      const Text(
-                          " 7 years of expecience , worked in France,Germany ")
+                     Text(
+                          about)
                     ],
                   ),
                   SizedBox(
