@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider(create: (_)=>AuthBloc(authRepo)),
+        RepositoryProvider<AuthBloc>(create: (_)=>AuthBloc(authRepo)),
       RepositoryProvider<MainAuthBloc>(
         create: (_) => MainAuthBloc(authRepo)),
     ], child:  const MaterialApp(

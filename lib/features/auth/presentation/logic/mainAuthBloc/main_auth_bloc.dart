@@ -18,8 +18,7 @@ class MainAuthBloc extends Bloc<MainAuthEvent,MainAuthState> {
     });
     on<AuthUserChanged>((event, emit) {
         if(event.user != null){
-          String uid = event.user!.uid;
-          getUserdata(uid);
+
           emit(MainAuthState.authentificated(event.user!));
         }else{
 

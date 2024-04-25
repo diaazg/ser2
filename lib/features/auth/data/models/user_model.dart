@@ -36,7 +36,6 @@ class UserModelInfo extends UserModel {
       required this.dateOfBirth,
       required this.weight,
       required this.height,
-      
       required this.city,
       required this.town,
       required super.email,
@@ -57,6 +56,7 @@ class UserModelInfo extends UserModel {
       userName: json['userName'] as String);
 
   Map<String, dynamic> toJson() => {
+        'img':'',
         'uid':uid,
         'email': email,
         'password': password,
