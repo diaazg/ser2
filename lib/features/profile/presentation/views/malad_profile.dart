@@ -38,6 +38,7 @@ class MaladProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return PopScope(
+
       canPop: false,
       child: BlocConsumer<UserDataBloc,UserDataState>(
         listener: (BuildContext context, UserDataState state) {  },
@@ -72,7 +73,7 @@ class MaladProfile extends StatelessWidget {
                           width: size.width * 0.2,
                         ),
                         Text(
-                          'Myprofile',
+                          'Myprofil',
                           style: Kcolors.fontMain.copyWith(
                               color: Colors.black,
                               fontSize: 30,
