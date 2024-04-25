@@ -73,7 +73,7 @@ class MaladProfile extends StatelessWidget {
                           width: size.width * 0.2,
                         ),
                         Text(
-                          'Myprofil',
+                          'Myprofile',
                           style: Kcolors.fontMain.copyWith(
                               color: Colors.black,
                               fontSize: 30,
