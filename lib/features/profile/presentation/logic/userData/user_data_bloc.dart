@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/features/auth/data/models/user_model.dart';
-import 'package:ser2/features/profile/data/repo/user_repo_imp.dart';
+import 'package:ser2/features/profile/data/repo/user_data/user_repo_imp.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_Event.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_state.dart';
 

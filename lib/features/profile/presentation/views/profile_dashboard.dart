@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/auth/presentation/logic/auth_bloc/auth_bloc.dart';
 import 'package:ser2/features/auth/presentation/logic/auth_bloc/auth_event.dart';
+import 'package:ser2/features/profile/data/repo/medicalHistory/medical_history_imp.dart';
+import 'package:ser2/features/profile/presentation/logic/medicalHistory/medical_history_bloc.dart';
+import 'package:ser2/features/profile/presentation/logic/medicalHistory/medical_history_event.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_Event.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_bloc.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_state.dart';
@@ -86,7 +89,11 @@ class ProfileDashboard extends StatelessWidget {
                     height: size.height * 0.02,
                   ),
                   DashboardEelement(size: size,title: 'Medical history',onTap: (){
-                    goToPage(context, const MedicalHistory());
+                    String id = bloc.uid;
+                    MedicalHistoryRepo repo = MedicalHistoryRepo(id, storeInstance: bloc.userDataRepo.storeInstance);
+                    MedicalHistoryBloc historyBloc = MedicalHistoryBloc(repo);
+                    historyBloc.add(GetMedicalHistory());
+                    goToPage(context,  MedicalHistory(bloc:historyBloc));
                   }, iconPath: '4',),
                   SizedBox(
                     height: size.height * 0.02,

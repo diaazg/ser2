@@ -8,7 +8,7 @@ import 'package:ser2/features/auth/presentation/logic/mainAuthBloc/main_auth_blo
 import 'package:ser2/features/auth/presentation/logic/mainAuthBloc/main_auth_state.dart';
 import 'package:ser2/features/doctors/data/repos/doctors_repo_imp.dart';
 import 'package:ser2/features/homePage/presentation/logic/allDoctorsBloc.dart';
-import 'package:ser2/features/profile/data/repo/user_repo_imp.dart';
+import 'package:ser2/features/profile/data/repo/user_data/user_repo_imp.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_Event.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_bloc.dart';
 import 'package:ser2/features/splash/presentation/views/splash_screen.dart';

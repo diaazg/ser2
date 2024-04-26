@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       RepositoryProvider<MainAuthBloc>(
         create: (_) => MainAuthBloc(authRepo)),
     ], child:  const MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home:  AppView(),
     ));

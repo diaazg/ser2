@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ser2/core/utiles/error_hnadler.dart';
 import 'package:ser2/features/auth/data/models/user_model.dart';
-import 'package:ser2/features/profile/data/repo/user_data.dart';
+import 'package:ser2/features/profile/data/repo/user_data/user_data.dart';
 
 class UserDataRepoImp extends UserDataRepo{
   final FirebaseFirestore storeInstance ;
