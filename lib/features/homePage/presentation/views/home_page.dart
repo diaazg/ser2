@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:ser2/core/utiles/constants.dart';
 
-
 import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
 import 'package:ser2/features/doctors/presentation/logic/doctorsEvent.dart';
@@ -13,30 +12,25 @@ import 'package:ser2/features/homePage/presentation/logic/allDoctorsState.dart';
 import 'package:ser2/features/homePage/presentation/logic/doctorsEvent.dart';
 import 'package:ser2/features/homePage/presentation/widgets/nearbyDocWidget.dart';
 import 'package:ser2/features/homePage/presentation/widgets/special_card.dart';
+import 'package:ser2/features/profile/presentation/logic/userData/user_data_bloc.dart';
+import 'package:ser2/features/profile/presentation/logic/userData/user_data_state.dart';
 
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+
+class HomePage extends StatelessWidget {
+HomePage({super.key, required this.userDataBloc});
+  final UserDataBloc userDataBloc;
+
+
+
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+      
   List<String?> doctors = [];
   List<String> special = ["Urology", "Neurology", "Ophtalmology", "Cardiology"];
   List<String> pic = ["urology", "brain", "eye", "cardiogram"];
   List<Color> colors = [Colors.teal, Colors.pink, Colors.cyan, Colors.yellow];
-  List<DoctorModel>nearbyDoctors=[];
-  @override
-  void initState() {
-    context.read<NearbyDoctorsBloc>().add(GetNearbyDoctorsEvent(wilaya: 'Tiaret')); 
-    // TODO: implement initState
-    super.initState();
-  }
- 
-
-  @override
+  List<DoctorModel> nearbyDoctors = [];
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double baseWidth = 390;
@@ -48,14 +42,15 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: SizedBox(
-          height: size.height*1.3,
+          height: size.height * 1.3,
           child: Column(
             children: [
               Container(
                 height: size.height * 0.1 * 0.7,
                 width: size.width * 0.8,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20), color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white),
                 child: Padding(
                   padding: const EdgeInsets.only(
                       top: 5, bottom: 5, left: 20, right: 0),
@@ -87,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                                 color: Kcolors.blueBackground,
                               ),
                               border: InputBorder.none,
-                              focusedBorder:const  UnderlineInputBorder(
+                              focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.black)),
                               hoverColor: Colors.black,
                               fillColor: Colors.black,
@@ -96,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                           maxSuggestionsInViewPort: 2,
                           itemHeight: 50,
                           onSubmit: (x) {
-                            setState(() {});
+                           
                           },
                         ),
                       ),
@@ -261,7 +256,7 @@ class _HomePageState extends State<HomePage> {
               ),
               GestureDetector(
                 onTap: () {
-          /*                 Navigator.push(context,
+                  /*                 Navigator.push(context,
                       MaterialPageRoute(builder: (context) => AllSpecial())); */
                 },
                 child: Row(
@@ -312,17 +307,22 @@ class _HomePageState extends State<HomePage> {
                     style: Kcolors.fontMain.copyWith(color: Colors.black),
                   ),
                   GestureDetector(
-                    onTap: (){
-                       AllDoctorsBloc allDoctorsBloc = AllDoctorsBloc(context.read<NearbyDoctorsBloc>().doctorsRepo);
-                       allDoctorsBloc.add(SetSpeciality(special: "Urology"));
-                           /* context.read<AllDoctorsBloc>().add(SetSpeciality(special: "Urology")); */ 
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=> AllDoctors(bloc: allDoctorsBloc
-                       ,)));
+                    onTap: () {
+                      AllDoctorsBloc allDoctorsBloc = AllDoctorsBloc(
+                          context.read<NearbyDoctorsBloc>().doctorsRepo);
+                      allDoctorsBloc.add(SetSpeciality(special: "Urology"));
+                      
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AllDoctors(
+                                    bloc: allDoctorsBloc,
+                                  )));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                       const  Text('homePage/viewMore'),
+                        const Text('viewMore'),
                         SizedBox(
                           width: size.width * 0.1 * 0.1,
                         ),
@@ -330,7 +330,7 @@ class _HomePageState extends State<HomePage> {
                             height: 30,
                             width: 30,
                             decoration:
-                            BoxDecoration(color: Kcolors.blueBackground),
+                                BoxDecoration(color: Kcolors.blueBackground),
                             child: const Icon(
                               Icons.navigate_next,
                               color: Colors.white,
@@ -343,32 +343,63 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: size.height * 0.1 * 0.2,
               ),
-              BlocConsumer<NearbyDoctorsBloc,NearbyDoctorsState>(
-                listener: (BuildContext context, NearbyDoctorsState state) { 
-                  if(state is DoctorNearbySuccess){
-                    
-                    nearbyDoctors = state.doctors;
-                    
-                  }
-                 },
-                builder: (context,state) {
-                  if(state is DoctorNearbySuccess){
-                                      return Expanded(
-                    child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: nearbyDoctors.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return NearByDocWidget(size: size, nearbyDoctor: nearbyDoctors[index]);
-                        }),
-                  );
-                  }else if (state is DoctorNearbyFailure){
-                    return Center(child: Text(state.failure.errMessage) ,);
-                  }else{
-                    return const Center(child: Text('Wait ..............') ,);
-                  }
-                
-                },
-              ),
+              BlocConsumer<UserDataBloc, UserDataState>(
+                  bloc: userDataBloc,
+                  builder: (context, state1) {
+                    if (state1 is UserDataGetSuccessfull) {
+                      return BlocConsumer<NearbyDoctorsBloc,
+                          NearbyDoctorsState>(
+                        listener:
+                            (BuildContext context, NearbyDoctorsState state) {
+                          if (state is DoctorNearbySuccess) {
+                            nearbyDoctors = state.doctors;
+                            
+                          }
+                        },
+                        builder: (context, state) {
+                          if (state is DoctorNearbySuccess) {
+                            return Expanded(
+                              child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: nearbyDoctors.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return NearByDocWidget(
+                                        size: size,
+                                        nearbyDoctor: nearbyDoctors[index]);
+                                  }),
+                            );
+                          } else if (state is DoctorNearbyFailure) {
+                            return Center(
+                              child: Text(state.failure.errMessage),
+                            );
+                          } else {
+                            return const Center(
+                              child: Text('Wait ..............'),
+                            );
+                          }
+                        },
+                      );
+                    } else if (state1 is UserDataGetFailure) {
+                      return Center(
+                        child: Text(state1.failure.errMessage),
+                      );
+                    } else {
+                      return const Center(
+                        child: Text('wait ...'),
+                      );
+                    }
+                  },
+                  listener: (BuildContext context, UserDataState state1) {
+                    if (state1 is UserDataGetSuccessfull) {
+                      
+                     context.read<NearbyDoctorsBloc>().add(
+                          GetNearbyDoctorsEvent(
+                              wilaya: state1.userModelInfo.city));
+                    }else{
+                      print('ddddddddddddddddddddddddddddd');
+                    }
+                  })
             ],
           ),
         ),
@@ -376,4 +407,3 @@ class _HomePageState extends State<HomePage> {
     ));
   }
 }
-

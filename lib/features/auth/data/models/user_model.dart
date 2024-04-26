@@ -30,6 +30,7 @@ class UserModelInfo extends UserModel {
   final String city;
   final String town;
   late String? uid;
+  late String? img;
 
   UserModelInfo(
       {required this.fullName,
@@ -41,9 +42,11 @@ class UserModelInfo extends UserModel {
       required super.email,
       required super.password,
       required this.userName,
-      this.uid});
+      this.uid,
+      this.img});
 
   factory UserModelInfo.fromJson(Map<String, dynamic> json) => UserModelInfo(
+      img:json['img'],
       uid: json['uid'] as String,
       email: json['email'] as String,
       password: json['password'] as String,

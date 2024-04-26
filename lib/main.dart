@@ -9,10 +9,11 @@ void main()async{
    WidgetsFlutterBinding.ensureInitialized();
    await Firebase.initializeApp(
     options: const FirebaseOptions(
-      apiKey: "AIzaSyBbTjowgwJ6rhGPoWlXP-W7wUn8mLIRnDA", // paste your api key here
-      appId: "1:12014682350:android:ba4be5981affc9d2cf33ff", //paste your app id here
-      messagingSenderId: '12014682350', //paste your messagingSenderId here
-      projectId: "sa7ti-f530e", //paste your project id here
+      apiKey: "AIzaSyBbTjowgwJ6rhGPoWlXP-W7wUn8mLIRnDA",
+      appId: "1:12014682350:android:ba4be5981affc9d2cf33ff", 
+      messagingSenderId: '12014682350', 
+      projectId: "sa7ti-f530e",
+      storageBucket: "sa7ti-f530e.appspot.com", 
     ),
    );
       FirebaseAuth authInstance = FirebaseAuth.instance;

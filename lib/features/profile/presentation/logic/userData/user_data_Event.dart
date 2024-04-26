@@ -5,3 +5,10 @@ class GetUserData extends UserDataEvent {
 
   GetUserData({required this.uid});
 }
+
+class UpdateImage extends UserDataEvent {
+  final String url ;
+
+  UpdateImage({required this.url});
+
+}

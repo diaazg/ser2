@@ -9,6 +9,8 @@ import 'package:ser2/features/profile/presentation/logic/userData/user_data_stat
 import 'package:ser2/features/profile/presentation/views/malad_profile.dart';
 import 'package:ser2/features/profile/presentation/views/medical_history.dart';
 import 'package:ser2/features/profile/presentation/views/qr_code.dart';
+import 'package:ser2/features/profile/presentation/widgets/dashboard_element.dart';
+import 'package:ser2/features/profile/presentation/widgets/profile_picture.dart';
 
 class ProfileDashboard extends StatelessWidget {
   const ProfileDashboard({super.key, required this.bloc});
@@ -21,10 +23,7 @@ class ProfileDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<UserDataBloc,UserDataState>(
-      bloc: bloc,
-      builder: (context,state) {
-        return SafeArea(
+    return SafeArea(
             child: Scaffold(
           backgroundColor: const Color(0xFFEAEBEC),
           body: SingleChildScrollView(
@@ -46,34 +45,34 @@ class ProfileDashboard extends StatelessWidget {
                    SizedBox(
                     height: size.height * 0.02,
                   ),
-                  Center(
-                    child: Column(
-                            children: [
-                              Container(
-                                height: 150,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                    color: Color(0xFF6694F6),
-                                    borderRadius: BorderRadius.circular(300)),
-                                child: const Center(
-                                  child: CircleAvatar(
-                                    radius: 100,
-                                    
+                  BlocConsumer<UserDataBloc,UserDataState>(
+                    bloc: bloc,
+                    builder: (context,state) {
+                     if(state is UserDataGetSuccessfull){
+                       return Center(
+                        child: Column(
+                                children: [
+                                  ProfilePicture(imgUrl: state.userModelInfo!.img, height: 150, width: 150,),
+                                  SizedBox(
+                                    height: size.height * 0.02,
                                   ),
-                                ),
+                                  Text(
+                                    state.userModelInfo.userName,
+                                    style: Kcolors.fontMain.copyWith(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w900),
+                                  )
+                                ],
                               ),
-                              SizedBox(
-                                height: size.height * 0.02,
-                              ),
-                              Text(
-                                "Diaa",
-                                style: Kcolors.fontMain.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w900),
-                              )
-                            ],
-                          ),
-                       
+                           
+                      );
+                   
+                     }else if (state is UserDataGetFailure){
+                      return Center(child: Text(state.failure.errMessage),);
+                     }else{
+                      return const Center(child: Text('wait ....'),);
+                     }
+                    }, listener: (BuildContext context, UserDataState state) {  },
                   ),
                   SizedBox(
                     height: size.height * 0.04,
@@ -201,7 +200,7 @@ class ProfileDashboard extends StatelessWidget {
                     height: size.height * 0.02,
                   ),
                   DashboardEelement(size: size, iconPath: '5', title: 'Qr code',onTap: (){
-                    goToPage(context, const MyQr(id: '1234567890llaa'));
+                    goToPage(context,  MyQr(id:bloc.uid, img: bloc.userInfo!.img!, userName: bloc.userInfo!.userName,));
                   },),
                    SizedBox(
                     height: size.height * 0.02,
@@ -211,52 +210,7 @@ class ProfileDashboard extends StatelessWidget {
             ),
           ),
         ));
-      }, listener: (BuildContext context, UserDataState state) {  },
-    );
+      
   }
 }
 
-class DashboardEelement extends StatelessWidget {
-  const DashboardEelement({
-    super.key,
-    required this.size, this.onTap, required this.iconPath, required this.title,
-  });
-
-  final Size size;
-  final Function()? onTap ; 
-  final String iconPath ; 
-  final String title ;
-  
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: size.width * 0.9,
-        height: size.height * 0.1,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Row(
-            children: [
-              Image.asset("images/profile/icons/$iconPath.png"),
-              SizedBox(
-                width: size.width * 0.1,
-              ),
-              Text(
-                title ,
-                style: Kcolors.fontMain.copyWith(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsState.dart';
-import 'package:ser2/features/doctors/presentation/views/doctor_profile.dart';
-import 'package:ser2/features/doctors/presentation/widgets/doctor_card.dart';
 import 'package:ser2/features/doctors/presentation/widgets/search_widget.dart';
 import 'package:ser2/features/doctors/presentation/widgets/speciality_box.dart';
 import 'package:ser2/features/homePage/presentation/widgets/nearbyDocWidget.dart';

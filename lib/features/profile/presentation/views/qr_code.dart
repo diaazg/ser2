@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/features/profile/presentation/widgets/qr_page_head.dart';
+import 'package:ser2/features/profile/presentation/widgets/qr_widget.dart';
 
 class MyQr extends StatelessWidget {
-  const MyQr({super.key,required this.id});
+  const MyQr({super.key,required this.id, required this.img, required this.userName});
   final String id;
+  final String img ;
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -29,65 +32,11 @@ class MyQr extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            width: 30,
-                            height: 30,
-                            color: const Color(0xFF6BA4D9),
-                            child: const Center(
-                                child: Icon(
-                                  Icons.navigate_before,
-                                  color: Colors.white,
-                                )),
-                          ),
-                        ),
+                        const Back(),
                         SizedBox(
                           height: size.height * 0.01,
                         ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: size.width * 0.05,
-                            ),
-                            Center(
-                                child: Container(
-                                  height: 100,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xFFE5E8F2),
-                                      borderRadius: BorderRadius.circular(300)),
-                                  child: const Center(child: CircleAvatar(
-                                    radius: 100,
-                                    
-                                  ),),
-                                ),
-                              ),
-                            SizedBox(
-                              width: size.width * 0.05,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                      "user name",
-                                      style: Kcolors.fontMain.copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.normal),
-                                    ),
-                                Text(
-                                  "titlen"
-                                      'sub title',
-                                  style: Kcolors.fontMain.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w900),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
+                        QrPageHead(size: size, img: img, userName: userName,),
                       ],
                     ),
                   ),
@@ -112,29 +61,7 @@ class MyQr extends StatelessWidget {
                                 color: const Color(0xFF6694F6),
                                 fontWeight: FontWeight.w900),
                           ),
-                          Container(
-                            margin:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                            height: size.height * 0.65 * 0.6,
-                            width: size.width * 0.7,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF6BA4D9),
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Center(
-                              child: QrImageView(
-                                data: id,
-                                size: 280,
-                                // You can include embeddedImageStyle Property if you
-                                //wanna embed an image from your Asset folder
-                                embeddedImageStyle: const QrEmbeddedImageStyle(
-                                  size: Size(
-                                    100,
-                                    100,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          QrWidget(size: size, id: id),
                           Center(
                             child: Text(
                               'Scan info',
@@ -149,6 +76,31 @@ class MyQr extends StatelessWidget {
             ),
           ),
         ));
+  }
+}
+
+class Back extends StatelessWidget {
+  const Back({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        width: 30,
+        height: 30,
+        color: const Color(0xFF6BA4D9),
+        child: const Center(
+            child: Icon(
+              Icons.navigate_before,
+              color: Colors.white,
+            )),
+      ),
+    );
   }
 }
 

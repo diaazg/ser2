@@ -19,8 +19,12 @@ class DoctorsRepoImp implements DoctorsRepoAbs{
        QuerySnapshot querySnapshot = await doctorsCollection.where('Speciality' , isEqualTo: special).get();
 
     List<DoctorModel> doctorsList = querySnapshot.docs.map((doc) {
+
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+
       return DoctorModel.fromJson(data, id: doc.id);
+      
     }).toList();
        return right(doctorsList); 
     } on FirebaseAuthException catch (e) {
@@ -39,7 +43,9 @@ class DoctorsRepoImp implements DoctorsRepoAbs{
        QuerySnapshot querySnapshot = await doctorsCollection.where('Wilaya' , isEqualTo: wilaya).get();
        
     List<DoctorModel> doctorsList = querySnapshot.docs.map((doc) {
+     
       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+ 
       return DoctorModel.fromJson(data, id: doc.id);
     }).toList();
        return right(doctorsList); 

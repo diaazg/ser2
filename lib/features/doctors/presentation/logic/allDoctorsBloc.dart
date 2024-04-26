@@ -16,9 +16,7 @@ class AllDoctorsBloc extends Bloc<AllDoctorsEvent,AllDoctorsState>{
         response.fold((failure){
                 emit(DoctorSpecialFailure(failure: failure));
                }, (success){
-                print('ssssssssssssssssssssss');
-                print(success);
-                print('sssssssssssssssssss');
+
                 emit(DoctorSpecialSuccess(doctors: success));
                } );
     },);
@@ -33,7 +31,8 @@ class AllDoctorsBloc extends Bloc<AllDoctorsEvent,AllDoctorsState>{
     "Dentist",
     "Gastroenterologist",
     "Gynecologist",
-    "Pulmonologist"
+    "Pulmonologist",
+    'Pediatrics'
   ];
 
   String specialiy = "Urology";

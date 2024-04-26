@@ -36,7 +36,7 @@ class _NavBarState extends State<NavBar> {
   int visit = 1;
   @override
   void initState() {
-      screens=[ProfileDashboard(bloc:widget.bloc ,),const HomePage(), MedicineSchedule()];
+      screens=[ProfileDashboard(bloc:widget.bloc ,), HomePage(userDataBloc: widget.bloc,), MedicineSchedule()];
     // TODO: implement initState
     super.initState();
   }
