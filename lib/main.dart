@@ -5,11 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:ser2/app.dart';
 import 'package:ser2/features/auth/data/repos/auth_repo_imp.dart';
 import 'package:ser2/localNotif.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main()async{
    
    WidgetsFlutterBinding.ensureInitialized();
+   // initialize local notifications
    await LocalNotifications.init();
+   //time zone initialization
+   tz.initializeTimeZones();
    await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyBbTjowgwJ6rhGPoWlXP-W7wUn8mLIRnDA",

@@ -6,11 +6,11 @@ class IllnessCard extends StatelessWidget {
       {super.key,
       required this.size,
       required this.illName,
-      required this.periode,
-      required this.pic});
+      required this.periode, required this.pic,
+});
 
   final Size size;
-  final int pic;
+  final String pic;
   final String illName;
   final String periode;
 
@@ -28,7 +28,7 @@ class IllnessCard extends StatelessWidget {
           Row(
             children: [
               Image.asset(
-                "images/MedicalRep/$pic.png",
+                "images/maladie/$pic.png",
                 height: size.height * 0.8 * 0.2 * 0.8,
                 width: size.width * 0.3,
               ),

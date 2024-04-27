@@ -76,8 +76,8 @@ class MedicalHistory extends StatelessWidget {
                                 itemCount: state.medicalHistory.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return IllnessCard(
+                                          pic :state.medicalHistory[index].type,
                                           size: size,
-                                          pic: 4,
                                           periode: DateFormat('dd-MM-yyyy').format( state.medicalHistory[index].date.toDate()),
                                           illName: state.medicalHistory[index].illName,
                                         );

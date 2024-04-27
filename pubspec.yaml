@@ -49,6 +49,7 @@ dependencies:
   dartz: ^0.10.1
   image_picker: ^1.1.0
   flutter_local_notifications: ^17.1.0
+  timezone: ^0.9.3
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +82,7 @@ flutter:
      - images/medicines/
      - images/logIn/
      - images/special/
+     - images/maladie/
      - assets/page-1/images/icon-heart.png
      - assets/page-1/images/icon-house.png
      - assets/page-1/images/doctor-3.png

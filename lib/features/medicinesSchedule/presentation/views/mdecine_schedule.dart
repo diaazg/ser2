@@ -7,9 +7,8 @@ import 'package:ser2/features/medicinesSchedule/presentation/views/add_medicin.d
 import 'package:ser2/features/medicinesSchedule/presentation/widgets/choosen_day.dart';
 import 'package:ser2/localNotif.dart';
 
-
 class MedicineSchedule extends StatelessWidget {
-   MedicineSchedule({super.key});
+  MedicineSchedule({super.key});
 
   final ScheduleBloc _scheduleBloc = ScheduleBloc();
 
@@ -32,7 +31,6 @@ class MedicineSchedule extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        
                         SizedBox(
                           height: size.height * 0.01,
                         ),
@@ -95,12 +93,13 @@ class MedicineSchedule extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-
-                               LocalNotifications.showNotification(
-                                 title: 'first notification',
-                                 body: 'hello user I\'m your daily medicines reminder '
-                                );
-                               /*   Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddMedicin()));  */
+                                LocalNotifications.showScheduleNotifications(
+                                    title: 'first notification',
+                                    body:
+                                        'hello user I\'m your daily medicines reminder ',
+                                    scheduleDate: DateTime.now()
+                                        .add(const Duration(seconds: 10)));
+                                /*   Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddMedicin()));  */
                               },
                               child: Container(
                                 height: 50,
@@ -140,40 +139,74 @@ class MedicineSchedule extends StatelessWidget {
                       BorderRadius.vertical(top: Radius.circular(20))),
               child: Column(
                 children: [
-                  BlocBuilder<ScheduleBloc,ScheduleState>(
-                    bloc: _scheduleBloc,
-                    builder: (context,state) {
-                      return Row(
-                        children: [
-                          DayChoosen(size: size, choosenDay:_scheduleBloc.choosenDay ,choose: (){
-                            _scheduleBloc.chooseDay('Sat');
-                          }, day: 'Sat',),
-                           DayChoosen(size: size, choosenDay:_scheduleBloc.choosenDay ,choose: (){
-                            _scheduleBloc.chooseDay('Sun');
-                          }, day: 'Sun',),
-                           DayChoosen(size: size, choosenDay:_scheduleBloc.choosenDay ,choose: (){
-                            _scheduleBloc.chooseDay('Mon');
-                          }, day: 'Mon',),
-                           DayChoosen(size: size, choosenDay:_scheduleBloc.choosenDay ,choose: (){
-                            _scheduleBloc.chooseDay('Thi');
-                          }, day: 'Thi',),
-                           DayChoosen(size: size, choosenDay:_scheduleBloc.choosenDay ,choose: (){
-                            _scheduleBloc.chooseDay('Wed');
-                          }, day: 'Wed',),
-                           DayChoosen(size: size, choosenDay:_scheduleBloc.choosenDay ,choose: (){
-                            _scheduleBloc.chooseDay('Tue');
-                          }, day: 'Tue',),
-                           DayChoosen(size: size, choosenDay:_scheduleBloc.choosenDay ,choose: (){
-                            _scheduleBloc.chooseDay('Sat');
-                          }, day: 'Fri',),
-                        ],
-                      );
-                    }
-                  ),
+                  BlocBuilder<ScheduleBloc, ScheduleState>(
+                      bloc: _scheduleBloc,
+                      builder: (context, state) {
+                        return Row(
+                          children: [
+                            DayChoosen(
+                              size: size,
+                              choosenDay: _scheduleBloc.choosenDay,
+                              choose: () {
+                                _scheduleBloc.chooseDay('Sat');
+                              },
+                              day: 'Sat',
+                            ),
+                            DayChoosen(
+                              size: size,
+                              choosenDay: _scheduleBloc.choosenDay,
+                              choose: () {
+                                _scheduleBloc.chooseDay('Sun');
+                              },
+                              day: 'Sun',
+                            ),
+                            DayChoosen(
+                              size: size,
+                              choosenDay: _scheduleBloc.choosenDay,
+                              choose: () {
+                                _scheduleBloc.chooseDay('Mon');
+                              },
+                              day: 'Mon',
+                            ),
+                            DayChoosen(
+                              size: size,
+                              choosenDay: _scheduleBloc.choosenDay,
+                              choose: () {
+                                _scheduleBloc.chooseDay('Thi');
+                              },
+                              day: 'Thi',
+                            ),
+                            DayChoosen(
+                              size: size,
+                              choosenDay: _scheduleBloc.choosenDay,
+                              choose: () {
+                                _scheduleBloc.chooseDay('Wed');
+                              },
+                              day: 'Wed',
+                            ),
+                            DayChoosen(
+                              size: size,
+                              choosenDay: _scheduleBloc.choosenDay,
+                              choose: () {
+                                _scheduleBloc.chooseDay('Tue');
+                              },
+                              day: 'Tue',
+                            ),
+                            DayChoosen(
+                              size: size,
+                              choosenDay: _scheduleBloc.choosenDay,
+                              choose: () {
+                                _scheduleBloc.chooseDay('Sat');
+                              },
+                              day: 'Fri',
+                            ),
+                          ],
+                        );
+                      }),
                   SizedBox(
                     height: size.height * 0.03,
                   ),
-                 /*  SizedBox(
+                  /*  SizedBox(
                     height: size.height * 0.3,
                     width: size.width,
                     child: ListView.builder(
@@ -208,5 +241,3 @@ class MedicineSchedule extends StatelessWidget {
     ));
   }
 }
-
-
