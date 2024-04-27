@@ -71,7 +71,7 @@ class LocalNotifications {
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
     await _flutterLocalNotificationsPlugin.zonedSchedule(id, title, body,
-        tz.TZDateTime.from(tz.TZDateTime.now(tz.local).add(Duration(seconds: 10)), tz.local), notificationDetails,
+        tz.TZDateTime.from(tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)), tz.local), notificationDetails,
  androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);

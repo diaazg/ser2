@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/core/widgets/return_button.dart';
+import 'package:ser2/features/medicinesSchedule/data/models/medicines_models.dart';
+import 'package:ser2/features/medicinesSchedule/data/repo/medicines_repo_imp.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/logic/add_med_cubit.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/logic/add_med_state.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/widgets/add_medicine_day.dart';
@@ -10,28 +13,27 @@ import 'package:ser2/features/medicinesSchedule/presentation/widgets/medicineDat
 import 'package:ser2/features/medicinesSchedule/presentation/widgets/medicineName.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/widgets/medicineType.dart';
 
+// ignore: must_be_immutable
+class AddMedicin extends StatelessWidget {
+  AddMedicin({super.key, required this.uid});
 
-class AddMedicin extends StatefulWidget {
-  const AddMedicin({super.key});
+  final String uid;
 
-  @override
-  State<AddMedicin> createState() => _AddMedicinState();
-}
+  AddMedicineBloc medicineName = AddMedicineBloc();
 
-final _formkey = GlobalKey<FormState>();
+  AddMedicineBloc typesBloc = AddMedicineBloc();
 
+  AddMedicineBloc startDate = AddMedicineBloc();
 
+  AddMedicineBloc endDate = AddMedicineBloc();
+
+  AddMedicineBloc doseSize = AddMedicineBloc();
+
+  AddMedicineBloc dose = AddMedicineBloc();
+  final _formkey = GlobalKey<FormState>();
 
 final AddMedicineBloc _addMedicineBloc = AddMedicineBloc();
 
-class _AddMedicinState extends State<AddMedicin> {
- 
-  AddMedicineBloc startDateBloc = AddMedicineBloc();
-  AddMedicineBloc typesBloc = AddMedicineBloc();
-  AddMedicineBloc startDate = AddMedicineBloc();
-  AddMedicineBloc endDate = AddMedicineBloc(); 
-  AddMedicineBloc doseSize = AddMedicineBloc();
-  AddMedicineBloc dose = AddMedicineBloc();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -58,23 +60,36 @@ class _AddMedicinState extends State<AddMedicin> {
                             title: 'Medicine',
                             hintText: 'Enter your medicine',
                             size: size,
-                            startDateBloc: startDateBloc,
+                            startDateBloc: medicineName,
                           ),
                           SizedBox(
                             height: size.height * 0.02,
                           ),
-                          MedicinDate(size: size, title: 'Start', hintText: 'Start date YYYY-MM-DD', dateBloc: startDate, isStart: true),
+                          MedicinDate(
+                              size: size,
+                              title: 'Start',
+                              hintText: 'Start date DD-MM-YYYY',
+                              dateBloc: startDate,
+                              isStart: true),
                           SizedBox(
                             height: size.height * 0.03,
                           ),
-                          MedicinDate(size: size, title: 'End', hintText: 'End date YYYY-MM-DD', dateBloc: endDate, isStart: false),
+                          MedicinDate(
+                              size: size,
+                              title: 'End',
+                              hintText: 'End date DD-MM-YYYY',
+                              dateBloc: endDate,
+                              isStart: false),
                           SizedBox(
                             height: size.height * 0.03,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              DoseSizeWidget(size: size,doseSize: doseSize,),
+                              DoseSizeWidget(
+                                size: size,
+                                doseSize: doseSize,
+                              ),
                               TypesInput(size: size, typesBloc: typesBloc),
                             ],
                           ),
@@ -84,10 +99,24 @@ class _AddMedicinState extends State<AddMedicin> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              DoseWidget(size: size, title: 'dose 1', doseBloc: dose, doseNumber: 1,),
-                              DoseWidget(size: size, title: 'dose 2', doseBloc: dose, doseNumber: 2,),
-                              DoseWidget(size: size, title: 'dose 3', doseBloc: dose, doseNumber: 3,),
-                             
+                              DoseWidget(
+                                size: size,
+                                title: 'dose 1',
+                                doseBloc: dose,
+                                doseNumber: 1,
+                              ),
+                              DoseWidget(
+                                size: size,
+                                title: 'dose 2',
+                                doseBloc: dose,
+                                doseNumber: 2,
+                              ),
+                              DoseWidget(
+                                size: size,
+                                title: 'dose 3',
+                                doseBloc: dose,
+                                doseNumber: 3,
+                              ),
                             ],
                           ),
                         ],
@@ -154,7 +183,66 @@ class _AddMedicinState extends State<AddMedicin> {
                   color: const Color(0xFF496CCE),
                   fontColor: Colors.white,
                   buttonFunc: () async {
-                    if (_formkey.currentState!.validate()) {}
+                    medicineName.validateMedicine();
+                    startDate.validateStartDate();
+                    endDate.validateEndDate();
+                    dose.validateDos();
+                    doseSize.validateDoseQuantity();
+                    typesBloc.validateType();
+                    Future.delayed(const Duration(milliseconds: 100), () async {
+                      List<String> choosenDays = [];
+                      if (_formkey.currentState!.validate() &&
+                          _addMedicineBloc.validateDay()) {
+                        _addMedicineBloc.choosenDays.forEach((key, value) {
+                          if (value) {
+                            choosenDays.add(key);
+                          }
+                        });
+
+                        MedicineRepoImp repo = MedicineRepoImp(uid: uid);
+                        MedicineModel medicineModel = MedicineModel(
+                            id: 'id',
+                            medicineName: medicineName.input!,
+                            startDate: DateFormat("dd-MM-yyyy")
+                                .parseStrict(startDate.startDate!),
+                            endDate: DateFormat("dd-MM-yyyy")
+                                .parseStrict(endDate.endDate!),
+                            days: choosenDays,
+                            type: typesBloc.input!,
+                            doseSize: 1.6,
+                            doses: [dose.dose_1.toString(),dose.dose_2.toString()]);
+                      var response =  await repo.addMedicine(medicineModel);
+                     response.fold((l){
+                                                const snackdemo = SnackBar(
+                          content: Text('Something happened'),
+                          backgroundColor: Colors.red,
+                          elevation: 10,
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.all(5),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackdemo);
+                     }, (r){
+                                                                      const snackdemo = SnackBar(
+                          content: Text('Medicine added succesfully'),
+                          backgroundColor: Colors.green,
+                          elevation: 10,
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.all(5),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackdemo);
+                        _formkey.currentState!.reset();
+                     });
+                      } else if (_formkey.currentState!.validate()) {
+                        const snackdemo = SnackBar(
+                          content: Text('Choose days'),
+                          backgroundColor: Colors.red,
+                          elevation: 10,
+                          behavior: SnackBarBehavior.floating,
+                          margin: EdgeInsets.all(5),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackdemo);
+                      }
+                    });
                   })
             ],
           ),
@@ -163,4 +251,5 @@ class _AddMedicinState extends State<AddMedicin> {
     ));
   }
 }
+
 

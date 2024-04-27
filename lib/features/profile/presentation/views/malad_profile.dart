@@ -130,8 +130,8 @@ class _MaladProfileState extends State<MaladProfile> {
                         children: [
                           InfoContainer(
                               size: size,
-                              title: state.userModelInfo.fullName,
-                              content: 'Zellagui Mohammed diaa Eddine',
+                              title: 'Full name',
+                              content: state.userModelInfo.fullName,
                               height: 0.07,
                               width: 0.9),
                           SizedBox(

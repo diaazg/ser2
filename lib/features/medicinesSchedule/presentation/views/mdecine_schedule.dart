@@ -5,12 +5,14 @@ import 'package:ser2/features/medicinesSchedule/presentation/logic/schedule_cubi
 import 'package:ser2/features/medicinesSchedule/presentation/logic/schedule_state.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/views/add_medicin.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/widgets/choosen_day.dart';
-import 'package:ser2/localNotif.dart';
+import 'package:ser2/features/profile/presentation/logic/userData/user_data_bloc.dart';
+
 
 class MedicineSchedule extends StatelessWidget {
-  MedicineSchedule({super.key});
+  MedicineSchedule({super.key, required this.userDataBloc});
 
   final ScheduleBloc _scheduleBloc = ScheduleBloc();
+  final UserDataBloc userDataBloc ;
 
   @override
   Widget build(BuildContext context) {
@@ -34,47 +36,7 @@ class MedicineSchedule extends StatelessWidget {
                         SizedBox(
                           height: size.height * 0.01,
                         ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: size.width * 0.05,
-                            ),
-                            Center(
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFFE5E8F2),
-                                    borderRadius: BorderRadius.circular(300)),
-                                child: const Center(
-                                  child: CircleAvatar(
-                                    radius: 100,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: size.width * 0.05,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'hello',
-                                  style: Kcolors.fontMain.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.normal),
-                                ),
-                                Text(
-                                  "User name",
-                                  style: Kcolors.fontMain.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w900),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
+                        
                         SizedBox(
                           height: size.height * 0.03,
                         ),
@@ -93,13 +55,17 @@ class MedicineSchedule extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                LocalNotifications.showScheduleNotifications(
+/*                                 LocalNotifications.showScheduleNotifications(
                                     title: 'first notification',
                                     body:
                                         'hello user I\'m your daily medicines reminder ',
                                     scheduleDate: DateTime.now()
-                                        .add(const Duration(seconds: 10)));
-                                /*   Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddMedicin()));  */
+                                        .add(const Duration(seconds: 10))); */
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            AddMedicin(uid: userDataBloc.uid,)));
                               },
                               child: Container(
                                 height: 50,
