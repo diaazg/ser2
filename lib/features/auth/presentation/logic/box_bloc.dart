@@ -12,7 +12,25 @@ class BoxBloc extends Cubit<BoxState> implements BoxAbstract {
   Set allSet = wilaya;
   List<String> wilayat=["Adrar"];
   List<String> communes =["choose wilaya"];
+  List<String> gender = ['Male','Famale'];
+   List<String> bloodCategory = [
 
+    'A+',
+    'A-',
+    'B+',
+    'B-',
+    'AB+',
+    'AB-',
+    'RH+',
+    'RH-',
+    'O+',
+    'O-'
+  ];
+
+
+
+
+ 
   void setWilayaList (){
     wilayat.clear();
     for (var element in allSet) {
@@ -46,6 +64,24 @@ class BoxBloc extends Cubit<BoxState> implements BoxAbstract {
   void setInput(String? changeInput) {
     input = changeInput;
   }
+  
+
+  void validateBlood(){
+    if(bloodCategory.contains(input)){
+      emit(BoxValidateState());
+    }else{
+      emit(BoxUnValidState());
+    }
+  }
+
+  void validateGender(){
+    if(gender.contains(input)){
+      emit(BoxValidateState());
+    }else{
+      emit(BoxUnValidState());
+    }
+  }
+  
   void validateWilaya(){
     if(city != null && city != ''){
       emit(BoxValidateState());

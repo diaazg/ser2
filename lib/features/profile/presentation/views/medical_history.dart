@@ -12,6 +12,8 @@ class MedicalHistory extends StatelessWidget {
 
   final MedicalHistoryBloc bloc;
 
+  
+
 
   @override
   Widget build(BuildContext context) {

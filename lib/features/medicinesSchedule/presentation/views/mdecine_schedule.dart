@@ -5,6 +5,7 @@ import 'package:ser2/features/medicinesSchedule/presentation/logic/schedule_cubi
 import 'package:ser2/features/medicinesSchedule/presentation/logic/schedule_state.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/views/add_medicin.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/widgets/choosen_day.dart';
+import 'package:ser2/localNotif.dart';
 
 
 class MedicineSchedule extends StatelessWidget {
@@ -94,7 +95,12 @@ class MedicineSchedule extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddMedicin())); 
+
+                               LocalNotifications.showNotification(
+                                 title: 'first notification',
+                                 body: 'hello user I\'m your daily medicines reminder '
+                                );
+                               /*   Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddMedicin()));  */
                               },
                               child: Container(
                                 height: 50,

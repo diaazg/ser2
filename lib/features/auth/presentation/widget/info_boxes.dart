@@ -35,14 +35,14 @@ class InfoBox extends StatelessWidget {
               child: Center(
                 child: TextFormField(
                   style: Kcolors.fontMain
-                      .copyWith(color: Colors.black, fontSize: 20),
+                      .copyWith(color: Colors.black, fontSize: 15),
                   onChanged: (val) => bloc.setInput(val),
                   validator: (val) =>
                       (state is BoxValidateState) ? null : errMessage,
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
                       hintStyle: Kcolors.fontMain
-                          .copyWith(color: Colors.black, fontSize: 20),
+                          .copyWith(color: Colors.black, fontSize: 15),
                       hintText: hintText,
                       border: InputBorder.none),
                 ),
@@ -53,17 +53,19 @@ class InfoBox extends StatelessWidget {
   }
 }
 
+
+
 class DropFillBox extends StatelessWidget {
   const DropFillBox(
       {super.key,
       required this.bloc,
-      required this.isWilaya,
+      required this.listTypes,
       required this.errMessage,
       required this.height,
       required this.width,
       required this.size, required this.hintText});
 
-  final bool isWilaya;
+  final ListTypes listTypes;
   final BoxBloc bloc;
   final String errMessage;
   final double height;
@@ -86,7 +88,7 @@ class DropFillBox extends StatelessWidget {
                 child: DropdownButtonFormField(
                   validator: (val) =>
                       (state is BoxValidateState) ? null : errMessage,
-                  items: isWilaya
+                  items: listTypes == ListTypes.wilaya
                       ? bloc.wilayat
                           .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
@@ -94,7 +96,19 @@ class DropFillBox extends StatelessWidget {
                             child: Text(value),
                           );
                         }).toList()
-                      : bloc.communes
+                      : listTypes == ListTypes.commune? bloc.communes
+                          .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList():listTypes == ListTypes.gender?bloc.gender
+                          .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList():bloc.bloodCategory
                           .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -102,13 +116,15 @@ class DropFillBox extends StatelessWidget {
                           );
                         }).toList(),
                   onChanged: (value) {
-                    isWilaya
+                   
+                    listTypes == ListTypes.wilaya
                         ? bloc.setWilaya(value.toString())
-                        : bloc.setCommune(value.toString());
+                        : listTypes == ListTypes.commune? bloc.setCommune(value.toString()):bloc.setInput(value.toString());
+                        
                   },
                   decoration: InputDecoration(
                       hintStyle: Kcolors.fontMain
-                          .copyWith(color: Colors.black, fontSize: 20),
+                          .copyWith(color: Colors.black, fontSize: 15),
                       hintText: hintText,
                       border: InputBorder.none),
                 ),
@@ -118,3 +134,6 @@ class DropFillBox extends StatelessWidget {
         });
   }
 }
+
+
+enum ListTypes  {wilaya,commune,gender,blood}

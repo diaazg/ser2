@@ -35,7 +35,8 @@ class _InfoPageState extends State<InfoPage> {
   final BoxBloc dateBox = BoxBloc();
   final BoxBloc poidBox = BoxBloc();
   final BoxBloc longBox = BoxBloc();
-  final BoxBloc countryBox = BoxBloc();
+  final BoxBloc bloodCategory = BoxBloc();
+  final BoxBloc gender = BoxBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -73,47 +74,10 @@ class _InfoPageState extends State<InfoPage> {
                               const Center(child: Icon(Icons.navigate_before)),
                         ),
                       ),
-                      SizedBox(
-                        width: size.width * 0.2,
-                      ),
-                      Text(
-                        'Choose picture',
-                        style: Kcolors.fontMain.copyWith(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w900),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.2,
-                      )
                     ],
                   ),
                   SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  Center(
-                    child: Container(
-                      height: 125,
-                      width: 125,
-                      decoration: BoxDecoration(
-                          color: Color(0xFFE5E8F2),
-                          borderRadius: BorderRadius.circular(300)),
-                      child: Center(
-                        child: Image.asset(
-                          "images/profile/1.png",
-                          height: 100,
-                          width: 100,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text(
-                    email!,
-                    style: Kcolors.fontMain
-                        .copyWith(color: Colors.black54, fontSize: 20),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.04,
+                    height: size.height * 0.06,
                   ),
                   Center(
                       child: Form(
@@ -188,7 +152,7 @@ class _InfoPageState extends State<InfoPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      TitleWidget(size: size, title: 'City'),
+                                      TitleWidget(size: size, title: 'Wilaya'),
                                       DropFillBox(
                                         size: size,
                                         bloc: widget.townBox,
@@ -196,7 +160,7 @@ class _InfoPageState extends State<InfoPage> {
                                         hintText: 'Wilaya',
                                         height: 0.07,
                                         width: 0.43,
-                                        isWilaya: true,
+                                        listTypes: ListTypes.wilaya,
                                       )
                                     ],
                                   ),
@@ -204,15 +168,56 @@ class _InfoPageState extends State<InfoPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      TitleWidget(size: size, title: 'Town'),
+                                      TitleWidget(size: size, title: 'Commune'),
                                       DropFillBox(
                                         size: size,
                                         bloc: widget.townBox,
-                                        errMessage: 'Enter your town',
-                                        hintText: 'Town',
+                                        errMessage: 'Enter your commune',
+                                        hintText: 'Commune',
                                         height: 0.07,
                                         width: 0.43,
-                                        isWilaya: false,
+                                        listTypes: ListTypes.commune,
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height * 0.03,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      TitleWidget(size: size, title: 'Gender'),
+                                      DropFillBox(
+                                        size: size,
+                                        bloc: gender,
+                                        errMessage: 'choose your gender',
+                                        hintText: 'Gender',
+                                        height: 0.07,
+                                        width: 0.43,
+                                        listTypes: ListTypes.gender,
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      TitleWidget(size: size, title: 'Blood'),
+                                      DropFillBox(
+                                        size: size,
+                                        bloc: bloodCategory,
+                                        errMessage: 'choose your blood',
+                                        hintText: 'Blood',
+                                        height: 0.07,
+                                        width: 0.43,
+                                        listTypes: ListTypes.blood,
                                       )
                                     ],
                                   ),
@@ -233,10 +238,11 @@ class _InfoPageState extends State<InfoPage> {
                         dateBox.validateDate();
                         poidBox.validateDouble();
                         longBox.validateDouble();
-
+                        gender.validateGender();
+                        bloodCategory.validateBlood();
                         widget.townBox.validateWilaya();
                         widget.townBox.validateCommune();
-                        Future.delayed(const Duration(milliseconds: 100),
+                        Future.delayed(const Duration(milliseconds: 200),
                             () async {
                           if (_formkey.currentState!.validate()) {
                             UserModelInfo userModel = UserModelInfo(
@@ -248,7 +254,9 @@ class _InfoPageState extends State<InfoPage> {
                                 town: widget.townBox.town!,
                                 email: email,
                                 password: password,
-                                userName: username!);
+                                userName: username!,
+                                gender: gender.input!,
+                                blood: bloodCategory.input!);
 
                             context
                                 .read<AuthBloc>()

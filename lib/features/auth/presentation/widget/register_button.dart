@@ -43,6 +43,7 @@ class RegisterButton extends StatelessWidget {
              
             
                 BoxBloc townBox = BoxBloc();
+                
                 townBox.setWilayaList();
                 Navigator.push(
                     context,
@@ -52,7 +53,7 @@ class RegisterButton extends StatelessWidget {
                             username: usernameBloc.input,
                             password: passwordBloc.input, townBox: townBox,)));
               } else {
-                print('Noo');
+               
               }
             });
           },

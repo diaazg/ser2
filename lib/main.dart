@@ -4,9 +4,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ser2/app.dart';
 import 'package:ser2/features/auth/data/repos/auth_repo_imp.dart';
+import 'package:ser2/localNotif.dart';
 
 void main()async{
+   
    WidgetsFlutterBinding.ensureInitialized();
+   await LocalNotifications.init();
    await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyBbTjowgwJ6rhGPoWlXP-W7wUn8mLIRnDA",

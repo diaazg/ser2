@@ -29,11 +29,15 @@ class UserModelInfo extends UserModel {
   final double height;
   final String city;
   final String town;
+  final String gender;
+  final String blood;
   late String? uid;
   late String? img;
 
   UserModelInfo(
-      {required this.fullName,
+      {
+        required this.gender, required this.blood, 
+        required this.fullName,
       required this.dateOfBirth,
       required this.weight,
       required this.height,
@@ -56,7 +60,7 @@ class UserModelInfo extends UserModel {
       height: json['height'] as double,
       city: json['wilaya'] as String,
       town: json['commune'] as String,
-      userName: json['userName'] as String);
+      userName: json['userName'] as String, gender: json['gender'] as String, blood: json['blood'] as String);
 
   Map<String, dynamic> toJson() => {
         'img':'',
@@ -69,7 +73,9 @@ class UserModelInfo extends UserModel {
         'weight': weight,
         'height': height,
         'commune':town,
-        'wilaya':city
+        'wilaya':city,
+        'blood':blood,
+        'gender':gender
       };
 
   List<Object?> get props => [
