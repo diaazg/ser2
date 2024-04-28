@@ -15,9 +15,11 @@ class MedicineRepoImp extends MedicineRepoAbs {
     try {
       CollectionReference medicineCollection =
           storeInstance.collection('users').doc(uid).collection('medicines');
+          print('llllllllll');
       await medicineCollection.add(medicineModel.toJson());
       return right('success');
     } on FirebaseAuthException catch (e) {
+      
       return left(FirebaseFailure.fromCode(e.code));
     } catch (e) {
       return left(FirebaseFailure(errMessage: 'Oops error occurred try later'));

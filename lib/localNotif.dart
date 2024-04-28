@@ -52,7 +52,7 @@ class LocalNotifications {
   }
 
   //schedule notifications
-  //first we should initilaize timezone in main function 
+  //first we should initilaize timezone in main function
   //by import 'package:timezone/data/latest.dart' as tz;
   //and put tz.initializeTimeZones(); in main function
   static Future showScheduleNotifications(
@@ -61,7 +61,6 @@ class LocalNotifications {
       String? body,
       String? payload,
       required DateTime scheduleDate}) async {
-        
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails('channel 3', 'medicines',
             channelDescription: 'your channel description',
@@ -70,9 +69,15 @@ class LocalNotifications {
             ticker: 'ticker');
     const NotificationDetails notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
-    await _flutterLocalNotificationsPlugin.zonedSchedule(id, title, body,
-        tz.TZDateTime.from(tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)), tz.local), notificationDetails,
- androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        tz.TZDateTime.from(
+            tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10)),
+            tz.local),
+        notificationDetails,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }

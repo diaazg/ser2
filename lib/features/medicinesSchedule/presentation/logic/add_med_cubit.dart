@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/logic/add_med_state.dart';
 
@@ -24,9 +25,9 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
   String? endDate;
   String? startDate;
 
-  String? dose_1;
-  String? dose_2;
-  String? dose_3;
+  TimeOfDay? dose_1;
+  TimeOfDay? dose_2;
+  TimeOfDay? dose_3;
 
   //setters
   void setInput(String? userInput) {
@@ -41,16 +42,19 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
     endDate = inputFinDate;
   }
 
-  void setDose(String? dose, int number) {
+  void setDose(TimeOfDay? dose, int number) {
     switch (number) {
       case 1:
         dose_1 = dose;
+        emit(ValidateInputState());
         break;
       case 2:
         dose_2 = dose;
+         emit(ValidateInputState());
         break;
       case 3:
         dose_3 = dose;
+         emit(ValidateInputState());
         break;
     }
   }
@@ -103,11 +107,11 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
     }
   }
 
-  void validateDos() {
+  bool validateDos() {
     if (dose_1 != null || dose_2 != null || dose_3 != null) {
-      emit(ValidateInputState());
+      return true;
     } else {
-      emit(UnValidateInputState());
+     return false;
     }
   }
 
@@ -121,4 +125,37 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
     }
  return hasTrue;
   }
+
+  bool checkDose(int nbr){
+    bool value = false ;
+    switch (nbr) {
+      case 1:
+        if(dose_1 != null && nbr==1){
+          value =true;
+        }
+        break;
+      case 2:
+        if(dose_2 != null && nbr==2){
+         value = true;
+        }
+        case 3:
+        if(dose_3 != null && nbr==3){
+          value = true;
+        }
+    }
+
+    return value ;
+  }
+
+
+  TimeOfDay? getDose(int val){
+    if (val==1) {
+      return dose_1;
+    } else if(val==2){
+      return dose_2;
+    }else{
+      return dose_3;
+    }
+  }
 }
+

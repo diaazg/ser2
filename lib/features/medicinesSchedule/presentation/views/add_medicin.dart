@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:ser2/core/utiles/constants.dart';
@@ -32,8 +34,36 @@ class AddMedicin extends StatelessWidget {
   AddMedicineBloc dose = AddMedicineBloc();
   final _formkey = GlobalKey<FormState>();
 
-final AddMedicineBloc _addMedicineBloc = AddMedicineBloc();
+  final AddMedicineBloc _addMedicineBloc = AddMedicineBloc();
 
+  SnackBar daysErrSnack = const SnackBar(
+    content: Text('Choose day'),
+    backgroundColor: Colors.red,
+    elevation: 10,
+    behavior: SnackBarBehavior.floating,
+    margin: EdgeInsets.all(5),
+  );
+  SnackBar setErr = const SnackBar(
+    content: Text('There is something wrong , try again'),
+    backgroundColor: Colors.red,
+    elevation: 10,
+    behavior: SnackBarBehavior.floating,
+    margin: EdgeInsets.all(5),
+  );
+  SnackBar successSnack = const SnackBar(
+    content: Text('Medicin added'),
+    backgroundColor: Colors.green,
+    elevation: 10,
+    behavior: SnackBarBehavior.floating,
+    margin: EdgeInsets.all(5),
+  );
+  SnackBar doseSnack = const SnackBar(
+    content: Text('Add at least one dose'),
+    backgroundColor: Colors.red,
+    elevation: 10,
+    behavior: SnackBarBehavior.floating,
+    margin: EdgeInsets.all(5),
+  );
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -99,23 +129,59 @@ final AddMedicineBloc _addMedicineBloc = AddMedicineBloc();
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              DoseWidget(
-                                size: size,
-                                title: 'dose 1',
-                                doseBloc: dose,
-                                doseNumber: 1,
+                              GestureDetector(
+                                onTap: () {
+                                  showTimePicker(
+                                          context: context,
+                                          initialTime: const TimeOfDay(
+                                              hour: 8, minute: 30))
+                                      .then((value) {
+                                    dose.setDose(value, 1);
+                                  });
+                                },
+                                child: DoseWidget(
+                                  size: size,
+                                  title: 'dose 1',
+                                  doseBloc: dose,
+                                  doseNumber: 1,
+                                ),
                               ),
-                              DoseWidget(
-                                size: size,
-                                title: 'dose 2',
-                                doseBloc: dose,
-                                doseNumber: 2,
+                              GestureDetector(
+                                 onTap: () {
+                                  showTimePicker(
+                                          context: context,
+                                          initialTime: const TimeOfDay(
+                                              hour: 8, minute: 30))
+                                      .then((value) {
+                                    dose.setDose(value, 2);
+                                    
+                                  });
+                                },
+                                child: DoseWidget(
+                                  size: size,
+                                  title: 'dose 2',
+                                  doseBloc: dose,
+                                  doseNumber: 2,
+                                ),
                               ),
-                              DoseWidget(
-                                size: size,
-                                title: 'dose 3',
-                                doseBloc: dose,
-                                doseNumber: 3,
+                              GestureDetector(
+                                 onTap: () {
+                                  
+                                  showTimePicker(
+                                          context: context,
+                                          initialTime: const TimeOfDay(
+                                              hour: 8, minute: 30))
+                                      .then((value) {
+                                    dose.setDose(value, 3);
+                                  });
+                                 
+                                },
+                                child: DoseWidget(
+                                  size: size,
+                                  title: 'dose 3',
+                                  doseBloc: dose,
+                                  doseNumber: 3,
+                                ),
                               ),
                             ],
                           ),
@@ -186,13 +252,13 @@ final AddMedicineBloc _addMedicineBloc = AddMedicineBloc();
                     medicineName.validateMedicine();
                     startDate.validateStartDate();
                     endDate.validateEndDate();
-                    dose.validateDos();
+                   
                     doseSize.validateDoseQuantity();
                     typesBloc.validateType();
                     Future.delayed(const Duration(milliseconds: 100), () async {
                       List<String> choosenDays = [];
                       if (_formkey.currentState!.validate() &&
-                          _addMedicineBloc.validateDay()) {
+                          _addMedicineBloc.validateDay() && dose.validateDos()) {
                         _addMedicineBloc.choosenDays.forEach((key, value) {
                           if (value) {
                             choosenDays.add(key);
@@ -210,37 +276,24 @@ final AddMedicineBloc _addMedicineBloc = AddMedicineBloc();
                             days: choosenDays,
                             type: typesBloc.input!,
                             doseSize: 1.6,
-                            doses: [dose.dose_1.toString(),dose.dose_2.toString()]);
-                      var response =  await repo.addMedicine(medicineModel);
-                     response.fold((l){
-                                                const snackdemo = SnackBar(
-                          content: Text('Something happened'),
-                          backgroundColor: Colors.red,
-                          elevation: 10,
-                          behavior: SnackBarBehavior.floating,
-                          margin: EdgeInsets.all(5),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackdemo);
-                     }, (r){
-                                                                      const snackdemo = SnackBar(
-                          content: Text('Medicine added succesfully'),
-                          backgroundColor: Colors.green,
-                          elevation: 10,
-                          behavior: SnackBarBehavior.floating,
-                          margin: EdgeInsets.all(5),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackdemo);
-                        _formkey.currentState!.reset();
-                     });
-                      } else if (_formkey.currentState!.validate()) {
-                        const snackdemo = SnackBar(
-                          content: Text('Choose days'),
-                          backgroundColor: Colors.red,
-                          elevation: 10,
-                          behavior: SnackBarBehavior.floating,
-                          margin: EdgeInsets.all(5),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackdemo);
+                            doses: [
+                              '${dose.dose_1?.hour.toString()}:${dose.dose_1?.minute.toString()}',
+                            '${dose.dose_2?.hour.toString()}:${dose.dose_2?.minute.toString()}',
+                            ]);
+                        var response = await repo.addMedicine(medicineModel);
+                        response.fold((l) {
+                          ScaffoldMessenger.of(context).showSnackBar(setErr);
+                        }, (r) {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(successSnack);
+                          _formkey.currentState!.reset();
+                        });
+                      } else if (_formkey.currentState!.validate() && _addMedicineBloc.validateDay()) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(doseSnack);
+                      }else if(_formkey.currentState!.validate() ){
+                          ScaffoldMessenger.of(context)
+                            .showSnackBar(daysErrSnack);
                       }
                     });
                   })
@@ -251,5 +304,3 @@ final AddMedicineBloc _addMedicineBloc = AddMedicineBloc();
     ));
   }
 }
-
-
