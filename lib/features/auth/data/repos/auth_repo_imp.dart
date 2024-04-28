@@ -51,6 +51,7 @@ class AuthRepoImp extends AuthRepo {
       DocumentReference documentReference =
           storeInstance.collection('users').doc(uid);
       userModelReg.uid = uid;
+      
       await documentReference.set(userModelReg.toJson());
       return right(userModelReg);
     } on FirebaseAuthException catch (e) {

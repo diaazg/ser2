@@ -19,6 +19,7 @@ class UserDataRepoImp extends UserDataRepo{
       if (documentSnapshot.exists) {
         dynamic json = documentSnapshot.data()!;
         UserModelInfo userModel = UserModelInfo.fromJson(json);
+       
         return right(userModel);
       } else {
         return left(

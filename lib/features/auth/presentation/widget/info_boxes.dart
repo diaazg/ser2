@@ -135,5 +135,38 @@ class DropFillBox extends StatelessWidget {
   }
 }
 
+class DateBox extends StatelessWidget {
+  const DateBox(
+      {super.key,
+      required this.size,
+      required this.bloc,  
+      required this.height,
+      required this.width});
+  final Size size;
+  final BoxBloc bloc;
+  final double height;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<BoxBloc, BoxState>(
+        bloc: bloc,
+        builder: (context, state) {
+          return Container(
+            height: size.height * height,
+            width: size.width * width,
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(20)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Center(
+                child: bloc.dateOfBirth == null ? const Text('Date of birth'):Text(bloc.dateOfBirth.toString())
+              )
+              
+            ),
+          );
+        });
+  }
+}
 
 enum ListTypes  {wilaya,commune,gender,blood}

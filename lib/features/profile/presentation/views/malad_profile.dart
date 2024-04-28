@@ -140,7 +140,7 @@ class _MaladProfileState extends State<MaladProfile> {
                           InfoContainer(
                               size: size,
                               title: 'Birth day',
-                              content: state.userModelInfo.dateOfBirth,
+                              content: state.userModelInfo.dateOfBirth.toString(),
                               height: 0.07,
                               width: 0.9),
                           SizedBox(

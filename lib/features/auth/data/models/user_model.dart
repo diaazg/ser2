@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 abstract class UserModel {
   final String? email;
   final String? password;
@@ -24,7 +26,7 @@ class UserModelLog extends UserModel {
 class UserModelInfo extends UserModel {
   final String userName;
   final String fullName;
-  final String dateOfBirth;
+  final DateTime dateOfBirth;
   final double weight;
   final double height;
   final String city;
@@ -35,9 +37,9 @@ class UserModelInfo extends UserModel {
   late String? img;
 
   UserModelInfo(
-      {
-        required this.gender, required this.blood, 
-        required this.fullName,
+      {required this.gender,
+      required this.blood,
+      required this.fullName,
       required this.dateOfBirth,
       required this.weight,
       required this.height,
@@ -50,21 +52,23 @@ class UserModelInfo extends UserModel {
       this.img});
 
   factory UserModelInfo.fromJson(Map<String, dynamic> json) => UserModelInfo(
-      img:json['img'],
+      img: json['img'],
       uid: json['uid'] as String,
       email: json['email'] as String,
       password: json['password'] as String,
       fullName: json['fullName'] as String,
-      dateOfBirth: json['dateOfBirth'] as String,
+      dateOfBirth:  (json['dateOfBirth'] as Timestamp).toDate(),
       weight: json['weight'] as double,
       height: json['height'] as double,
       city: json['wilaya'] as String,
       town: json['commune'] as String,
-      userName: json['userName'] as String, gender: json['gender'] as String, blood: json['blood'] as String);
+      userName: json['userName'] as String,
+      gender: json['gender'] as String,
+      blood: json['blood'] as String);
 
   Map<String, dynamic> toJson() => {
-        'img':'',
-        'uid':uid,
+        'img': '',
+        'uid': uid,
         'email': email,
         'password': password,
         'userName': userName,
@@ -72,10 +76,10 @@ class UserModelInfo extends UserModel {
         'dateOfBirth': dateOfBirth,
         'weight': weight,
         'height': height,
-        'commune':town,
-        'wilaya':city,
-        'blood':blood,
-        'gender':gender
+        'commune': town,
+        'wilaya': city,
+        'blood': blood,
+        'gender': gender
       };
 
   List<Object?> get props => [
@@ -87,7 +91,6 @@ class UserModelInfo extends UserModel {
         dateOfBirth,
         weight,
         height,
-       
         town
       ];
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/auth/data/models/user_model.dart';
@@ -97,13 +98,21 @@ class _InfoPageState extends State<InfoPage> {
                                 height: size.height * 0.02,
                               ),
                               TitleWidget(size: size, title: 'Date of birth'),
-                              InfoBox(
-                                  size: size,
-                                  bloc: dateBox,
-                                  errMessage: 'Enter your date of birth',
-                                  hintText: 'date of birth',
-                                  height: 0.07,
-                                  width: 0.9),
+                              GestureDetector(
+                                onTap: () {
+                                  showDatePicker(
+                                      context: context,
+                                      firstDate:DateTime(1920),
+                                      lastDate: DateTime.now()).then((value) {
+                                            dateBox.setDateOfBirth(value!);
+                                          });
+                                },
+                                child: DateBox(
+                                    size: size,
+                                    bloc: dateBox,
+                                    height: 0.07,
+                                    width: 0.9),
+                              ),
                               SizedBox(
                                 height: size.height * 0.03,
                               ),
@@ -244,10 +253,10 @@ class _InfoPageState extends State<InfoPage> {
                         widget.townBox.validateCommune();
                         Future.delayed(const Duration(milliseconds: 200),
                             () async {
-                          if (_formkey.currentState!.validate()) {
+                          if (_formkey.currentState!.validate() && dateBox.validateDate()) {
                             UserModelInfo userModel = UserModelInfo(
                                 fullName: fullNameBox.input!,
-                                dateOfBirth: dateBox.input!,
+                                dateOfBirth: dateBox.dateOfBirth!,
                                 weight: double.parse(poidBox.input!),
                                 height: double.parse(longBox.input!),
                                 city: widget.townBox.city!,

@@ -1,11 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/wilaya.dart';
 import 'package:ser2/features/auth/presentation/logic/abstract_logic.dart';
+import 'package:ser2/features/medicinesSchedule/presentation/logic/add_med_state.dart';
 import './box_state.dart';
 
 class BoxBloc extends Cubit<BoxState> implements BoxAbstract {
   BoxBloc() : super(BoxInitState());
+   
 
+  DateTime? dateOfBirth; 
   String? input;
   String? city;
   String? town;
@@ -29,7 +32,11 @@ class BoxBloc extends Cubit<BoxState> implements BoxAbstract {
 
 
 
-
+ 
+  void setDateOfBirth(DateTime? value){
+    dateOfBirth = value ;
+    emit(BoxInitState());
+  }
  
   void setWilayaList (){
     wilayat.clear();
@@ -152,8 +159,8 @@ class BoxBloc extends Cubit<BoxState> implements BoxAbstract {
   
   
   @override
-  void validateDate() {
-        final dateRegex =
+ bool validateDate() {
+/*         final dateRegex =
         RegExp(r'^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-[0-9]{4}$');
     if (input == null) {
       emit(BoxUnValidState());
@@ -161,6 +168,11 @@ class BoxBloc extends Cubit<BoxState> implements BoxAbstract {
       emit(BoxValidateState());
     } else {
       emit(BoxUnValidState());
+    } */
+    if(dateOfBirth != null){
+      return true;
+    }else{
+      return false ;
     }
   }
 }
