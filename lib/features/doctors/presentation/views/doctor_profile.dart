@@ -1,29 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
 import 'package:ser2/features/doctors/presentation/widgets/book_apt.dart';
 import 'package:ser2/features/doctors/presentation/widgets/phone_nbr.dart';
 
 
 class DoctorProfile extends StatelessWidget {
   const DoctorProfile(
-      {super.key, required this.docName,
-      required this.id,
-      required this.specialite,
-      required this.wilaya,
-      required this.commune,
-      required this.phoneNbr, required this.about,
+      {super.key, required this.nearbyDoctor, 
 
 
        
       });
 
-  final String? docName;
-  final String? specialite;
-  final String? commune;
-  final String? wilaya;
-  final String? id;
-  final String? phoneNbr;
-  final String about ;
+ final DoctorModel nearbyDoctor;
 
 
   @override
@@ -65,7 +55,7 @@ class DoctorProfile extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Dr $docName",
+                      "Dr ${nearbyDoctor.fullName}",
                       style: Kcolors.fontMain.copyWith(
                           fontSize: 20,
                           color: Colors.black,
@@ -94,7 +84,7 @@ class DoctorProfile extends StatelessWidget {
                         color: Color(0xFF496CCE),
                       ),
                       Text(
-                        "$wilaya - $commune",
+                        "${nearbyDoctor.wilaya} - ${nearbyDoctor.wilaya}",
                         style:
                             Kcolors.fontMain.copyWith(color: Colors.black),
                       )
@@ -115,7 +105,7 @@ class DoctorProfile extends StatelessWidget {
                                 fontWeight: FontWeight.w900),
                           ),
                           Text(
-                            specialite!,
+                            nearbyDoctor.speciality,
                             style: Kcolors.fontMain
                                 .copyWith(color: Colors.black, fontSize: 15),
                           )
@@ -133,7 +123,7 @@ class DoctorProfile extends StatelessWidget {
                         height: size.height * 0.04,
                       ),
                      Text(
-                          about)
+                          nearbyDoctor.about)
                     ],
                   ),
                   SizedBox(
@@ -165,8 +155,8 @@ class DoctorProfile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      PhoneNbrButton(size: size, phoneNbr: phoneNbr),
-                      BookAptButton(size: size)
+                      PhoneNbrButton(size: size, phoneNbr: nearbyDoctor.phoneNbr),
+                      BookAptButton(size: size, doctor: nearbyDoctor,)
                     ],
                   )
                 ],

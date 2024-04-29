@@ -11,24 +11,26 @@ class NearByDocWidget extends StatelessWidget {
   });
 
   final Size size;
- final DoctorModel nearbyDoctor;
-  
+  final DoctorModel nearbyDoctor;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>DoctorProfile(docName: nearbyDoctor.fullName, id: 'id', specialite:nearbyDoctor.speciality, wilaya:nearbyDoctor.speciality, commune:nearbyDoctor.commune, phoneNbr: nearbyDoctor.phoneNbr, about: nearbyDoctor.about,)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DoctorProfile(
+                       nearbyDoctor: nearbyDoctor,
+                    )));
       },
       child: Container(
-        margin:const  EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.symmetric(
-            horizontal: 5, vertical: 5),
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         height: size.height * 0.17,
         width: size.width * 0.95,
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20)),
+            color: Colors.white, borderRadius: BorderRadius.circular(20)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -38,8 +40,7 @@ class NearByDocWidget extends StatelessWidget {
               width: size.width * 0.3,
               decoration: BoxDecoration(
                   color: const Color(0xFFF3C0C0),
-                  borderRadius:
-                      BorderRadius.circular(20)),
+                  borderRadius: BorderRadius.circular(20)),
               child: Container(
                 child: Center(
                   child: Image.asset(
@@ -54,16 +55,14 @@ class NearByDocWidget extends StatelessWidget {
               width: 10,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 20),
               child: Column(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     "Dr-${nearbyDoctor.fullName} ",
                     style: Kcolors.fontMain.copyWith(
-                        color: Color(0xFFF3C0C0),
+                        color: const Color(0xFFF3C0C0),
                         fontSize: 15,
                         fontWeight: FontWeight.w900),
                   ),
@@ -75,35 +74,29 @@ class NearByDocWidget extends StatelessWidget {
                         fontWeight: FontWeight.w900),
                   ),
                   Container(
-                    padding:const  EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 10),
                     height: 40,
                     width: size.width * 0.3,
                     decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(20),
-                        color: Color(0xFFF3C0C0)),
+                        borderRadius: BorderRadius.circular(20),
+                        color: const Color(0xFFF3C0C0)),
                     child: Center(
                       child: Text(
                         'More',
-                        style: Kcolors.fontMain
-                            .copyWith(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight:
-                                    FontWeight.w800),
+                        style: Kcolors.fontMain.copyWith(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-
-
           ],
         ),
       ),
     );
   }
 }
-
