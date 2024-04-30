@@ -5,7 +5,6 @@ import 'package:ser2/features/appointment/presentation/logic/apointment_state.da
 import 'package:ser2/features/appointment/presentation/logic/appointment_bloc.dart';
 import 'package:ser2/features/appointment/presentation/widget/day_widget.dart';
 import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
-import 'package:ser2/features/profile/presentation/logic/userData/user_data_bloc.dart';
 
 class AppointmentPage extends StatelessWidget {
   const AppointmentPage(
@@ -22,11 +21,9 @@ class AppointmentPage extends StatelessWidget {
     return BlocConsumer<AppointmentBloc, AppointmentState>(
       listener: (BuildContext context, AppointmentState state) { 
         if(state is ReserveSuccess){
-          print('successssssssssssssssssss');
-          print(state.myTurn);
+
         }else if(state is ReserveFailure){
-          print('failureeeeeeeeeeeeeeeeeee');
-          print(state.err);
+
         }
         },
         bloc: bloc,

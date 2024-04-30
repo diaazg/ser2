@@ -76,7 +76,7 @@ class AppointmentBloc extends Cubit<AppointmentState>{
           DateTime now = DateTime.now();
     String? todayName = DateFormat('EEEE').format(now);
      todayName = englishToFrenchDays[todayName];
-     var response = await appRepo.reserve(medcinUid, todayName!,maladUid,DateTime.now());
+     var response = await appRepo.reserve(medcinUid, todayName!,maladUid,true);
     response.fold((failure){
         emit(ReserveFailure(err: failure.errMessage));
     }, (success){
@@ -88,7 +88,7 @@ class AppointmentBloc extends Cubit<AppointmentState>{
     DateTime now = DateTime.now().add(const Duration(days: 1));
     String? tomorrowName = DateFormat('EEEE').format(now);
      tomorrowName = englishToFrenchDays[tomorrowName];
- var response = await appRepo.reserve(medcinUid, tomorrowName!,maladUid,DateTime.now());
+ var response = await appRepo.reserve(medcinUid, tomorrowName!,maladUid,false);
     response.fold((failure){
         emit(ReserveFailure(err: failure.errMessage));
     }, (success){

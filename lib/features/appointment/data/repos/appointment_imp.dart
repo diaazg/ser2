@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
@@ -33,10 +32,11 @@ class AppointmentRepo extends AppointmentRepoAbs {
 
   @override
   Future<Either<Failure, int>> reserve(
-      String medcinUid, String day, String maladUid, DateTime dateTime) async {
+      String medcinUid, String day, String maladUid, bool isToday) async {
     try {
       late int nbr;
       late AppointmentModel aptInfo;
+      late DateTime date;
       DocumentReference aptDoc = storeInstance
           .collection('doctors')
           .doc(medcinUid)
@@ -59,41 +59,48 @@ class AppointmentRepo extends AppointmentRepoAbs {
             -1) {
           var addedTime = DateTime.parse("2000-01-01 ${aptInfo.mrStart}");
 
-       addedTime=   addedTime.add(Duration(minutes: int.parse(aptInfo.time)));
-       String formattedHour = addedTime.hour.toString().padLeft(2, '0');
-String formattedMinute = addedTime.minute.toString().padLeft(2, '0');
-      
-          await aptDoc.update({
-            'Nb': nbr - 1,
-            'Mr1': '$formattedHour:$formattedMinute'
-          });
+          addedTime = addedTime.add(Duration(minutes: int.parse(aptInfo.time)));
+          String formattedHour = addedTime.hour.toString().padLeft(2, '0');
+          String formattedMinute = addedTime.minute.toString().padLeft(2, '0');
+          if (isToday) {
+            date = DateTime(DateTime.now().year, DateTime.now().month,
+                DateTime.now().day, addedTime.hour, addedTime.minute);
+          } else {
+                        date = DateTime(DateTime.now().add(const Duration(days: 1)).year, DateTime.now().add(const Duration(days: 1)).month,
+                DateTime.now().add(const Duration(days: 1)).day, addedTime.hour, addedTime.minute);
+          }
+          await aptDoc.update(
+              {'Nb': nbr - 1, 'Mr1': '$formattedHour:$formattedMinute'});
           await storeInstance.collection('Reservation').add(RenduVousModel(
                   doctorId: medcinUid,
                   maladId: maladUid,
                   turn: nbr,
                   state: true,
-                  dateTime: dateTime)
+                  dateTime: date)
               .toJson());
           return right(nbr);
         } else if (compareTimes(
                 aptInfo.evStart, aptInfo.evEnd, int.parse(aptInfo.time)) ==
             -1) {
-             
-       var addedTime = DateTime.parse("2000-01-01 ${aptInfo.evStart}");
-        addedTime =  addedTime.add(Duration(minutes: int.parse(aptInfo.time)));
-                String formattedHour = addedTime.hour.toString().padLeft(2, '0');
-String formattedMinute = addedTime.minute.toString().padLeft(2, '0');
-
-          await aptDoc.update({
-            'Nb': nbr - 1,
-            'Ev1': '$formattedHour:$formattedMinute'
-          });
+          var addedTime = DateTime.parse("2000-01-01 ${aptInfo.evStart}");
+          addedTime = addedTime.add(Duration(minutes: int.parse(aptInfo.time)));
+          String formattedHour = addedTime.hour.toString().padLeft(2, '0');
+          String formattedMinute = addedTime.minute.toString().padLeft(2, '0');
+            if (isToday) {
+            date = DateTime(DateTime.now().year, DateTime.now().month,
+                DateTime.now().day, addedTime.hour, addedTime.minute);
+          } else {
+                        date = DateTime(DateTime.now().add(const Duration(days: 1)).year, DateTime.now().add(const Duration(days: 1)).month,
+                DateTime.now().add(const Duration(days: 1)).day, addedTime.hour, addedTime.minute);
+          }
+          await aptDoc.update(
+              {'Nb': nbr - 1, 'Ev1': '$formattedHour:$formattedMinute'});
           await storeInstance.collection('Reservation').add(RenduVousModel(
                   doctorId: medcinUid,
                   maladId: maladUid,
                   turn: nbr,
                   state: true,
-                  dateTime: dateTime)
+                  dateTime: date)
               .toJson());
           return right(nbr);
         } else {
