@@ -5,16 +5,19 @@ import 'package:ser2/features/appointment/presentation/logic/apointment_state.da
 import 'package:ser2/features/appointment/presentation/logic/appointment_bloc.dart';
 import 'package:ser2/features/appointment/presentation/widget/day_widget.dart';
 import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
+import 'package:ser2/features/profile/presentation/logic/userData/user_data_bloc.dart';
 
 class AppointmentPage extends StatelessWidget {
   const AppointmentPage(
-      {super.key, required this.bloc, required this.doctorModel});
+      {super.key, required this.bloc, required this.doctorModel, required this.uid});
 
   final AppointmentBloc bloc;
   final DoctorModel doctorModel;
+  final String uid ;
 
   @override
   Widget build(BuildContext context) {
+   
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<AppointmentBloc, AppointmentState>(
       listener: (BuildContext context, AppointmentState state) { 
@@ -179,7 +182,9 @@ class AppointmentPage extends StatelessWidget {
                           color: Kcolors.blueBackground,
                           title: 'confirm',
                           buttonFunc: () {
-                            bloc.reserveApt();
+                         
+
+                            bloc.reserveApt(uid);
                           },
                           fontColor: Colors.white,
                         ),

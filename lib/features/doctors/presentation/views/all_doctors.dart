@@ -7,10 +7,11 @@ import 'package:ser2/features/doctors/presentation/widgets/speciality_box.dart';
 import 'package:ser2/features/homePage/presentation/widgets/nearbyDocWidget.dart';
 
 class AllDoctors extends StatelessWidget {
-  const AllDoctors({super.key, required this.bloc});
+  const AllDoctors({super.key, required this.bloc, required this.uid});
 
 
   final AllDoctorsBloc bloc;
+  final String uid;
  
 
   @override
@@ -56,7 +57,7 @@ class AllDoctors extends StatelessWidget {
                         scrollDirection: Axis.vertical,
                         itemCount: state.doctors.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return NearByDocWidget(nearbyDoctor: state.doctors[index], size: size,);
+                          return NearByDocWidget(nearbyDoctor: state.doctors[index], size: size, uid: uid,);
                         }),
                   );
                  

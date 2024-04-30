@@ -11,6 +11,7 @@ import 'package:ser2/features/auth/presentation/logic/mainAuthBloc/main_auth_sta
 
 class MainAuthBloc extends Bloc<MainAuthEvent,MainAuthState> {
   final AuthRepoImp authRepo;
+  late String uid ;
   late final StreamSubscription<User?> _userSubscription; 
   MainAuthBloc(this.authRepo):super(const MainAuthState.unknown()){
     _userSubscription = authRepo.user.listen((authUser) { 
@@ -18,7 +19,7 @@ class MainAuthBloc extends Bloc<MainAuthEvent,MainAuthState> {
     });
     on<AuthUserChanged>((event, emit) {
         if(event.user != null){
-
+           uid = event.user!.uid;
           emit(MainAuthState.authentificated(event.user!));
         }else{
 

@@ -9,12 +9,13 @@ import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
 class BookAptButton extends StatelessWidget {
    BookAptButton({
     super.key,
-    required this.size, required this.doctor,
+    required this.size, required this.doctor, required this.uid,
     
   });
 
   final Size size;
   final DoctorModel doctor;
+  final String uid;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class BookAptButton extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) =>  AppointmentPage(
-
+ uid: uid,
                       bloc: bloc, doctorModel: doctor,
                     ))); 
     

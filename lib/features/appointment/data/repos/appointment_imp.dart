@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ser2/core/utiles/error_hnadler.dart';
 import 'package:ser2/features/appointment/data/models/appointment_model.dart';
+import 'package:ser2/features/appointment/data/models/my_rendu_vous.dart';
 import 'package:ser2/features/appointment/data/repos/appointment_repo_abs.dart';
 
 class AppointmentRepo extends AppointmentRepoAbs {
@@ -28,38 +31,100 @@ class AppointmentRepo extends AppointmentRepoAbs {
     }
   }
 
-@override
-  Future<Either<Failure, int>> reserve(String medcinUid, String day) async {
+  @override
+  Future<Either<Failure, int>> reserve(
+      String medcinUid, String day, String maladUid, DateTime dateTime) async {
     try {
-     late int nbr ;
+      late int nbr;
+      late AppointmentModel aptInfo;
       DocumentReference aptDoc = storeInstance
           .collection('doctors')
           .doc(medcinUid)
           .collection('days')
           .doc(day);
 
-     await aptDoc.get().then((DocumentSnapshot snapshot) {
-        if (snapshot.exists) {
-          var data = snapshot.data() as Map<String, dynamic>;
-          
-           nbr = data['Nb'];
-        }else{
-          nbr = 0;
-        }
-      });
-     if(nbr>0){
-     await aptDoc.update({'Nb':nbr-1});
-      return right(nbr);
-     }else{
-      return left(FirebaseFailure(errMessage: 'Nombre de place insufisant'));
-     }
-     
+      dynamic documentSnapshot = await aptDoc.get();
+      if (documentSnapshot.exists) {
+        dynamic json = documentSnapshot.data()!;
+        aptInfo = AppointmentModel.fromJson(json, day);
 
+        nbr = aptInfo.nbr;
+      } else {
+        nbr = 0;
+      }
+
+      if (nbr > 0) {
+        if (compareTimes(
+                aptInfo.mrStart, aptInfo.mrEnd, int.parse(aptInfo.time)) ==
+            -1) {
+          var addedTime = DateTime.parse("2000-01-01 ${aptInfo.mrStart}");
+
+       addedTime=   addedTime.add(Duration(minutes: int.parse(aptInfo.time)));
+       String formattedHour = addedTime.hour.toString().padLeft(2, '0');
+String formattedMinute = addedTime.minute.toString().padLeft(2, '0');
+      
+          await aptDoc.update({
+            'Nb': nbr - 1,
+            'Mr1': '$formattedHour:$formattedMinute'
+          });
+          await storeInstance.collection('Reservation').add(RenduVousModel(
+                  doctorId: medcinUid,
+                  maladId: maladUid,
+                  turn: nbr,
+                  state: true,
+                  dateTime: dateTime)
+              .toJson());
+          return right(nbr);
+        } else if (compareTimes(
+                aptInfo.evStart, aptInfo.evEnd, int.parse(aptInfo.time)) ==
+            -1) {
+             
+       var addedTime = DateTime.parse("2000-01-01 ${aptInfo.evStart}");
+        addedTime =  addedTime.add(Duration(minutes: int.parse(aptInfo.time)));
+                String formattedHour = addedTime.hour.toString().padLeft(2, '0');
+String formattedMinute = addedTime.minute.toString().padLeft(2, '0');
+
+          await aptDoc.update({
+            'Nb': nbr - 1,
+            'Ev1': '$formattedHour:$formattedMinute'
+          });
+          await storeInstance.collection('Reservation').add(RenduVousModel(
+                  doctorId: medcinUid,
+                  maladId: maladUid,
+                  turn: nbr,
+                  state: true,
+                  dateTime: dateTime)
+              .toJson());
+          return right(nbr);
+        } else {
+          return left(
+              FirebaseFailure(errMessage: 'Nombre de place insufisant'));
+        }
+      } else {
+        return left(FirebaseFailure(errMessage: 'Nombre de place insufisant'));
+      }
     } on FirebaseAuthException catch (e) {
       return left(FirebaseFailure.fromCode(e.code));
     } catch (e) {
-
       return left(FirebaseFailure(errMessage: 'Oops error occurred try later'));
+    }
+  }
+
+  int compareTimes(String time1, String time2, int pass) {
+    // Convert time strings to DateTime objects
+    DateTime mr1Time = DateTime.parse("2000-01-01 $time1:00");
+    DateTime mr2Time = DateTime.parse("2000-01-01 $time2:00");
+
+    // Add 20 minutes to Mr1
+    mr1Time = mr1Time.add(const Duration(minutes: 20));
+
+    // Compare Mr1 with Mr2
+    if (mr1Time.isBefore(mr2Time)) {
+      return -1;
+    } else if (mr1Time.isAfter(mr2Time)) {
+      return 1;
+    } else {
+      return 0;
     }
   }
 }

@@ -7,11 +7,12 @@ class NearByDocWidget extends StatelessWidget {
   const NearByDocWidget({
     super.key,
     required this.size,
-    required this.nearbyDoctor,
+    required this.nearbyDoctor, required this.uid,
   });
 
   final Size size;
   final DoctorModel nearbyDoctor;
+  final String uid;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class NearByDocWidget extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DoctorProfile(
-                       nearbyDoctor: nearbyDoctor,
+                       nearbyDoctor: nearbyDoctor, uid: uid,
                     )));
       },
       child: Container(

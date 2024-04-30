@@ -316,7 +316,8 @@ HomePage({super.key, required this.userDataBloc});
                           context,
                           MaterialPageRoute(
                               builder: (context) => AllDoctors(
-                                    bloc: allDoctorsBloc,
+                                
+                                    bloc: allDoctorsBloc, uid: userDataBloc.uid,
                                   )));
                     },
                     child: Row(
@@ -366,7 +367,7 @@ HomePage({super.key, required this.userDataBloc});
                                       (BuildContext context, int index) {
                                     return NearByDocWidget(
                                         size: size,
-                                        nearbyDoctor: nearbyDoctors[index]);
+                                        nearbyDoctor: nearbyDoctors[index], uid: state1.userModelInfo.uid!,);
                                   }),
                             );
                           } else if (state is DoctorNearbyFailure) {

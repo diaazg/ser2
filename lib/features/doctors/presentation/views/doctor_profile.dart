@@ -7,13 +7,14 @@ import 'package:ser2/features/doctors/presentation/widgets/phone_nbr.dart';
 
 class DoctorProfile extends StatelessWidget {
   const DoctorProfile(
-      {super.key, required this.nearbyDoctor, 
+      {super.key, required this.nearbyDoctor, required this.uid, 
 
 
        
       });
 
  final DoctorModel nearbyDoctor;
+ final String uid;
 
 
   @override
@@ -156,7 +157,7 @@ class DoctorProfile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       PhoneNbrButton(size: size, phoneNbr: nearbyDoctor.phoneNbr),
-                      BookAptButton(size: size, doctor: nearbyDoctor,)
+                      BookAptButton(size: size, doctor: nearbyDoctor, uid: uid,)
                     ],
                   )
                 ],
