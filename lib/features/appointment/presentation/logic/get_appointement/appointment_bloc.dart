@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/features/appointment/data/repos/appointment_imp.dart';
-import 'package:ser2/features/appointment/presentation/logic/apointment_state.dart';
+import 'package:ser2/features/appointment/presentation/logic/get_appointement/apointment_state.dart';
 
 class AppointmentBloc extends Cubit<AppointmentState>{
   AppointmentBloc(this.appRepo, this.medcinUid): super(AppointmentStateInit());
@@ -97,5 +97,9 @@ class AppointmentBloc extends Cubit<AppointmentState>{
     });
     }
   }
+   
+
+  
+  
 
 }

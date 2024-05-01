@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
-import 'package:ser2/features/appointment/presentation/logic/apointment_state.dart';
-import 'package:ser2/features/appointment/presentation/logic/appointment_bloc.dart';
+import 'package:ser2/features/appointment/presentation/logic/get_appointement/apointment_state.dart';
+import 'package:ser2/features/appointment/presentation/logic/get_appointement/appointment_bloc.dart';
 import 'package:ser2/features/appointment/presentation/widget/day_widget.dart';
 import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
 

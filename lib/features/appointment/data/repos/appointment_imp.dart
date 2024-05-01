@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -66,8 +65,12 @@ class AppointmentRepo extends AppointmentRepoAbs {
             date = DateTime(DateTime.now().year, DateTime.now().month,
                 DateTime.now().day, addedTime.hour, addedTime.minute);
           } else {
-                        date = DateTime(DateTime.now().add(const Duration(days: 1)).year, DateTime.now().add(const Duration(days: 1)).month,
-                DateTime.now().add(const Duration(days: 1)).day, addedTime.hour, addedTime.minute);
+            date = DateTime(
+                DateTime.now().add(const Duration(days: 1)).year,
+                DateTime.now().add(const Duration(days: 1)).month,
+                DateTime.now().add(const Duration(days: 1)).day,
+                addedTime.hour,
+                addedTime.minute);
           }
           await aptDoc.update(
               {'Nb': nbr - 1, 'Mr1': '$formattedHour:$formattedMinute'});
@@ -86,12 +89,16 @@ class AppointmentRepo extends AppointmentRepoAbs {
           addedTime = addedTime.add(Duration(minutes: int.parse(aptInfo.time)));
           String formattedHour = addedTime.hour.toString().padLeft(2, '0');
           String formattedMinute = addedTime.minute.toString().padLeft(2, '0');
-            if (isToday) {
+          if (isToday) {
             date = DateTime(DateTime.now().year, DateTime.now().month,
                 DateTime.now().day, addedTime.hour, addedTime.minute);
           } else {
-                        date = DateTime(DateTime.now().add(const Duration(days: 1)).year, DateTime.now().add(const Duration(days: 1)).month,
-                DateTime.now().add(const Duration(days: 1)).day, addedTime.hour, addedTime.minute);
+            date = DateTime(
+                DateTime.now().add(const Duration(days: 1)).year,
+                DateTime.now().add(const Duration(days: 1)).month,
+                DateTime.now().add(const Duration(days: 1)).day,
+                addedTime.hour,
+                addedTime.minute);
           }
           await aptDoc.update(
               {'Nb': nbr - 1, 'Ev1': '$formattedHour:$formattedMinute'});
@@ -134,4 +141,31 @@ class AppointmentRepo extends AppointmentRepoAbs {
       return 0;
     }
   }
+
+  @override
+  Future<Either<Failure, List<RenduVousModel>>> myAppointments(
+      String userId) async {
+    try {
+     
+      CollectionReference doctorsCollection =
+          storeInstance.collection('Reservation');
+    
+      QuerySnapshot querySnapshot = await doctorsCollection
+          .where('MaladeId', isEqualTo: userId)
+          .where('state', isEqualTo: true)
+          .get();
+         
+      List<RenduVousModel> renduVousList = querySnapshot.docs.map((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+        return RenduVousModel.fromJson(data);
+      }).toList();
+      return right(renduVousList);
+    } on FirebaseAuthException catch (e) {
+      return left(FirebaseFailure.fromCode(e.code));
+    } catch (e) {
+      return left(FirebaseFailure(errMessage: 'Oops error occurred try later'));
+    }
+  }
+
 }

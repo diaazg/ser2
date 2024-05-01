@@ -16,7 +16,7 @@ class RenduVousModel {
       required this.state});
 
   factory RenduVousModel.fromJson(Map<String, dynamic> json) => RenduVousModel(
-      dateTime: (json['dateOfBirth'] as Timestamp).toDate(),
+      dateTime: (json['Date'] as Timestamp).toDate(),
       doctorId: json['DoctorId'],
       maladId: json['MaladeId'],
       turn: json['Trun'],
