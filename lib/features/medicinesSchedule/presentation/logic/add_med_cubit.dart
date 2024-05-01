@@ -9,7 +9,7 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
     'Sat': false,
     'Sun': false,
     'Mon': false,
-    'Thi': false,
+    'Thu': false,
     'Wed': false,
     'Tue': false,
     'Fri': false
@@ -25,9 +25,13 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
   String? endDate;
   String? startDate;
 
-  TimeOfDay? dose_1;
-  TimeOfDay? dose_2;
-  TimeOfDay? dose_3;
+ Map<String,TimeOfDay?>myDoses ={
+  'dose1':null,
+  'dose2':null,
+  'dose3':null
+ };
+
+
 
   //setters
   void setInput(String? userInput) {
@@ -45,15 +49,15 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
   void setDose(TimeOfDay? dose, int number) {
     switch (number) {
       case 1:
-        dose_1 = dose;
+           myDoses['dose1'] = dose;
         emit(ValidateInputState());
         break;
       case 2:
-        dose_2 = dose;
+         myDoses['dose2'] = dose;
          emit(ValidateInputState());
         break;
       case 3:
-        dose_3 = dose;
+        myDoses['dose3'] = dose;
          emit(ValidateInputState());
         break;
     }
@@ -68,7 +72,7 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
   }
 
   void validateMedicine() {
-    if (input != null) {
+    if (input != null && input!='') {
       emit(ValidateInputState());
     } else {
       emit(UnValidateInputState());
@@ -107,14 +111,15 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
     }
   }
 
+
+
   bool validateDos() {
-    if (dose_1 != null || dose_2 != null || dose_3 != null) {
+    if (myDoses['dose1'] != null || myDoses['dose2'] != null || myDoses['dose3'] != null) {
       return true;
     } else {
      return false;
     }
   }
-
   bool validateDay() {
     bool hasTrue = false;
     for (var value in choosenDays.values) {
@@ -130,16 +135,16 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
     bool value = false ;
     switch (nbr) {
       case 1:
-        if(dose_1 != null && nbr==1){
+        if(myDoses['dose1'] != null && nbr==1){
           value =true;
         }
         break;
       case 2:
-        if(dose_2 != null && nbr==2){
+        if(myDoses['dose2'] != null && nbr==2){
          value = true;
         }
         case 3:
-        if(dose_3 != null && nbr==3){
+        if(myDoses['dose3'] != null && nbr==3){
           value = true;
         }
     }
@@ -150,11 +155,11 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
 
   TimeOfDay? getDose(int val){
     if (val==1) {
-      return dose_1;
+      return myDoses['dose1'];
     } else if(val==2){
-      return dose_2;
+      return myDoses['dose2'];
     }else{
-      return dose_3;
+      return myDoses['dose3'];
     }
   }
 }

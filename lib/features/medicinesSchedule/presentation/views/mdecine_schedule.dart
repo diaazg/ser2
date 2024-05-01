@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/core/widgets/error_widget.dart';
 import 'package:ser2/core/widgets/loading_widget.dart';
@@ -30,7 +31,8 @@ class _MedicineScheduleState extends State<MedicineSchedule> {
     String uid = widget.userDataBloc.uid;
     MedicineRepoImp repo = MedicineRepoImp(uid: uid);
     _scheduleBloc = ScheduleBloc(repo);
-    _scheduleBloc.chooseDay('Sat');
+       
+    _scheduleBloc.chooseDay(DateFormat.EEEE().format(DateTime.now()).toString().substring(0,3));
     super.initState();
   }
 
@@ -158,9 +160,9 @@ class _MedicineScheduleState extends State<MedicineSchedule> {
                               size: size,
                               choosenDay: _scheduleBloc.choosenDay,
                               choose: () {
-                                _scheduleBloc.chooseDay('Thi');
+                                _scheduleBloc.chooseDay('Tue');
                               },
-                              day: 'Thi',
+                              day: 'Tue',
                             ),
                             DayChoosen(
                               size: size,
@@ -174,9 +176,9 @@ class _MedicineScheduleState extends State<MedicineSchedule> {
                               size: size,
                               choosenDay: _scheduleBloc.choosenDay,
                               choose: () {
-                                _scheduleBloc.chooseDay('Tue');
+                                _scheduleBloc.chooseDay('Thu');
                               },
-                              day: 'Tue',
+                              day: 'Thu',
                             ),
                             DayChoosen(
                               size: size,

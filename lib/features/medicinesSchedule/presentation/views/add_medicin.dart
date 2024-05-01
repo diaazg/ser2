@@ -215,9 +215,9 @@ class AddMedicin extends StatelessWidget {
                         ),
                         AddMedicDay(
                           size: size,
-                          isChoose: _addMedicineBloc.choosenDays['Thi']!,
-                          day: 'Thi',
-                          chooseDay: () => _addMedicineBloc.chooseDay('Thi'),
+                          isChoose: _addMedicineBloc.choosenDays['Tue']!,
+                          day: 'Tue',
+                          chooseDay: () => _addMedicineBloc.chooseDay('Tue'),
                         ),
                         AddMedicDay(
                           size: size,
@@ -227,9 +227,9 @@ class AddMedicin extends StatelessWidget {
                         ),
                         AddMedicDay(
                           size: size,
-                          isChoose: _addMedicineBloc.choosenDays['Tue']!,
-                          day: 'Tue',
-                          chooseDay: () => _addMedicineBloc.chooseDay('Tue'),
+                          isChoose: _addMedicineBloc.choosenDays['Thu']!,
+                          day: 'Thu',
+                          chooseDay: () => _addMedicineBloc.chooseDay('Thu'),
                         ),
                         AddMedicDay(
                           size: size,
@@ -252,7 +252,6 @@ class AddMedicin extends StatelessWidget {
                     medicineName.validateMedicine();
                     startDate.validateStartDate();
                     endDate.validateEndDate();
-                   
                     doseSize.validateDoseQuantity();
                     typesBloc.validateType();
                     Future.delayed(const Duration(milliseconds: 100), () async {
@@ -264,6 +263,15 @@ class AddMedicin extends StatelessWidget {
                             choosenDays.add(key);
                           }
                         });
+                        
+                       List<String>? dosesList = [];
+                       dose.myDoses.forEach((key, value) { 
+                        if (value != null) {
+                          String time = '${value.hour.toString()}:${value.minute.toString()}';
+                          dosesList.add(time);
+                        }
+                        }); 
+                     
 
                         MedicineRepoImp repo = MedicineRepoImp(uid: uid);
                         MedicineModel medicineModel = MedicineModel(
@@ -275,11 +283,8 @@ class AddMedicin extends StatelessWidget {
                                 .parseStrict(endDate.endDate!),
                             days: choosenDays,
                             type: typesBloc.input!,
-                            doseSize: 1.6,
-                            doses: [
-                              '${dose.dose_1?.hour.toString()}:${dose.dose_1?.minute.toString()}',
-                            '${dose.dose_2?.hour.toString()}:${dose.dose_2?.minute.toString()}',
-                            ]);
+                            doseSize: double.parse(doseSize.input!),
+                            doses: dosesList);
                         var response = await repo.addMedicine(medicineModel);
                         response.fold((l) {
                           ScaffoldMessenger.of(context).showSnackBar(setErr);
