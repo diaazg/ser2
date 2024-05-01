@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/core/widgets/error_widget.dart';
 import 'package:ser2/core/widgets/loading_widget.dart';
-import 'package:ser2/features/medicinesSchedule/data/models/medicines_models.dart';
 import 'package:ser2/features/medicinesSchedule/data/repo/medicines_repo_imp.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/logic/schedule_cubit.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/logic/schedule_state.dart';

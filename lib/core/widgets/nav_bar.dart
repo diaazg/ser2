@@ -1,8 +1,6 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
-import 'package:ser2/features/homePage/presentation/logic/doctorsEvent.dart';
 import 'package:ser2/features/homePage/presentation/views/home_page.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/views/mdecine_schedule.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_bloc.dart';

@@ -41,7 +41,8 @@ class AllDoctorsBloc extends Bloc<AllDoctorsEvent,AllDoctorsState>{
     specialiy = choosenSpecial ;
 
   }
-
+   
+    
 
 
 }

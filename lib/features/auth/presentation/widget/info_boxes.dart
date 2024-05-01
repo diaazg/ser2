@@ -91,10 +91,10 @@ class DropFillBox extends StatelessWidget {
                   items: listTypes == ListTypes.wilaya
                       ? bloc.wilayat
                           .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
                         }).toList()
                       : listTypes == ListTypes.commune? bloc.communes
                           .map<DropdownMenuItem<String>>((String value) {

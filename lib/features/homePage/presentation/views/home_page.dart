@@ -14,25 +14,38 @@ import 'package:ser2/features/homePage/presentation/logic/allDoctorsState.dart';
 import 'package:ser2/features/homePage/presentation/logic/doctorsEvent.dart';
 import 'package:ser2/features/homePage/presentation/widgets/nearbyDocWidget.dart';
 import 'package:ser2/features/homePage/presentation/widgets/special_card.dart';
+import 'package:ser2/features/profile/presentation/logic/userData/user_data_Event.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_bloc.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_state.dart';
 
 
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
 HomePage({super.key, required this.userDataBloc});
   final UserDataBloc userDataBloc;
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
-
-
+class _HomePageState extends State<HomePage> {
   @override
       
   List<String?> doctors = [];
+
   List<String> special = ["Urology", "Neurology", "Ophtalmology", "Cardiology"];
+
   List<String> pic = ["urology", "brain", "eye", "cardiogram"];
+
   List<Color> colors = [Colors.teal, Colors.pink, Colors.cyan, Colors.yellow];
+
   List<DoctorModel> nearbyDoctors = [];
+  @override
+  void initState() {
+    widget.userDataBloc.add(GetUserData(uid: widget.userDataBloc.uid));
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double baseWidth = 390;
@@ -47,72 +60,9 @@ HomePage({super.key, required this.userDataBloc});
           height: size.height * 1.3,
           child: Column(
             children: [
-              Container(
-                height: size.height * 0.1 * 0.7,
-                width: size.width * 0.8,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 5, bottom: 5, left: 20, right: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        height: size.height * 0.1 * 0.3,
-                        width: size.width * 0.5,
-                        child: SearchField(
-                          suggestions: doctors
-                              .map((e) => SearchFieldListItem(e!,
-                                  child: Container(
-                                    margin: EdgeInsets.all(10),
-                                    child: Text(e),
-                                  )))
-                              .toList(),
-                          suggestionState: Suggestion.expand,
-                          hint: 'homePage/search',
-                          searchStyle: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black.withOpacity(0.8),
-                          ),
-                          validator: (x) =>
-                              x!.isEmpty ? 'Please enter your commune' : null,
-                          searchInputDecoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: Kcolors.blueBackground,
-                              ),
-                              border: InputBorder.none,
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black)),
-                              hoverColor: Colors.black,
-                              fillColor: Colors.black,
-                              focusColor: Colors.black,
-                              isCollapsed: false),
-                          maxSuggestionsInViewPort: 2,
-                          itemHeight: 50,
-                          onSubmit: (x) {
-                           
-                          },
-                        ),
-                      ),
-                      Container(
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              color: Kcolors.blueBackground,
-                              borderRadius: BorderRadius.circular(200)),
-                          child: const Icon(
-                            Icons.filter_alt_outlined,
-                            color: Colors.white,
-                          ))
-                    ],
-                  ),
-                ),
-              ),
+             
               SizedBox(
-                height: size.height * 0.1 * 0.4,
+                height: size.height * 0.2 * 0.4,
               ),
               Center(
                 child: SizedBox(
@@ -319,7 +269,7 @@ HomePage({super.key, required this.userDataBloc});
                           MaterialPageRoute(
                               builder: (context) => AllDoctors(
                                 
-                                    bloc: allDoctorsBloc, uid: userDataBloc.uid,
+                                    bloc: allDoctorsBloc, uid: widget.userDataBloc.uid,
                                   )));
                     },
                     child: Row(
@@ -347,7 +297,7 @@ HomePage({super.key, required this.userDataBloc});
                 height: size.height * 0.1 * 0.2,
               ),
               BlocConsumer<UserDataBloc, UserDataState>(
-                  bloc: userDataBloc,
+                  bloc: widget.userDataBloc,
                   builder: (context, state1) {
                     if (state1 is UserDataGetSuccessfull) {
                       return BlocConsumer<NearbyDoctorsBloc,
