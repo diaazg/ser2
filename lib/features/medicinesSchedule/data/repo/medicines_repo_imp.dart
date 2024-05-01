@@ -31,7 +31,7 @@ class MedicineRepoImp extends MedicineRepoAbs {
       CollectionReference medicinesCollection =
           storeInstance.collection('users').doc(uid).collection('medicines');
 
-      QuerySnapshot querySnapshot = await medicinesCollection.get();
+      QuerySnapshot querySnapshot = await medicinesCollection.where('endDate',isGreaterThan: Timestamp.fromDate(DateTime.now())).get();
 
       //remember to add notification id ... beceause the actuel id is used for database
 
