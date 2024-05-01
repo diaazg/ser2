@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/core/widgets/error_widget.dart';
+import 'package:ser2/core/widgets/loading_widget.dart';
 import 'package:ser2/features/appointment/data/repos/appointment_imp.dart';
 import 'package:ser2/features/appointment/presentation/logic/my_appointements/my_apt_bloc.dart';
 import 'package:ser2/features/appointment/presentation/view/appointments_list.dart';
@@ -76,13 +78,9 @@ class ProfileDashboard extends StatelessWidget {
                       ),
                     );
                   } else if (state is UserDataGetFailure) {
-                    return Center(
-                      child: Text(state.failure.errMessage),
-                    );
+                    return Center(child: ErrorCaseWidget(errMessage: state.failure.errMessage, height: 200, width: 200));
                   } else {
-                    return const Center(
-                      child: Text('wait ....'),
-                    );
+                    return  const Center(child: LoadingWidget(size: 100));
                   }
                 },
                 listener: (BuildContext context, UserDataState state) {},

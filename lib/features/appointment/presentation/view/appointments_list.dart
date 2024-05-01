@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/core/widgets/loading_widget.dart';
 import 'package:ser2/features/appointment/data/models/my_rendu_vous.dart';
 import 'package:ser2/features/appointment/presentation/logic/my_appointements/my_apt_bloc.dart';
 import 'package:ser2/features/appointment/presentation/logic/my_appointements/my_apt_state.dart';
 import 'package:ser2/features/appointment/presentation/view/apt_doctor_profile.dart';
-import 'package:ser2/features/appointment/presentation/widget/error_widget.dart';
+import 'package:ser2/core/widgets/error_widget.dart';
 import 'package:ser2/features/appointment/presentation/widget/header.dart';
 import 'package:ser2/features/appointment/presentation/widget/rendu_vous_widget.dart';
 
@@ -42,13 +43,10 @@ class MyAppointment extends StatelessWidget {
                           );
                         });
                   } else if (state is MyAptFailure) {
-                    return ErrorCaseWidget(errMessage: state.failure.errMessage);
+                    return Center(child: ErrorCaseWidget(errMessage: state.failure.errMessage, height: 100, width: 200,));
                   } else {
-                    return Center(
-                        child: LoadingAnimationWidget.discreteCircle(
-                      size: 200,
-                      color: Colors.black,
-                    ));
+                    return const Center(child: LoadingWidget(size: 200,));
+                 
                   }
                 },
                 
@@ -60,5 +58,7 @@ class MyAppointment extends StatelessWidget {
     ));
   }
 }
+
+
 
 

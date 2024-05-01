@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ser2/core/widgets/error_widget.dart';
+import 'package:ser2/core/widgets/loading_widget.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsState.dart';
 import 'package:ser2/features/doctors/presentation/widgets/search_widget.dart';
@@ -65,9 +67,9 @@ class AllDoctors extends StatelessWidget {
                     return const Center(child: Text('No doctor'),);
                    }
                   }else if(state is DoctorSpecialFailure){
-                    return Center(child: Text(state.failure.errMessage),);
+                    return Center(child: ErrorCaseWidget(errMessage: state.failure.errMessage, height: 100, width: 100));
                   }else{
-                     return const Center(child: Text('wait ...'),);
+                     return const Center(child: LoadingWidget(size: 100));
                   }
                  })
                 

@@ -1,18 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/core/widgets/error_widget.dart';
+import 'package:ser2/core/widgets/loading_widget.dart';
+import 'package:ser2/features/medicinesSchedule/data/models/medicines_models.dart';
+import 'package:ser2/features/medicinesSchedule/data/repo/medicines_repo_imp.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/logic/schedule_cubit.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/logic/schedule_state.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/views/add_medicin.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/widgets/choosen_day.dart';
+import 'package:ser2/features/medicinesSchedule/presentation/widgets/medcin_card.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_bloc.dart';
 
+class MedicineSchedule extends StatefulWidget {
+  const MedicineSchedule({super.key, required this.userDataBloc});
 
-class MedicineSchedule extends StatelessWidget {
-  MedicineSchedule({super.key, required this.userDataBloc});
+  final UserDataBloc userDataBloc;
 
-  final ScheduleBloc _scheduleBloc = ScheduleBloc();
-  final UserDataBloc userDataBloc ;
+  @override
+  State<MedicineSchedule> createState() => _MedicineScheduleState();
+}
+
+class _MedicineScheduleState extends State<MedicineSchedule> {
+  late ScheduleBloc _scheduleBloc;
+
+  @override
+  void initState() {
+    String uid = widget.userDataBloc.uid;
+    MedicineRepoImp repo = MedicineRepoImp(uid: uid);
+    _scheduleBloc = ScheduleBloc(repo);
+    _scheduleBloc.chooseDay('Sat');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +56,6 @@ class MedicineSchedule extends StatelessWidget {
                         SizedBox(
                           height: size.height * 0.01,
                         ),
-                        
                         SizedBox(
                           height: size.height * 0.03,
                         ),
@@ -64,8 +83,9 @@ class MedicineSchedule extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            AddMedicin(uid: userDataBloc.uid,)));
+                                        builder: (context) => AddMedicin(
+                                              uid: widget.userDataBloc.uid,
+                                            )));
                               },
                               child: Container(
                                 height: 50,
@@ -162,7 +182,7 @@ class MedicineSchedule extends StatelessWidget {
                               size: size,
                               choosenDay: _scheduleBloc.choosenDay,
                               choose: () {
-                                _scheduleBloc.chooseDay('Sat');
+                                _scheduleBloc.chooseDay('Fri');
                               },
                               day: 'Fri',
                             ),
@@ -172,32 +192,31 @@ class MedicineSchedule extends StatelessWidget {
                   SizedBox(
                     height: size.height * 0.03,
                   ),
-                  /*  SizedBox(
-                    height: size.height * 0.3,
-                    width: size.width,
-                    child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: homeController.userMed.length,
-                        itemBuilder: (BuildContext context, int index) {
-/*                         String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-                        DateTime dt1 = DateTime.parse("$currentDate 00:00:00");
-                        DateTime dt2 = DateTime.parse("${homeController.userMed[index].fin} 00:00:00"); */
-
-                          return ((dt1.isBefore(dt2) ||
-                                      dt1.isAtSameMomentAs(dt2)) &&
-                                  (homeController.userMed[index].medicinesDays
-                                      .contains(days[chooseNbr - 1])))
-                              ? medicineCard(
-                                  size: size,
-                                  name: homeController.userMed[index].name,
-                                  time: homeController
-                                      .userMed[index].medicinesTimes,
-                                  dose: homeController.userMed[index].dose,
-                                  type: homeController.userMed[index].type,
-                                )
-                              : null;
+                  Expanded(
+                    child: BlocBuilder<ScheduleBloc, ScheduleState>(
+                        bloc: _scheduleBloc,
+                        builder: (context, state) {
+                          if (state is ScheduleSuccessState) {
+                            return ListView.builder(
+                                itemCount: state.medicinesList.length,
+                                itemBuilder: (context, index) {
+                                  return MedicineCard(
+                                      size: size,
+                                      name:
+                                          state.medicinesList[index].medicineName,
+                                      time: state.medicinesList[index].doses,
+                                      dose: state.medicinesList[index].doseSize
+                                          .toString(),
+                                      type: state.medicinesList[index].type);
+                                });
+                          } else if (state is ScheduleFailureState) {
+                            return ErrorCaseWidget(
+                                errMessage: state.failure.errMessage, height: 100, width: 100);
+                          } else {
+                            return const LoadingWidget(size: 100);
+                          }
                         }),
-                  ), */
+                  )
                 ],
               ),
             )
@@ -207,3 +226,4 @@ class MedicineSchedule extends StatelessWidget {
     ));
   }
 }
+

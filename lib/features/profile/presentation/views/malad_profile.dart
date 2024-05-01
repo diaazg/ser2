@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/core/utiles/error_hnadler.dart';
+import 'package:ser2/core/widgets/error_widget.dart';
+import 'package:ser2/core/widgets/loading_widget.dart';
 import 'package:ser2/core/widgets/return_button.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_Event.dart';
 import 'package:ser2/features/profile/presentation/logic/userData/user_data_bloc.dart';
@@ -205,15 +207,11 @@ class _MaladProfileState extends State<MaladProfile> {
             return SafeArea(
                 child: Scaffold(
                     backgroundColor: const Color(0xFFEAEBEC),
-                    body: Center(
-                      child: Text(state.failure.errMessage),
-                    )));
+                    body: ErrorCaseWidget(errMessage: state.failure.errMessage, height: 200, width: 200)));
           } else {
             return const Scaffold(
                 backgroundColor: Color(0xFFEAEBEC),
-                body: Center(
-                  child: Text('wait .....'),
-                ));
+                body: LoadingWidget(size: 100));
           }
         },
       ),

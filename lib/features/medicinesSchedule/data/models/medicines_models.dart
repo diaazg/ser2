@@ -21,15 +21,15 @@ class MedicineModel {
       required this.doseSize,
       required this.doses});
 
-  factory MedicineModel.fromJson(Map<String, dynamic> json) => MedicineModel(
-    id:json['id'],
+  factory MedicineModel.fromJson(Map<String, dynamic> json,id) => MedicineModel(
+    id:id,
       medicineName: json['medicineName'],
-      startDate: json['startTime'],
-      endDate: json['endTime'],
-      days: json['days'],
+      startDate: (json['startDate'] as Timestamp).toDate(),
+      endDate:  (json['endDate'] as Timestamp).toDate(),
+      days:  (json['days'] as List<dynamic>).map((day) => day.toString()).toList(),
       type: json['type'],
-      doseSize: json[' doseSize'],
-      doses: json['doses']);
+      doseSize: json['doseSize'] as double,
+      doses: (json['doses'] as List<dynamic>).map((dose) => dose.toString()).toList());
 
 
   Map<String,dynamic>toJson()=>{

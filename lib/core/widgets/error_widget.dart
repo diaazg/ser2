@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class ErrorCaseWidget extends StatelessWidget {
   const ErrorCaseWidget({
-    super.key, required this.errMessage,
+    super.key, required this.errMessage, required this.height, required this.width,
   });
 
   final String errMessage ;
+  final double height ;
+  final double width ;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +17,8 @@ class ErrorCaseWidget extends StatelessWidget {
         children: [
           Image.asset(
             'images/error.png',
-            height: 200,
-            width: 100,
+            height: height,
+            width: width,
           ),
           Text(errMessage)
         ],

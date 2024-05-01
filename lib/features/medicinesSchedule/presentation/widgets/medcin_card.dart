@@ -53,29 +53,12 @@ class MedicineCard extends StatelessWidget {
               ],
             ),
             Column(
-              children: [
-                time[0].toString() != 'null'
-                    ? Text(
-                        time[0].toString(),
-                        style:
-                            Kcolors.fontMain.copyWith(color: Colors.black),
-                      )
-                    : const Text(""),
-                time[1].toString() != 'null'
-                    ? Text(
-                        time[1].toString(),
-                        style:
-                            Kcolors.fontMain.copyWith(color: Colors.black),
-                      )
-                    : const Text(""),
-                time[2].toString() != 'null'
-                    ? Text(
-                        time[2].toString(),
-                        style:
-                            Kcolors.fontMain.copyWith(color: Colors.black),
-                      )
-                    :const Text(""),
-              ],
+              children: time
+                  .map((e) => Text(
+                        e.toString(),
+                        style: Kcolors.fontMain.copyWith(color: Colors.black),
+                      ))
+                  .toList(),
             )
           ],
         ),

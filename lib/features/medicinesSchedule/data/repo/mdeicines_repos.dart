@@ -6,6 +6,6 @@ abstract class MedicineRepoAbs {
   
   
   Future<Either<Failure,String>>  addMedicine(MedicineModel medicineModel);
-  Future<Either<Failure,MedicineModel>> fetchMedicines();
+  Future<Either<Failure,List<MedicineModel>>> fetchMedicines();
   
 }

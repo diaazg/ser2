@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/core/widgets/error_widget.dart';
+import 'package:ser2/core/widgets/loading_widget.dart';
 
 import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
@@ -371,24 +373,16 @@ HomePage({super.key, required this.userDataBloc});
                                   }),
                             );
                           } else if (state is DoctorNearbyFailure) {
-                            return Center(
-                              child: Text(state.failure.errMessage),
-                            );
+                            return Center(child: ErrorCaseWidget(errMessage: state.failure.errMessage, height: 100, width: 100));
                           } else {
-                            return const Center(
-                              child: Text('Wait ..............'),
-                            );
+                            return const Center(child:  LoadingWidget(size: 100));
                           }
                         },
                       );
                     } else if (state1 is UserDataGetFailure) {
-                      return Center(
-                        child: Text(state1.failure.errMessage),
-                      );
+                      return Center(child: ErrorCaseWidget(errMessage: state1.failure.errMessage, height: 100, width: 100));
                     } else {
-                      return const Center(
-                        child: Text('wait ...'),
-                      );
+                      return  const Center(child: LoadingWidget(size: 100));
                     }
                   },
                   listener: (BuildContext context, UserDataState state1) {
@@ -397,8 +391,6 @@ HomePage({super.key, required this.userDataBloc});
                      context.read<NearbyDoctorsBloc>().add(
                           GetNearbyDoctorsEvent(
                               wilaya: state1.userModelInfo.city));
-                    }else{
-                      print('ddddddddddddddddddddddddddddd');
                     }
                   })
             ],

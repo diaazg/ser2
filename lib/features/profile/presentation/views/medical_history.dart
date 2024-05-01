@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/core/widgets/error_widget.dart';
+import 'package:ser2/core/widgets/loading_widget.dart';
 import 'package:ser2/features/profile/presentation/logic/medicalHistory/medical_history_bloc.dart';
 import 'package:ser2/features/profile/presentation/logic/medicalHistory/medical_history_state.dart';
 import 'package:ser2/features/profile/presentation/widgets/history_type.dart';
@@ -84,9 +86,9 @@ class MedicalHistory extends StatelessWidget {
                                       
                                 });
                            }else if(state is MedicalHistoryFailure){
-                            return Center(child: Text(state.failure.errMessage),);
+                            return Center(child: ErrorCaseWidget(errMessage: state.failure.errMessage, height: 100, width: 100));
                            }else{
-                            return const Center(child: Text('wait.....'),);
+                            return const Center(child: LoadingWidget(size: 100));
                            }
                           }
                         ),

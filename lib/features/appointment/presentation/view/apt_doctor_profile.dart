@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:ser2/core/utiles/constants.dart';
-import 'package:ser2/features/appointment/presentation/widget/error_widget.dart';
+import 'package:ser2/core/widgets/error_widget.dart';
+import 'package:ser2/core/widgets/loading_widget.dart';
 
 class DoctorAptProfile extends StatelessWidget {
   const DoctorAptProfile({super.key, required this.docId});
@@ -20,7 +21,7 @@ class DoctorAptProfile extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
-          return const ErrorCaseWidget(errMessage: 'There is a problem');
+          return const ErrorCaseWidget(errMessage: 'There is a problem', height: 100, width: 200,);
         } else if (snapshot.hasData) {
            Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
           return SafeArea(
@@ -142,11 +143,7 @@ class DoctorAptProfile extends StatelessWidget {
             ),
           ));
         }else{
-          return Center(
-                        child: LoadingAnimationWidget.discreteCircle(
-                      size: 200,
-                      color: Colors.black,
-                    ));
+          return const Center(child: LoadingWidget(size: 200));
         }
       },
     );
