@@ -1,28 +1,28 @@
   import 'package:flutter/material.dart';
 
 SnackBar daysErrSnack = const SnackBar(
-    content: Text('Choose day'),
+    content: Text('Choisir le jour'),
     backgroundColor: Colors.red,
     elevation: 10,
     behavior: SnackBarBehavior.floating,
     margin: EdgeInsets.all(5),
   );
   SnackBar setErr = const SnackBar(
-    content: Text('There is something wrong , try again'),
+    content: Text('Il y a un problem, réessayez'),
     backgroundColor: Colors.red,
     elevation: 10,
     behavior: SnackBarBehavior.floating,
     margin: EdgeInsets.all(5),
   );
   SnackBar successSnack = const SnackBar(
-    content: Text('Medicin added'),
+    content: Text('Médicament ajouté'),
     backgroundColor: Colors.green,
     elevation: 10,
     behavior: SnackBarBehavior.floating,
     margin: EdgeInsets.all(5),
   );
   SnackBar doseSnack = const SnackBar(
-    content: Text('Add at least one dose'),
+    content: Text('Ajoutez au moins une dose'),
     backgroundColor: Colors.red,
     elevation: 10,
     behavior: SnackBarBehavior.floating,
@@ -30,7 +30,7 @@ SnackBar daysErrSnack = const SnackBar(
   );
 
   SnackBar filterValsSnack = const SnackBar(
-    content: Text('enter values to filter choosen'),
+    content: Text('Saisir les valeurs à filtrer choisies'),
     backgroundColor: Colors.red,
     elevation: 10,
     behavior: SnackBarBehavior.floating,
@@ -38,7 +38,7 @@ SnackBar daysErrSnack = const SnackBar(
   );
 
    SnackBar filterChoose = const SnackBar(
-    content: Text('Choose at least filter option'),
+    content: Text('Choisissez au moins l\'option de filtre'),
     backgroundColor: Colors.red,
     elevation: 10,
     behavior: SnackBarBehavior.floating,
@@ -46,7 +46,25 @@ SnackBar daysErrSnack = const SnackBar(
   ); 
 
      SnackBar chooseWilayaErr = const SnackBar(
-    content: Text('Choose wilaya of communes'),
+    content: Text('Choisir la wilaya des communes'),
+    backgroundColor: Colors.red,
+    elevation: 10,
+    behavior: SnackBarBehavior.floating,
+    margin: EdgeInsets.all(5),
+  );
+
+
+    SnackBar emailSend= const SnackBar(
+    content: Text('Verifier votre boit email'),
+    backgroundColor: Colors.green,
+    elevation: 10,
+    behavior: SnackBarBehavior.floating,
+    margin: EdgeInsets.all(5),
+  );
+
+
+       SnackBar errDate = const SnackBar(
+    content: Text('Entrer date de naissance'),
     backgroundColor: Colors.red,
     elevation: 10,
     behavior: SnackBarBehavior.floating,

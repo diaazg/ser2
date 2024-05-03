@@ -27,7 +27,31 @@ class LoginButton extends StatelessWidget {
     return BlocConsumer<AuthBloc,AuthState>(
        listener: (BuildContext context, AuthState state) { 
         if (state is LoginSucces) {
+          
+                 int count = 0;
+          Navigator.popUntil(context, (route) {
+            return count++ == 2;
+          });
+        }else if (state is LoginLoading) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Kcolors.blueBackground,
+                  ),
+                );
+              });
+        } else if (state is LoginFailure) {
           Navigator.pop(context);
+          SnackBar failureSnack = SnackBar(
+            content: Text(state.failure.errMessage),
+            backgroundColor: Colors.red,
+            elevation: 10,
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(5),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(failureSnack);
         }
         },
       builder: (context,state) {
@@ -48,14 +72,15 @@ class LoginButton extends StatelessWidget {
                       
                     
                   
-                    /* Navigator.push(context, MaterialPageRoute(builder: (context)=>const NavBar())); */
-                  } else {}
+                    
+                  } 
                 });
               },
-              child: Text('Log_in',
+              child: Text('Connecter',
                   style: Kcolors.fontMain
                       .copyWith(color: Colors.white, fontWeight: FontWeight.w900))),
         );
+     
       },
     );
   }

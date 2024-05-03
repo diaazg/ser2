@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/core/utiles/snacks.dart';
 import 'package:ser2/features/auth/data/models/user_model.dart';
 import 'package:ser2/features/auth/presentation/logic/auth_bloc/auth_bloc.dart';
 import 'package:ser2/features/auth/presentation/logic/auth_bloc/auth_event.dart';
@@ -47,8 +48,28 @@ class _InfoPageState extends State<InfoPage> {
         if (state is RegisterSuccess) {
           int count = 0;
           Navigator.popUntil(context, (route) {
-            return count++ == 3;
+            return count++ == 4;
           });
+        } else if (state is RegisterLoading) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Kcolors.blueBackground,
+                  ),
+                );
+              });
+        } else if (state is RegisterFailure) {
+          Navigator.pop(context);
+          SnackBar failureSnack = SnackBar(
+            content: Text(state.failure.errMessage),
+            backgroundColor: Colors.red,
+            elevation: 10,
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(5),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(failureSnack);
         }
       },
       builder: (context, state) {
@@ -86,26 +107,28 @@ class _InfoPageState extends State<InfoPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              TitleWidget(size: size, title: 'Full Name'),
+                              TitleWidget(size: size, title: 'Nom et prenom'),
                               InfoBox(
                                   size: size,
                                   bloc: fullNameBox,
-                                  errMessage: 'Enter your name',
-                                  hintText: 'Full name',
+                                  errMessage: 'Entrer votre nom',
+                                  hintText: 'Nom et prenom',
                                   height: 0.07,
                                   width: 0.9),
                               SizedBox(
                                 height: size.height * 0.02,
                               ),
-                              TitleWidget(size: size, title: 'Date of birth'),
+                              TitleWidget(
+                                  size: size, title: 'Date de naissance'),
                               GestureDetector(
                                 onTap: () {
                                   showDatePicker(
-                                      context: context,
-                                      firstDate:DateTime(1920),
-                                      lastDate: DateTime.now()).then((value) {
-                                            dateBox.setDateOfBirth(value!);
-                                          });
+                                          context: context,
+                                          firstDate: DateTime(1920),
+                                          lastDate: DateTime.now())
+                                      .then((value) {
+                                    dateBox.setDateOfBirth(value!);
+                                  });
                                 },
                                 child: DateBox(
                                     size: size,
@@ -124,12 +147,12 @@ class _InfoPageState extends State<InfoPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      TitleWidget(size: size, title: 'Weight'),
+                                      TitleWidget(size: size, title: 'Poid'),
                                       InfoBox(
                                           size: size,
                                           bloc: poidBox,
-                                          errMessage: 'fill the gape',
-                                          hintText: 'Weight',
+                                          errMessage: 'Combler',
+                                          hintText: 'Poid',
                                           height: 0.07,
                                           width: 0.4),
                                     ],
@@ -138,12 +161,12 @@ class _InfoPageState extends State<InfoPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      TitleWidget(size: size, title: 'Height'),
+                                      TitleWidget(size: size, title: 'Hauteur'),
                                       InfoBox(
                                           size: size,
                                           bloc: longBox,
-                                          errMessage: 'Enter your height',
-                                          hintText: 'Height',
+                                          errMessage: 'Combler',
+                                          hintText: 'Hauteur',
                                           height: 0.07,
                                           width: 0.4)
                                     ],
@@ -153,42 +176,37 @@ class _InfoPageState extends State<InfoPage> {
                               SizedBox(
                                 height: size.height * 0.03,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TitleWidget(size: size, title: 'Wilaya'),
-                                      DropFillBox(
-                                        size: size,
-                                        bloc: widget.townBox,
-                                        errMessage: 'Enter your wilaya',
-                                        hintText: 'Wilaya',
-                                        height: 0.07,
-                                        width: 0.43,
-                                        listTypes: ListTypes.wilaya,
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TitleWidget(size: size, title: 'Commune'),
-                                      DropFillBox(
-                                        size: size,
-                                        bloc: widget.townBox,
-                                        errMessage: 'Enter your commune',
-                                        hintText: 'Commune',
-                                        height: 0.07,
-                                        width: 0.43,
-                                        listTypes: ListTypes.commune,
-                                      )
-                                    ],
-                                  ),
+                                  TitleWidget(size: size, title: 'Commune'),
+                                  DropFillBox(
+                                    size: size,
+                                    bloc: widget.townBox,
+                                    errMessage: 'Entrer votre commune',
+                                    hintText: 'Commune',
+                                    height: 0.07,
+                                    width: 0.8,
+                                    listTypes: ListTypes.commune,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height * 0.03,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TitleWidget(size: size, title: 'Wilaya'),
+                                  DropFillBox(
+                                    size: size,
+                                    bloc: widget.townBox,
+                                    errMessage: 'Entrer votre wilaya',
+                                    hintText: 'Wilaya',
+                                    height: 0.07,
+                                    width: 0.8,
+                                    listTypes: ListTypes.wilaya,
+                                  )
                                 ],
                               ),
                               SizedBox(
@@ -202,14 +220,14 @@ class _InfoPageState extends State<InfoPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      TitleWidget(size: size, title: 'Gender'),
+                                      TitleWidget(size: size, title: 'Sexe'),
                                       DropFillBox(
                                         size: size,
                                         bloc: gender,
-                                        errMessage: 'choose your gender',
-                                        hintText: 'Gender',
+                                        errMessage: 'Choisissez votre sexe',
+                                        hintText: 'Sexe',
                                         height: 0.07,
-                                        width: 0.43,
+                                        width: 0.35,
                                         listTypes: ListTypes.gender,
                                       )
                                     ],
@@ -218,14 +236,14 @@ class _InfoPageState extends State<InfoPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      TitleWidget(size: size, title: 'Blood'),
+                                      TitleWidget(size: size, title: 'Sang'),
                                       DropFillBox(
                                         size: size,
                                         bloc: bloodCategory,
-                                        errMessage: 'choose your blood',
-                                        hintText: 'Blood',
+                                        errMessage: 'Choisis ton sang',
+                                        hintText: 'Sang',
                                         height: 0.07,
-                                        width: 0.43,
+                                        width: 0.35,
                                         listTypes: ListTypes.blood,
                                       )
                                     ],
@@ -239,7 +257,7 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   AppoButton(
                       size: size,
-                      title: 'Save',
+                      title: 'Inscrir',
                       color: const Color(0xFF496CCE),
                       fontColor: Colors.white,
                       buttonFunc: () {
@@ -253,7 +271,8 @@ class _InfoPageState extends State<InfoPage> {
                         widget.townBox.validateCommune();
                         Future.delayed(const Duration(milliseconds: 200),
                             () async {
-                          if (_formkey.currentState!.validate() && dateBox.validateDate()) {
+                          if (_formkey.currentState!.validate() &&
+                              dateBox.validateDate()) {
                             UserModelInfo userModel = UserModelInfo(
                                 fullName: fullNameBox.input!,
                                 dateOfBirth: dateBox.dateOfBirth!,
@@ -270,7 +289,9 @@ class _InfoPageState extends State<InfoPage> {
                             context
                                 .read<AuthBloc>()
                                 .add(RegisterEvent(userModelReg: userModel));
-                          } else {}
+                          } else if (!dateBox.validateDate()) {
+                            ScaffoldMessenger.of(context).showSnackBar(errDate);
+                          }
                         });
                       })
                 ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/features/auth/presentation/views/forget_Page.dart';
 import 'package:ser2/features/auth/presentation/views/register_page.dart';
 import 'package:ser2/features/auth/presentation/widget/auth_boxes.dart';
 import 'package:ser2/features/auth/presentation/widget/loginButton.dart';
@@ -14,6 +15,7 @@ class LoginPage extends StatelessWidget {
   final BoxBloc emailBox = BoxBloc();
   final BoxBloc passwordBox = BoxBloc();
 
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -24,18 +26,18 @@ class LoginPage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: size.height * 0.2,
+              height: size.height * 0.18,
               width: size.width,
               child: Center(
                 child: Text(
-                  'welcome',
+                  'Bienvenue',
                   style:
                       GoogleFonts.pacifico(color: Colors.white, fontSize: 40),
                 ),
               ),
             ),
             Container(
-              height: size.height * 0.8,
+              height: size.height * 0.82,
               width: size.width,
               decoration: const BoxDecoration(
                   color: Colors.white,
@@ -44,7 +46,7 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Center(
                       child: Image.asset("images/logIn/1blue.png"),
                     ),
@@ -60,16 +62,16 @@ class LoginPage extends StatelessWidget {
                             size: size,
                             hintText: 'Email',
                             bloc: emailBox,
-                            errMessage: 'Enter your email',
+                            errMessage: 'Entrer votre email',
                             icon: Icons.email,
                             isObscure: false,
                           ),
                           SizedBox(height: size.height * 0.8 * 0.1),
                           AuthBox(
                             size: size,
-                            hintText: 'Password',
+                            hintText: 'Mot de pass',
                             bloc: passwordBox,
-                            errMessage: 'Enter your password',
+                            errMessage: 'Entrer votre mot de pass',
                             icon: Icons.password,
                             isObscure: true,
                           ),
@@ -79,11 +81,17 @@ class LoginPage extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                             
-                                Text(
-                                  "Forget password? ",
-                                  style: Kcolors.fontMain.copyWith(
-                                      color: Colors.redAccent, fontSize: 15),
+                                GestureDetector(
+                                  onTap: () {
+                                    
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgetPassword()));
+                                   
+                                  },
+                                  child: Text(
+                                    "Mot de passe oublié?",
+                                    style: Kcolors.fontMain.copyWith(
+                                        color: Colors.redAccent, fontSize: 15),
+                                  ),
                                 ),
                               ],
                             ),
@@ -109,7 +117,7 @@ class LoginPage extends StatelessWidget {
                                                 builder: (context) =>
                                                     RegisterPage()));
                                       },
-                                      child: Text('sign up',
+                                      child: Text('Inscrire',
                                           style: Kcolors.fontMain.copyWith(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w900))),
@@ -135,4 +143,6 @@ class LoginPage extends StatelessWidget {
       ),
     ));
   }
+
 }
+

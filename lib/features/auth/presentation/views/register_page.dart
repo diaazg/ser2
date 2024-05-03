@@ -32,7 +32,7 @@ class RegisterPage extends StatelessWidget {
               width: size.width,
               child: Center(
                 child: Text(
-                  "Be part of sa7ti ",
+                  "Faites partie de sa7ti",
                   style:
                       GoogleFonts.pacifico(color: Colors.white, fontSize: 40),
                 ),
@@ -61,9 +61,9 @@ class RegisterPage extends StatelessWidget {
                         children: [
                           AuthBox(
                             size: size,
-                            hintText: 'User name',
+                            hintText: 'Nom d\'utilisateur',
                             bloc: userNameBloc,
-                            errMessage: 'Enter user name',
+                            errMessage: 'Entrer nom utilisateur',
                             icon: Icons.person_2_outlined,
                             isObscure: false,
                           ),
@@ -72,7 +72,7 @@ class RegisterPage extends StatelessWidget {
                             size: size,
                             hintText: 'Email',
                             bloc: emailBloc,
-                            errMessage: 'Enter an email',
+                            errMessage: 'Entrer votre email',
                             icon: Icons.email,
                             isObscure: false,
                           ),
@@ -81,16 +81,16 @@ class RegisterPage extends StatelessWidget {
                             size: size,
                             hintText: 'Password',
                             bloc: passwordBloc,
-                            errMessage: 'Enter password',
+                            errMessage: 'Entrer mot de pass',
                             icon: Icons.password,
                             isObscure: true,
                           ),
                           SizedBox(height: size.height * 0.8 * 0.01),
                           AuthBox(
                               size: size,
-                              hintText: 'validate password',
+                              hintText: 'valider le mot de passe',
                               bloc: checkPasswordBloc,
-                              errMessage: 'Enter validate password', icon: Icons.password, isObscure: true,),
+                              errMessage: 'Entrer mot de pass valid', icon: Icons.password, isObscure: true,),
                           SizedBox(height: size.height * 0.8 * 0.08),
                           RegisterButton(
                               size: size,

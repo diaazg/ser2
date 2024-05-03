@@ -54,7 +54,7 @@ class RegisterButton extends StatelessWidget {
               }
             });
           },
-          child: Text('Register',
+          child: Text('Continue',
               style: Kcolors.fontMain
                   .copyWith(color: Colors.white, fontWeight: FontWeight.w900))),
     );
