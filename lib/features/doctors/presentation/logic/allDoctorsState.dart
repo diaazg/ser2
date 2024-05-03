@@ -25,3 +25,5 @@ class DoctorSpecialFailure extends AllDoctorsState  {
   DoctorSpecialFailure ({required this.failure});
 }
 
+
+

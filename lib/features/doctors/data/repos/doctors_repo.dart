@@ -7,6 +7,8 @@ abstract class DoctorsRepoAbs {
   Future<Either<Failure,List<DoctorModel>>> getNearbyDoctors(String wilaya);
 
   Future<Either<Failure,List<DoctorModel>>> getDoctorsBySpecial(String special);
+
+  Future<Either<Failure,List<DoctorModel>>> doctorsFilter(String special,Map<String,String>filter);
   
   
 

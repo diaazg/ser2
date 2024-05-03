@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ser2/core/utiles/constants.dart';
 
 class FilterOption extends StatelessWidget {
   const FilterOption({
     super.key,
     required this.size,
-    required this.title,
+    required this.title, this.onChanged, required this.options,
   });
 
   final Size size;
   final String title;
+  final  void Function(String?)? onChanged;
+  final List<String> options ;
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +34,14 @@ class FilterOption extends StatelessWidget {
           child: DropdownButtonFormField(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             items:
-                ['alg', 'setif'].map<DropdownMenuItem<String>>((String value) {
+               options.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Text(value),
               );
             }).toList(),
-            onChanged: (value) {
-              print(value);
-            },
+            onChanged: onChanged,
+          
             decoration: InputDecoration(
                 hintStyle: Kcolors.fontMain
                     .copyWith(color: Colors.black, fontSize: 15),

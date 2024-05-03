@@ -20,7 +20,16 @@ class AllDoctorsBloc extends Bloc<AllDoctorsEvent,AllDoctorsState>{
                 emit(DoctorSpecialSuccess(doctors: success));
                } );
     },);
+    on<FilterSearchEvent>((event, emit)async{
+      emit(SpecialLoading());
+      var response = await doctorsRepo.doctorsFilter(specialiy, event.filter);
+        response.fold((failure){
+                emit(DoctorSpecialFailure(failure: failure));
+               }, (success){
 
+                emit(DoctorSpecialSuccess(doctors: success));
+               } );
+    });
   }
 
     List<String> special = [
@@ -36,6 +45,9 @@ class AllDoctorsBloc extends Bloc<AllDoctorsEvent,AllDoctorsState>{
   ];
 
   String specialiy = "Urology";
+
+
+  
 
   void setSpecial(String choosenSpecial){
     specialiy = choosenSpecial ;

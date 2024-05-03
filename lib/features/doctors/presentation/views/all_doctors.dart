@@ -29,7 +29,7 @@ class AllDoctors extends StatelessWidget {
             builder: (context, state) {
               return Column(
                 children: [
-                  SerarchWidget(size: size),
+                  SerarchWidget(size: size,bloc: bloc,),
                   SizedBox(
                     height: size.height * 0.05,
                   ),

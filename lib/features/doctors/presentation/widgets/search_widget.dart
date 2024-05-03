@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:ser2/core/utiles/constants.dart';
-import 'package:ser2/features/doctors/presentation/widgets/accorder_button.dart';
-import 'package:ser2/features/doctors/presentation/widgets/filter_option_card.dart';
+import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
+import 'package:ser2/features/doctors/presentation/logic/filter_bloc/filter_bloc.dart';
+import 'package:ser2/features/doctors/presentation/logic/filter_bloc/filter_event.dart';
+import 'package:ser2/features/doctors/presentation/widgets/show_bottom_sheet.dart';
 
 class SerarchWidget extends StatelessWidget {
   const SerarchWidget({
     super.key,
-    required this.size,
+    required this.size, required this.bloc,
   });
 
   final Size size;
+  final AllDoctorsBloc bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -68,62 +71,9 @@ class SerarchWidget extends StatelessWidget {
             ), */
               GestureDetector(
                 onTap: () {
-                  showBottomSheet(
-                      context: context,
-                      builder: ((context) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          decoration: const BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 60,
-                                    color: Colors.black54,
-                                    spreadRadius: 45)
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20))),
-                          height: size.height * 0.8,
-                          width: double.infinity,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Filter',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: size.height * 0.8 * 0.06,
-                              ),
-                              FilterOption(
-                                size: size,
-                                title: 'Wilaya',
-                              ),
-                              SizedBox(
-                                height: size.height * 0.8 * 0.06,
-                              ),
-                              FilterOption(
-                                size: size,
-                                title: 'Commune',
-                              ),
-                              SizedBox(
-                                height: size.height * 0.8 * 0.06,
-                              ),
-                              FilterOption(size: size, title: 'Sexe'),
-                              SizedBox(
-                                height: size.height * 0.8 * 0.06,
-                              ),
-                              const Center(
-                                child: Accorder(),
-                              )
-                            ],
-                          ),
-                        );
-                      }));
+                  FilterBloc filterBloc = FilterBloc();
+                  filterBloc.add(InitWilayaList());
+                  bottomSheet(context,size,filterBloc,bloc);
                 },
                 child: Container(
                     height: 50,
@@ -142,6 +92,7 @@ class SerarchWidget extends StatelessWidget {
       ),
     );
   }
+
 }
 
 

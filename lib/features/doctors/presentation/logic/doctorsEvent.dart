@@ -14,3 +14,10 @@ class GetDoctorsBySpecialEvent extends AllDoctorsEvent {
 
   GetDoctorsBySpecialEvent({required this.special});
 }
+
+class FilterSearchEvent extends AllDoctorsEvent {
+  final Map<String,String> filter;
+
+  FilterSearchEvent({required this.filter});
+}
+
