@@ -52,10 +52,14 @@ dependencies:
   timezone: ^0.9.3
   loading_animation_widget: ^1.2.1
   pull_to_refresh_flutter3: ^2.0.2
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+flutter_icons:
+  android: true
+  image_path: "images/logo.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

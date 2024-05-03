@@ -9,90 +9,88 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     final controller = PageController();
     final splashBloc = SplashScreenCubit(controller);
     Size size = MediaQuery.of(context).size;
-    return  Scaffold(
-      body: BlocConsumer<SplashScreenCubit,SplashState>(
+    return Scaffold(
+      body: BlocConsumer<SplashScreenCubit, SplashState>(
         bloc: splashBloc,
-        builder: (context,state) {
-          return  Column(
+        builder: (context, state) {
+          return Column(
             children: [
               SizedBox(
                 height: 650,
-                child:PageView(
-                onPageChanged: (index) {
-                splashBloc.pictureChange(index);
-              },
-              controller: splashBloc.controller,
-              children: [
-                 SplashPageElement(
-                  size: size,
-                  img: 1,
-                  title: 'first_title',
-                  description:
-                  'first_sub',
+                child: PageView(
+                  onPageChanged: (index) {
+                    splashBloc.pictureChange(index);
+                  },
+                  controller: splashBloc.controller,
+                  children: [
+                    SplashPageElement(
+                      size: size,
+                      img: 1,
+                      title: 'Bienvenue sur sa7ti!',
+                      description:
+                          'Nous sommes heureux de vous aider à vous sentir mieux en prenant entièrement soin du traitement et du processus de réservation',
+                    ),
+                    SplashPageElement(
+                        size: size,
+                        img: 2,
+                        title: 'Les meilleurs spécialistes !',
+                        description: 'Traitement par le meilleur spécialiste du monde'),
+                    SplashPageElement(
+                      size: size,
+                      img: 3,
+                      title: 'Commencer!',
+                      description: 'Rendre le processus de guérison plus facile et plus rapide',
+                    ),
+                  ],
                 ),
-                SplashPageElement(
-                    size: size,
-                    img: 2,
-                    title: 'second_title',
-                    description: 'second_sub'),
-                SplashPageElement(
-                  size: size,
-                  img: 3,
-                  title: 'third_title',
-                  description: 'third_sub',
-                ),
-
-              ],
-                ),
-
               ),
-            const SizedBox(
-            height: 20,
-          ),
-          
-          SmoothPageIndicator(
-            controller: splashBloc.controller,
-            count: 3,
-            effect:const ExpandingDotsEffect(
-                dotColor: Color(0xFF6694F6), activeDotColor: Color(0xFF6694F6)),
-            onDotClicked: (index) {
-              splashBloc.smoothChange(index);
-            },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ElevatedButton(
-            onPressed: () {
-               splashBloc.controller.nextPage(
+              const SizedBox(
+                height: 20,
+              ),
+              SmoothPageIndicator(
+                controller: splashBloc.controller,
+                count: 3,
+                effect: const ExpandingDotsEffect(
+                    dotColor: Color(0xFF6694F6),
+                    activeDotColor: Color(0xFF6694F6)),
+                onDotClicked: (index) {
+                  splashBloc.smoothChange(index);
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  splashBloc.controller.nextPage(
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.ease);
-                      if(splashBloc.buttonText=='Get started'){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage()));
-                      }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Kcolors.blueBackground,
-                minimumSize: const Size(300, 70),
-                
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25))),
-            child: Text(
-              splashBloc.buttonText,
-              style:  Kcolors.fontMain
-                  .copyWith(color: Colors.white, fontWeight: FontWeight.normal),
-            ),
-          )
-        
+                  if (splashBloc.buttonText == 'Commencer') {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Kcolors.blueBackground,
+                    minimumSize: const Size(300, 70),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25))),
+                child: Text(
+                  splashBloc.buttonText,
+                  style: Kcolors.fontMain.copyWith(
+                      color: Colors.white, fontWeight: FontWeight.normal),
+                ),
+              )
             ],
           );
-        }, listener: (BuildContext context, SplashState state) {  },
+        },
+        listener: (BuildContext context, SplashState state) {},
       ),
     );
   }

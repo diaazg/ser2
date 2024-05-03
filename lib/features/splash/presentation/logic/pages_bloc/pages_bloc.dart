@@ -8,14 +8,14 @@ class SplashScreenCubit extends Cubit<SplashState>{
   final PageController controller ;
 
   bool isLastPage = false;
-  String buttonText = 'Next' ;
+  String buttonText = 'Suivante' ;
   void pictureChange(int index){
      
      isLastPage = index == 2;   
      if(isLastPage){
-      buttonText = 'Get started' ; 
+      buttonText = 'Commencer' ; 
      } else {
-      buttonText = 'Next' ;
+      buttonText = 'Suivante' ;
      }     
      emit(InitSplash()) ; 
   }
@@ -28,9 +28,9 @@ class SplashScreenCubit extends Cubit<SplashState>{
     );
      isLastPage = index == 2;   
      if(isLastPage){
-      buttonText = 'Get started' ; 
+      buttonText = 'Commencer' ; 
      } else {
-      buttonText = 'Next' ;
+      buttonText = 'Suivante' ;
      }     
      emit(InitSplash()) ; 
 
