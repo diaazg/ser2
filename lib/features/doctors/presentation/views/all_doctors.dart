@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/widgets/error_widget.dart';
 import 'package:ser2/core/widgets/loading_widget.dart';
+import 'package:ser2/features/doctors/data/models/doctor_Model.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsState.dart';
 import 'package:ser2/features/doctors/presentation/widgets/search_widget.dart';
@@ -9,13 +10,13 @@ import 'package:ser2/features/doctors/presentation/widgets/speciality_box.dart';
 import 'package:ser2/features/homePage/presentation/widgets/nearbyDocWidget.dart';
 
 class AllDoctors extends StatelessWidget {
-  const AllDoctors({super.key, required this.bloc, required this.uid});
+ AllDoctors({super.key, required this.bloc, required this.uid});
 
 
   final AllDoctorsBloc bloc;
   final String uid;
  
-
+  List<DoctorModel> doctors = [];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -25,11 +26,17 @@ class AllDoctors extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: BlocConsumer<AllDoctorsBloc, AllDoctorsState>(
+          
             bloc:bloc ,
+             listener: (BuildContext context, AllDoctorsState state) { 
+              if(state is DoctorSpecialSuccess){
+               doctors = state.doctors;
+              }
+              },
             builder: (context, state) {
               return Column(
                 children: [
-                  SerarchWidget(size: size,bloc: bloc,),
+                  SerarchWidget(size: size,bloc: bloc,doctors: doctors, uid: uid,),
                   SizedBox(
                     height: size.height * 0.05,
                   ),
@@ -75,7 +82,7 @@ class AllDoctors extends StatelessWidget {
                 
                 ],
               );
-            }, listener: (BuildContext context, AllDoctorsState state) {  },),
+            },),
             
       ),
     ));
