@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AdsSpace extends StatelessWidget {
-   const AdsSpace({super.key, required this.size});
+   const AdsSpace({super.key, required this.size, required this.title, required this.subTitle});
   final Size size ;
+  final String title ;
+  final String subTitle ;
     
 
   @override
@@ -97,8 +99,8 @@ class AdsSpace extends StatelessWidget {
                                 height: 1.5 * ffem / fem,
                                 color: const Color(0xffffffff),
                               ),
-                              child: const Text(
-                                'Be smart be safe',
+                              child:  Text(
+                                title,
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -137,8 +139,8 @@ class AdsSpace extends StatelessWidget {
                                 height: 1.5 * ffem / fem,
                                 color: const Color(0xffffffff),
                               ),
-                              child: const Text(
-                                'Covid-19\nwear masks',
+                              child:  Text(
+                                subTitle,
                                 textAlign: TextAlign.center,
                               ),
                             ),

@@ -60,11 +60,11 @@ class AppointmentPage extends StatelessWidget {
                                 height: size.height * 0.2,
                                 width: size.width * 0.4,
                                 decoration: BoxDecoration(
-                                    color: Kcolors.blueBackground,
+                                    color: doctorModel.gender=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                   child: Image.asset(
-                                    "images/appointement/3.png",
+                                   doctorModel.gender=='Female'? "images/appointement/7.png": "images/appointement/3.png",
                                     height: size.height * 0.2,
                                     width: size.width * 0.4,
                                   ),
@@ -90,9 +90,9 @@ class AppointmentPage extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.location_pin,
-                                color: Color(0xFF6694F6),
+                                color: doctorModel.gender=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
                               ),
                               const SizedBox(
                                 width: 10,
@@ -112,9 +112,9 @@ class AppointmentPage extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              const Icon(
+                               Icon(
                                 Icons.timer,
-                                color: Color(0xFF6694F6),
+                                color:  doctorModel.gender=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
                               ),
                               const SizedBox(
                                 width: 10,
@@ -176,7 +176,7 @@ class AppointmentPage extends StatelessWidget {
                         flex: 2,
                         child: AppoButton(
                           size: size,
-                          color: Kcolors.blueBackground,
+                          color:  doctorModel.gender=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
                           title: 'confirm',
                           buttonFunc: () {
                          

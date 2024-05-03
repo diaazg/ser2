@@ -21,8 +21,12 @@ class InfoContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
+          
+            overflow: TextOverflow.fade,
+  softWrap: false,
           title,
           style: Kcolors.fontMain.copyWith(color: Colors.black, fontSize: 15),
         ),
@@ -49,7 +53,7 @@ class InfoContainer extends StatelessWidget {
                     child: Text(
                       content,
                       style: Kcolors.fontMain
-                          .copyWith(color: Colors.black, fontSize: 20),
+                          .copyWith(color: Colors.black, fontSize: 18),
                     ),
                   ),
                 ),

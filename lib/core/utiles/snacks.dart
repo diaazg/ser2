@@ -44,5 +44,13 @@ SnackBar daysErrSnack = const SnackBar(
     behavior: SnackBarBehavior.floating,
     margin: EdgeInsets.all(5),
   ); 
+
+     SnackBar chooseWilayaErr = const SnackBar(
+    content: Text('Choose wilaya of communes'),
+    backgroundColor: Colors.red,
+    elevation: 10,
+    behavior: SnackBarBehavior.floating,
+    margin: EdgeInsets.all(5),
+  );
   
   

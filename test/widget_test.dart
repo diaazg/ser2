@@ -12,7 +12,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ser2/app.dart';
 import 'package:ser2/features/auth/data/repos/auth_repo_imp.dart';
 
-import 'package:ser2/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

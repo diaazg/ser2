@@ -15,6 +15,7 @@ class BookAptButton extends StatelessWidget {
   final Size size;
   final DoctorModel doctor;
   final String uid;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class BookAptButton extends StatelessWidget {
         height: size.height * 0.08,
         width: size.width * 0.4,
         decoration: BoxDecoration(
-            color: Kcolors.blueBackground,
+            color: doctor.gender=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
             borderRadius: BorderRadius.circular(20)),
         child: Center(
           child: Text(

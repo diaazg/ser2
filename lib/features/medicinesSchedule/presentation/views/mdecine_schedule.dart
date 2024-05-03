@@ -63,11 +63,11 @@ class _MedicineScheduleState extends State<MedicineSchedule> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "create new",
+                              "Calendrier",
                               style: Kcolors.fontMain.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w900,
-                                  fontSize: 20),
+                                  fontSize: 15),
                             ),
                             SizedBox(
                               height: size.height * 0.02,
@@ -95,7 +95,7 @@ class _MedicineScheduleState extends State<MedicineSchedule> {
                                     borderRadius: BorderRadius.circular(20)),
                                 child: Center(
                                   child: Text(
-                                    'New',
+                                    'Nouveau',
                                     style: Kcolors.fontMain.copyWith(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),

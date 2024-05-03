@@ -14,6 +14,14 @@ class RenduVousWidget extends StatelessWidget {
   final Size size;
   final RenduVousModel renduVous;
 
+  bool isRed(DateTime date){
+    if(DateTime.now().isAfter(date)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,8 +35,12 @@ class RenduVousWidget extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         height: size.height * 0.17,
-        width: size.width * 0.95,
+        width: size.width * 0.9,
         decoration: BoxDecoration(
+           border: isRed(renduVous.dateTime)?Border.all(
+      width: 1,
+      color: Colors.red,
+    ):null,
             color: Colors.white, borderRadius: BorderRadius.circular(20)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -5,11 +5,12 @@ class PhoneNbrButton extends StatelessWidget {
   const PhoneNbrButton({
     super.key,
     required this.size,
-    required this.phoneNbr,
+    required this.phoneNbr, required this.isWomen,
   });
 
   final Size size;
   final String? phoneNbr;
+  final bool isWomen ;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class PhoneNbrButton extends StatelessWidget {
         height: size.height * 0.08,
         width: size.width * 0.4,
         decoration: BoxDecoration(
-            color: Kcolors.blueBackground,
+            color:  isWomen?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
             borderRadius: BorderRadius.circular(20)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -38,7 +38,7 @@ class MedicalHistory extends StatelessWidget {
                     child: Container(
                       width: 60,
                       height: 60,
-                      color: Colors.white,
+                      color: const Color(0xFFEAEBEC),
                       child: const Center(child: Icon(Icons.navigate_before)),
                     ),
                   ),
@@ -47,7 +47,7 @@ class MedicalHistory extends StatelessWidget {
                           "Medical History",
                           style: Kcolors.fontMain.copyWith(
                               color: Colors.black,
-                              fontSize: 25,
+                              fontSize: 23,
                               fontWeight: FontWeight.w900),
                         ),
                   )
@@ -62,10 +62,7 @@ class MedicalHistory extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      const HistoryType(type: MedicalType.active),
-                       SizedBox(
-                        height: size.height * 0.8 * 0.2 * 0.1,
-                      ),
+                      
                       SizedBox(
                         height: size.height * 0.8,
                         width: size.width,

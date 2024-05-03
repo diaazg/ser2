@@ -43,10 +43,10 @@ class ProfileDashboard extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  'Myprofile',
+                  'Privé',
                   style: Kcolors.fontMain.copyWith(
                       color: Colors.black,
-                      fontSize: 30,
+                      fontSize: 25,
                       fontWeight: FontWeight.w900),
                 ),
               ),
@@ -90,7 +90,7 @@ class ProfileDashboard extends StatelessWidget {
               ),
               DashboardEelement(
                 size: size,
-                title: 'My profile',
+                title: 'Profile',
                 onTap: () {
                   String uid = bloc.uid;
                   bloc.add(GetUserData(uid: uid));
@@ -107,7 +107,7 @@ class ProfileDashboard extends StatelessWidget {
               ),
               DashboardEelement(
                 size: size,
-                title: 'Medical history',
+                title: 'Dossier Medical',
                 onTap: () {
                   String id = bloc.uid;
                   MedicalHistoryRepo repo = MedicalHistoryRepo(id,
@@ -123,7 +123,7 @@ class ProfileDashboard extends StatelessWidget {
               ),
               DashboardEelement(
                 size: size,
-                iconPath: 'translate',
+                iconPath: 'visit',
                 title: 'Rendu vous',
                 onTap: () {
                  
@@ -158,7 +158,7 @@ class ProfileDashboard extends StatelessWidget {
               DashboardEelement(
                 size: size,
                 iconPath: 'exit',
-                title: 'Log out',
+                title: 'Sortir',
                 onTap: () => context.read<AuthBloc>().add(LogOutEvent()),
               )
             ],

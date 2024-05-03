@@ -29,7 +29,7 @@ class NearByDocWidget extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         height: size.height * 0.17,
-        width: size.width * 0.95,
+        width: size.width * 0.90,
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(20)),
         child: Row(
@@ -40,15 +40,13 @@ class NearByDocWidget extends StatelessWidget {
               height: size.height * 0.15,
               width: size.width * 0.3,
               decoration: BoxDecoration(
-                  color: const Color(0xFFF3C0C0),
+                  color: nearbyDoctor.gender=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
                   borderRadius: BorderRadius.circular(20)),
-              child: Container(
-                child: Center(
-                  child: Image.asset(
-                    "images/appointement/7.png",
-                    height: size.height * 0.15,
-                    width: size.width * 0.2,
-                  ),
+              child: Center(
+                child: Image.asset(
+                  nearbyDoctor.gender=='Female'? "images/appointement/7.png": "images/appointement/3.png",
+                  height: size.height * 0.15,
+                  width: size.width * 0.2,
                 ),
               ),
             ),
@@ -63,12 +61,12 @@ class NearByDocWidget extends StatelessWidget {
                   Text(
                     "Dr-${nearbyDoctor.fullName} ",
                     style: Kcolors.fontMain.copyWith(
-                        color: const Color(0xFFF3C0C0),
+                        color: nearbyDoctor.gender=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
                         fontSize: 15,
                         fontWeight: FontWeight.w900),
                   ),
                   Text(
-                    "Specialiy : ${nearbyDoctor.speciality} ",
+                    "Spécialité : ${nearbyDoctor.speciality} ",
                     style: Kcolors.fontMain.copyWith(
                         color: Colors.black,
                         fontSize: 15,
@@ -81,10 +79,10 @@ class NearByDocWidget extends StatelessWidget {
                     width: size.width * 0.3,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: const Color(0xFFF3C0C0)),
+                        color: nearbyDoctor.gender=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6)),
                     child: Center(
                       child: Text(
-                        'More',
+                        'Plus',
                         style: Kcolors.fontMain.copyWith(
                             color: Colors.white,
                             fontSize: 15,

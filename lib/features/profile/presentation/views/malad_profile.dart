@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:ser2/core/utiles/constants.dart';
 import 'package:ser2/core/widgets/error_widget.dart';
 import 'package:ser2/core/widgets/loading_widget.dart';
@@ -71,7 +72,7 @@ class _MaladProfileState extends State<MaladProfile> {
                             child: Container(
                               width: 30,
                               height: 30,
-                              color: Colors.white,
+                              color: const Color(0xFFEAEBEC),
                               child: const Center(
                                   child: Icon(Icons.navigate_before)),
                             ),
@@ -80,7 +81,7 @@ class _MaladProfileState extends State<MaladProfile> {
                             width: size.width * 0.2,
                           ),
                           Text(
-                            'Myprofile',
+                            'Profile',
                             style: Kcolors.fontMain.copyWith(
                                 color: Colors.black,
                                 fontSize: 30,
@@ -105,11 +106,13 @@ class _MaladProfileState extends State<MaladProfile> {
                             decoration: BoxDecoration(
                                 color: const Color(0xFFE5E8F2),
                                 borderRadius: BorderRadius.circular(300)),
-                            child:  Center(
+                            child: Center(
                               child: CircleAvatar(
-                                radius: 100,
-                                backgroundImage: state.userModelInfo.img==''?null:NetworkImage('${state.userModelInfo.img}')
-                              ),
+                                  radius: 100,
+                                  backgroundImage: state.userModelInfo.img == ''
+                                      ? null
+                                      : NetworkImage(
+                                          '${state.userModelInfo.img}')),
                             ),
                           ),
                         ),
@@ -129,7 +132,7 @@ class _MaladProfileState extends State<MaladProfile> {
                         children: [
                           InfoContainer(
                               size: size,
-                              title: 'Full name',
+                              title: 'Nom et prenom',
                               content: state.userModelInfo.fullName,
                               height: 0.07,
                               width: 0.9),
@@ -138,8 +141,10 @@ class _MaladProfileState extends State<MaladProfile> {
                           ),
                           InfoContainer(
                               size: size,
-                              title: 'Birth day',
-                              content: state.userModelInfo.dateOfBirth.toString(),
+                              title: 'Date de naissance',
+                              content:
+                               DateFormat('dd-MM-yyyy').format(state.userModelInfo.dateOfBirth)
+                                  .toString(),
                               height: 0.07,
                               width: 0.9),
                           SizedBox(
@@ -150,18 +155,24 @@ class _MaladProfileState extends State<MaladProfile> {
                             children: [
                               InfoContainer(
                                   size: size,
-                                  title: 'Height',
+                                  title: 'Hauteur',
                                   content:
                                       state.userModelInfo.height.toString(),
                                   height: 0.07,
-                                  width: 0.4),
+                                  width: 0.2),
+                                  InfoContainer(
+                                  size: size,
+                                  title: 'Sang',
+                                  content: state.userModelInfo.blood.toString(),
+                                  height: 0.07,
+                                  width: 0.2),
                               InfoContainer(
                                   size: size,
-                                  title: 'Width',
+                                  title: 'Poid',
                                   content:
                                       state.userModelInfo.weight.toString(),
                                   height: 0.07,
-                                  width: 0.4)
+                                  width: 0.2)
                             ],
                           ),
                           SizedBox(
@@ -170,24 +181,19 @@ class _MaladProfileState extends State<MaladProfile> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              InfoContainer(
-                                  size: size,
-                                  title: 'Country',
-                                  content: 'Algeria',
-                                  height: 0.07,
-                                  width: 0.25),
+                              
                               InfoContainer(
                                   size: size,
                                   title: 'Wilaya',
                                   content: state.userModelInfo.city,
                                   height: 0.07,
-                                  width: 0.25),
+                                  width: 0.4),
                               InfoContainer(
                                   size: size,
                                   title: 'Commune',
                                   content: state.userModelInfo.town,
                                   height: 0.07,
-                                  width: 0.25)
+                                  width: 0.4)
                             ],
                           ),
                         ],
@@ -204,7 +210,10 @@ class _MaladProfileState extends State<MaladProfile> {
             return SafeArea(
                 child: Scaffold(
                     backgroundColor: const Color(0xFFEAEBEC),
-                    body: ErrorCaseWidget(errMessage: state.failure.errMessage, height: 200, width: 200)));
+                    body: ErrorCaseWidget(
+                        errMessage: state.failure.errMessage,
+                        height: 200,
+                        width: 200)));
           } else {
             return const Scaffold(
                 backgroundColor: Color(0xFFEAEBEC),

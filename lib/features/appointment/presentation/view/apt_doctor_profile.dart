@@ -47,11 +47,11 @@ class DoctorAptProfile extends StatelessWidget {
                             height: size.height * 0.2,
                             width: size.width * 0.4,
                             decoration: BoxDecoration(
-                                color: const Color(0xFF6694F6),
+                                color: data['Gender']=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
                                 borderRadius: BorderRadius.circular(15)),
                             child: Center(
                               child: Image.asset(
-                                "images/appointement/3.png",
+                                data['Gender']=='Female'? "images/appointement/7.png": "images/appointement/3.png",
                                 height: size.height * 0.2,
                                 width: size.width * 0.4,
                               ),
@@ -83,9 +83,9 @@ class DoctorAptProfile extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
+                             Icon(
                               Icons.location_pin,
-                              color: Color(0xFF496CCE),
+                              color: data['Gender']=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
                             ),
                             Text(
                               "${data['Wilaya']} - ${data['Commune']} ",

@@ -57,27 +57,29 @@ class LoginPage extends StatelessWidget {
                         children: [
                           SizedBox(height: size.height * 0.8 * 0.1),
                           AuthBox(
-                              size: size,
-                              hintText: 'Email',
-                              bloc: emailBox,
-                              errMessage: 'Enter your email'),
+                            size: size,
+                            hintText: 'Email',
+                            bloc: emailBox,
+                            errMessage: 'Enter your email',
+                            icon: Icons.email,
+                            isObscure: false,
+                          ),
                           SizedBox(height: size.height * 0.8 * 0.1),
                           AuthBox(
-                              size: size,
-                              hintText: 'Password',
-                              bloc: passwordBox,
-                              errMessage: 'Enter your password'),
+                            size: size,
+                            hintText: 'Password',
+                            bloc: passwordBox,
+                            errMessage: 'Enter your password',
+                            icon: Icons.password,
+                            isObscure: true,
+                          ),
                           SizedBox(height: size.height * 0.8 * 0.01),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text(
-                                  "Remember me ",
-                                  style: Kcolors.fontMain.copyWith(
-                                      color: Colors.black, fontSize: 15),
-                                ),
+                             
                                 Text(
                                   "Forget password? ",
                                   style: Kcolors.fontMain.copyWith(
@@ -93,14 +95,19 @@ class LoginPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
                                   width: size.width * 0.35,
                                   decoration: BoxDecoration(
                                       color: const Color(0xFF6694F6),
                                       borderRadius: BorderRadius.circular(25)),
                                   child: TextButton(
                                       onPressed: () async {
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterPage()));
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    RegisterPage()));
                                       },
                                       child: Text('sign up',
                                           style: Kcolors.fontMain.copyWith(
@@ -129,4 +136,3 @@ class LoginPage extends StatelessWidget {
     ));
   }
 }
-

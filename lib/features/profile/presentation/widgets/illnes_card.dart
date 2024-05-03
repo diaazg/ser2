@@ -42,7 +42,7 @@ class IllnessCard extends StatelessWidget {
                       illName,
                       style: Kcolors.fontMain.copyWith(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: 17,
                           fontWeight: FontWeight.w900),
                     ),
                     Text(
@@ -57,7 +57,7 @@ class IllnessCard extends StatelessWidget {
               ),
             ],
           ),
-          Icon(
+          const Icon(
             Icons.navigate_next,
             color: Colors.black38,
             size: 50,

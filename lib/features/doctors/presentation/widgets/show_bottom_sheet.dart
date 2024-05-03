@@ -11,7 +11,7 @@ import 'package:ser2/features/doctors/presentation/widgets/accorder_button.dart'
 import 'package:ser2/features/doctors/presentation/widgets/filter_option_card.dart';
 
 PersistentBottomSheetController bottomSheet(
-    BuildContext context, Size size, FilterBloc bloc,AllDoctorsBloc allBloc) {
+    BuildContext context, Size size, FilterBloc bloc, AllDoctorsBloc allBloc) {
   return showBottomSheet(
       context: context,
       builder: ((context) {
@@ -54,11 +54,13 @@ PersistentBottomSheetController bottomSheet(
                           size: size,
                           title: 'Wilaya',
                           onChanged: (value) {
-                            if(value != null){
+                            if (value != null) {
                               bloc.setValue('Wilaya', value);
                               bloc.add(SetWilaya(choosenWilaya: value));
                             }
-                          }, options: bloc.wilayat,
+                          },
+                          options: bloc.wilayat,
+                          hintText: 'Wilaya',
                         ),
                         GestureDetector(
                           onTap: () {
@@ -88,10 +90,12 @@ PersistentBottomSheetController bottomSheet(
                           size: size,
                           title: 'Commune',
                           onChanged: (value) {
-                           if(value != null){
+                            if (value != null) {
                               bloc.setValue('Commune', value);
                             }
-                          }, options: bloc.communes,
+                          },
+                          options: bloc.communes,
+                          hintText: 'Commune',
                         ),
                         GestureDetector(
                           onTap: () {
@@ -121,10 +125,12 @@ PersistentBottomSheetController bottomSheet(
                           size: size,
                           title: 'Sexe',
                           onChanged: (value) {
-                          if(value != null){
+                            if (value != null) {
                               bloc.setValue('Gender', value);
                             }
-                          }, options: bloc.sexe,
+                          },
+                          options: bloc.sexe,
+                          hintText: 'Sexe',
                         ),
                         GestureDetector(
                           onTap: () {
@@ -168,16 +174,22 @@ PersistentBottomSheetController bottomSheet(
                             }
                             //check if luser enter values to choosen options
                             if (filterVals.isNotEmpty) {
-                             
-                              allBloc.add(FilterSearchEvent(filter: filterVals));
-                              Navigator.pop(context);
+                              if (filterVals.containsKey('Commune') &&
+                                  (filterVals['Commune'] == 'choose wilaya')) {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(chooseWilayaErr);
+                              } else {
+                                allBloc
+                                    .add(FilterSearchEvent(filter: filterVals));
+                                Navigator.pop(context);
+                              }
                             } else {
-                               ScaffoldMessenger.of(context).showSnackBar(filterValsSnack);
-                              
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(filterValsSnack);
                             }
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(filterChoose);
-                           
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(filterChoose);
                           }
                         },
                       ),

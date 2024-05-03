@@ -5,11 +5,12 @@ class FilterOption extends StatelessWidget {
   const FilterOption({
     super.key,
     required this.size,
-    required this.title, this.onChanged, required this.options,
+    required this.title, this.onChanged, required this.options, required this.hintText,
   });
 
   final Size size;
   final String title;
+  final String hintText;
   final  void Function(String?)? onChanged;
   final List<String> options ;
 
@@ -45,7 +46,7 @@ class FilterOption extends StatelessWidget {
             decoration: InputDecoration(
                 hintStyle: Kcolors.fontMain
                     .copyWith(color: Colors.black, fontSize: 15),
-                hintText: 'hint text',
+                hintText: hintText,
                 border: InputBorder.none),
           ),
         )

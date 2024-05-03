@@ -45,11 +45,11 @@ class DoctorProfile extends StatelessWidget {
                       height: size.height * 0.2,
                       width: size.width * 0.4,
                       decoration: BoxDecoration(
-                          color: const Color(0xFF6694F6),
+                          color:  nearbyDoctor.gender=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
                           borderRadius: BorderRadius.circular(15)),
                       child: Center(
                         child: Image.asset(
-                          "images/appointement/3.png",
+                          nearbyDoctor.gender=='Female'? "images/appointement/7.png": "images/appointement/3.png",
                           height: size.height * 0.2,
                           width: size.width * 0.4,
                         ),
@@ -80,9 +80,9 @@ class DoctorProfile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
+                       Icon(
                         Icons.location_pin,
-                        color: Color(0xFF496CCE),
+                        color:  nearbyDoctor.gender=='Female'?  const Color(0xFFF3C0C0): const Color(0xFF6694F6),
                       ),
                       Text(
                         "${nearbyDoctor.wilaya} - ${nearbyDoctor.wilaya}",
@@ -156,7 +156,7 @@ class DoctorProfile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      PhoneNbrButton(size: size, phoneNbr: nearbyDoctor.phoneNbr),
+                      PhoneNbrButton(size: size, phoneNbr: nearbyDoctor.phoneNbr,isWomen: nearbyDoctor.gender=='Female',),
                       BookAptButton(size: size, doctor: nearbyDoctor, uid: uid,)
                     ],
                   )
