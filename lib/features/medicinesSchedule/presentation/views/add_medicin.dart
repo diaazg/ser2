@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/core/utiles/snacks.dart';
 import 'package:ser2/core/widgets/return_button.dart';
 import 'package:ser2/features/medicinesSchedule/data/models/medicines_models.dart';
 import 'package:ser2/features/medicinesSchedule/data/repo/medicines_repo_imp.dart';
@@ -36,34 +37,8 @@ class AddMedicin extends StatelessWidget {
 
   final AddMedicineBloc _addMedicineBloc = AddMedicineBloc();
 
-  SnackBar daysErrSnack = const SnackBar(
-    content: Text('Choose day'),
-    backgroundColor: Colors.red,
-    elevation: 10,
-    behavior: SnackBarBehavior.floating,
-    margin: EdgeInsets.all(5),
-  );
-  SnackBar setErr = const SnackBar(
-    content: Text('There is something wrong , try again'),
-    backgroundColor: Colors.red,
-    elevation: 10,
-    behavior: SnackBarBehavior.floating,
-    margin: EdgeInsets.all(5),
-  );
-  SnackBar successSnack = const SnackBar(
-    content: Text('Medicin added'),
-    backgroundColor: Colors.green,
-    elevation: 10,
-    behavior: SnackBarBehavior.floating,
-    margin: EdgeInsets.all(5),
-  );
-  SnackBar doseSnack = const SnackBar(
-    content: Text('Add at least one dose'),
-    backgroundColor: Colors.red,
-    elevation: 10,
-    behavior: SnackBarBehavior.floating,
-    margin: EdgeInsets.all(5),
-  );
+
+  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

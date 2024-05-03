@@ -1,8 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ser2/core/utiles/constants.dart';
-import 'package:ser2/features/auth/data/repos/auth_repo_imp.dart';
 import 'package:ser2/features/auth/presentation/logic/box_bloc.dart';
 import 'package:ser2/features/auth/presentation/views/add_info.dart';
 

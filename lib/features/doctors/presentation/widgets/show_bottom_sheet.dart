@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/core/utiles/snacks.dart';
 import 'package:ser2/features/doctors/presentation/logic/allDoctorsBloc.dart';
 import 'package:ser2/features/doctors/presentation/logic/doctorsEvent.dart';
 import 'package:ser2/features/doctors/presentation/logic/filter_bloc/filter_bloc.dart';
@@ -171,10 +172,12 @@ PersistentBottomSheetController bottomSheet(
                               allBloc.add(FilterSearchEvent(filter: filterVals));
                               Navigator.pop(context);
                             } else {
-                              print('enter values to filter choosen');
+                               ScaffoldMessenger.of(context).showSnackBar(filterValsSnack);
+                              
                             }
                           } else {
-                            print('choose filter option');
+                            ScaffoldMessenger.of(context).showSnackBar(filterChoose);
+                           
                           }
                         },
                       ),

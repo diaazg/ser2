@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/wilaya.dart';
 import 'package:ser2/features/auth/presentation/logic/abstract_logic.dart';
-import 'package:ser2/features/medicinesSchedule/presentation/logic/add_med_state.dart';
 import './box_state.dart';
 
 class BoxBloc extends Cubit<BoxState> implements BoxAbstract {

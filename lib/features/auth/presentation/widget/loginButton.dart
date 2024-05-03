@@ -1,13 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/core/utiles/constants.dart';
-import 'package:ser2/core/utiles/error_hnadler.dart';
-import 'package:ser2/core/widgets/nav_bar.dart';
 import 'package:ser2/features/auth/data/models/user_model.dart';
-import 'package:ser2/features/auth/data/repos/auth_repo_imp.dart';
 import 'package:ser2/features/auth/presentation/logic/auth_bloc/auth_bloc.dart';
 import 'package:ser2/features/auth/presentation/logic/auth_bloc/auth_event.dart';
 import 'package:ser2/features/auth/presentation/logic/auth_bloc/auth_state.dart';
