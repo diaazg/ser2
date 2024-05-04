@@ -6,7 +6,6 @@ import 'package:ser2/core/widgets/error_widget.dart';
 import 'package:ser2/core/widgets/loading_widget.dart';
 import 'package:ser2/features/profile/presentation/logic/medicalHistory/medical_history_bloc.dart';
 import 'package:ser2/features/profile/presentation/logic/medicalHistory/medical_history_state.dart';
-import 'package:ser2/features/profile/presentation/widgets/history_type.dart';
 import 'package:ser2/features/profile/presentation/widgets/illnes_card.dart';
 
 class MedicalHistory extends StatelessWidget {

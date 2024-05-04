@@ -34,13 +34,12 @@ class MedicInputListWidget extends StatelessWidget {
         bloc: startDateBloc,
         builder: (context,state){
         return Container(
-            height: size.height * 0.07,
+            
             width: size.width * 0.9,
+              padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(20)),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: Center(
+            child:  Center(
                 child: SearchField(
                   searchStyle: Kcolors.fontMain
                       .copyWith(color: Colors.black, fontSize: 20),
@@ -62,7 +61,6 @@ class MedicInputListWidget extends StatelessWidget {
                   hint: hintText,
                 ),
               ),
-            ),
           );
         
        }),

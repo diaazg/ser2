@@ -13,7 +13,7 @@ class Kcolors{
 }
 
 class Kpadding {
-  static const   authBoxPadding =  EdgeInsets.symmetric(horizontal: 20,vertical: 10);
+  static const   authBoxPadding =  EdgeInsets.symmetric(horizontal: 20,vertical: 2);
   static const   pagePadding =  EdgeInsets.symmetric(vertical: 30, horizontal: 20);
 
 }
@@ -44,13 +44,13 @@ class AppoButton extends StatelessWidget {
    onTap: buttonFunc,
    child:  Container(
     height: size.height*0.08,
-    width: size.width*0.9,
+    width: size.width*0.8,
     decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(20)
     ),
     child: Center(
-     child: Text(title,style: Kcolors.fontMain.copyWith(color: fontColor),),
+     child: Text(title,style: Kcolors.fontMain.copyWith(color: fontColor,fontSize: 18),),
     ),
 
 

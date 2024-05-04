@@ -49,9 +49,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double baseWidth = 390;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.97;
+
+
     return SafeArea(
         child: Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),

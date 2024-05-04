@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:ser2/features/medicinesSchedule/presentation/logic/add_med_state.dart';
 
 class AddMedicineBloc extends Cubit<AddMedicinState> {
@@ -25,13 +26,11 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
   String? endDate;
   String? startDate;
 
- Map<String,TimeOfDay?>myDoses ={
-  'dose1':null,
-  'dose2':null,
-  'dose3':null
- };
-
-
+  Map<String, TimeOfDay?> myDoses = {
+    'dose1': null,
+    'dose2': null,
+    'dose3': null
+  };
 
   //setters
   void setInput(String? userInput) {
@@ -49,16 +48,16 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
   void setDose(TimeOfDay? dose, int number) {
     switch (number) {
       case 1:
-           myDoses['dose1'] = dose;
+        myDoses['dose1'] = dose;
         emit(ValidateInputState());
         break;
       case 2:
-         myDoses['dose2'] = dose;
-         emit(ValidateInputState());
+        myDoses['dose2'] = dose;
+        emit(ValidateInputState());
         break;
       case 3:
         myDoses['dose3'] = dose;
-         emit(ValidateInputState());
+        emit(ValidateInputState());
         break;
     }
   }
@@ -72,7 +71,7 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
   }
 
   void validateMedicine() {
-    if (input != null && input!='') {
+    if (input != null && input != '') {
       emit(ValidateInputState());
     } else {
       emit(UnValidateInputState());
@@ -85,7 +84,7 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
     if (startDate == null) {
       emit(UnValidateInputState());
     } else if (dateRegex.hasMatch(startDate!)) {
-      emit(ValidateInputState());
+ emit(ValidateInputState());
     } else {
       emit(UnValidateInputState());
     }
@@ -97,7 +96,7 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
     if (endDate == null) {
       emit(UnValidateInputState());
     } else if (dateRegex.hasMatch(endDate!)) {
-      emit(ValidateInputState());
+              emit(ValidateInputState());
     } else {
       emit(UnValidateInputState());
     }
@@ -111,15 +110,16 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
     }
   }
 
-
-
   bool validateDos() {
-    if (myDoses['dose1'] != null || myDoses['dose2'] != null || myDoses['dose3'] != null) {
+    if (myDoses['dose1'] != null ||
+        myDoses['dose2'] != null ||
+        myDoses['dose3'] != null) {
       return true;
     } else {
-     return false;
+      return false;
     }
   }
+
   bool validateDay() {
     bool hasTrue = false;
     for (var value in choosenDays.values) {
@@ -128,39 +128,37 @@ class AddMedicineBloc extends Cubit<AddMedicinState> {
         break;
       }
     }
- return hasTrue;
+    return hasTrue;
   }
 
-  bool checkDose(int nbr){
-    bool value = false ;
+  bool checkDose(int nbr) {
+    bool value = false;
     switch (nbr) {
       case 1:
-        if(myDoses['dose1'] != null && nbr==1){
-          value =true;
+        if (myDoses['dose1'] != null && nbr == 1) {
+          value = true;
         }
         break;
       case 2:
-        if(myDoses['dose2'] != null && nbr==2){
-         value = true;
+        if (myDoses['dose2'] != null && nbr == 2) {
+          value = true;
         }
-        case 3:
-        if(myDoses['dose3'] != null && nbr==3){
+      case 3:
+        if (myDoses['dose3'] != null && nbr == 3) {
           value = true;
         }
     }
 
-    return value ;
+    return value;
   }
 
-
-  TimeOfDay? getDose(int val){
-    if (val==1) {
+  TimeOfDay? getDose(int val) {
+    if (val == 1) {
       return myDoses['dose1'];
-    } else if(val==2){
+    } else if (val == 2) {
       return myDoses['dose2'];
-    }else{
+    } else {
       return myDoses['dose3'];
     }
   }
 }
-

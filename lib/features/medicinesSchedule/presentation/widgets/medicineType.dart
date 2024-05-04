@@ -27,8 +27,8 @@ class TypesInput extends StatelessWidget {
           bloc: typesBloc,
           builder: (context, state) {
           return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            height: size.height * 0.07,
+            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+            
             width: size.width * 0.4,
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(20)),

@@ -7,26 +7,25 @@ import 'package:ser2/features/auth/data/repos/auth_repo_imp.dart';
 import 'package:ser2/localNotif.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
-void main()async{
-   
-   WidgetsFlutterBinding.ensureInitialized();
-   // initialize local notifications
-   await LocalNotifications.init();
-   //time zone initialization
-   tz.initializeTimeZones();
-   await Firebase.initializeApp(
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // initialize local notifications
+  await LocalNotifications.init();
+  //time zone initialization
+  tz.initializeTimeZones();
+  await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyBbTjowgwJ6rhGPoWlXP-W7wUn8mLIRnDA",
-      appId: "1:12014682350:android:ba4be5981affc9d2cf33ff", 
-      messagingSenderId: '12014682350', 
+      appId: "1:12014682350:android:ba4be5981affc9d2cf33ff",
+      messagingSenderId: '12014682350',
       projectId: "sa7ti-f530e",
-      storageBucket: "sa7ti-f530e.appspot.com", 
+      storageBucket: "sa7ti-f530e.appspot.com",
     ),
-   );
-      FirebaseAuth authInstance = FirebaseAuth.instance;
-        FirebaseFirestore storeInstance=FirebaseFirestore.instance;
-  runApp( MyApp(authRepo: AuthRepoImp(authInstance: authInstance, storeInstance: storeInstance),));
+  );
+  FirebaseAuth authInstance = FirebaseAuth.instance;
+  FirebaseFirestore storeInstance = FirebaseFirestore.instance;
+  runApp(MyApp(
+    authRepo:
+        AuthRepoImp(authInstance: authInstance, storeInstance: storeInstance),
+  ));
 }
-
-
-

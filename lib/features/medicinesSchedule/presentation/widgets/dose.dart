@@ -34,15 +34,15 @@ class DoseWidget extends StatelessWidget {
           bloc: doseBloc,
           builder: (context, state) {
             return Container(
-              height: size.height * 0.07,
+             padding: EdgeInsets.symmetric(vertical: 10),
               width: size.width * 0.25,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(20)),
-              child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 1),
-                  height: size.height * 0.07,
-                  width: size.width * 0.25,
-                  child:  Center(child:doseBloc.checkDose(doseNumber) ?Text('${doseBloc.getDose(doseNumber)?.hour} : ${doseBloc.getDose(doseNumber)?.minute} '):const Text('Time'))),
+              child: Center(
+                      child: doseBloc.checkDose(doseNumber)
+                          ? Text(
+                              '${doseBloc.getDose(doseNumber)?.hour} : ${doseBloc.getDose(doseNumber)?.minute} ')
+                          : const Text('Time')),
             );
           },
         ),
@@ -77,22 +77,22 @@ class DoseSizeWidget extends StatelessWidget {
           bloc: doseSize,
           builder: (context, state) {
             return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              height: size.height * 0.07,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+             
               width: size.width * 0.4,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: Center(
                 child: TextFormField(
                   style: Kcolors.fontMain
-                      .copyWith(color: Colors.black, fontSize: 20),
+                      .copyWith(color: Colors.black, fontSize: 18),
                   onChanged: doseSize.setInput,
                   validator: (val) =>
                       (state is UnValidateInputState) ? 'Enter dose' : null,
                   cursorColor: Colors.black,
                   decoration: InputDecoration(
                       hintStyle: Kcolors.fontMain
-                          .copyWith(color: Colors.black, fontSize: 20),
+                          .copyWith(color: Colors.black, fontSize: 18),
                       border: InputBorder.none),
                 ),
               ),

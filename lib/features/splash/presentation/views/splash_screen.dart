@@ -20,9 +20,10 @@ class SplashScreen extends StatelessWidget {
         bloc: splashBloc,
         builder: (context, state) {
           return Column(
+           
             children: [
               SizedBox(
-                height: 650,
+                height: 550,
                 child: PageView(
                   onPageChanged: (index) {
                     splashBloc.pictureChange(index);
@@ -51,7 +52,7 @@ class SplashScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 50,
               ),
               SmoothPageIndicator(
                 controller: splashBloc.controller,

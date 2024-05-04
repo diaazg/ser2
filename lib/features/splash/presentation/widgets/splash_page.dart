@@ -18,7 +18,7 @@ class SplashPageElement extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 600,
+      height: 200,
       width: size.width,
       child: CustomPaint(
         painter: CurvePainter(),
@@ -28,7 +28,7 @@ class SplashPageElement extends StatelessWidget {
             children: [
               Image.asset(
                 "images/splash/$img.png",
-                height: 300,
+                height: 200,
                 width: size.width,
               ),
               Text(

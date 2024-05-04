@@ -1,6 +1,3 @@
-// ignore: file_names
-// ignore_for_file: file_names
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ser2/features/doctors/data/repos/doctors_repo_imp.dart';
 import 'package:ser2/features/homePage/presentation/logic/allDoctorsState.dart';

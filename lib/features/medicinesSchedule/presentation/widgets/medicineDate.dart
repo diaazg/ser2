@@ -29,17 +29,15 @@ class MedicinDate extends StatelessWidget {
           bloc:dateBloc ,
           builder: (context,state){
           return Container(
-          height: size.height * 0.07,
+          padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
           width: size.width * 0.9,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(20)),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: Center(
+          child: Center(
               child: TextFormField(
                 keyboardType: TextInputType.datetime,
                 style: Kcolors.fontMain
-                    .copyWith(color: Colors.black, fontSize: 20),
+                    .copyWith(color: Colors.black, fontSize: 18),
                 onChanged:isStart ? dateBloc.setStartDate:dateBloc.setFinDate ,
                 validator: (val) => (state is UnValidateInputState)
                     ? 'check date'
@@ -47,12 +45,11 @@ class MedicinDate extends StatelessWidget {
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
                     hintStyle: Kcolors.fontMain
-                        .copyWith(color: Colors.black, fontSize: 20),
+                        .copyWith(color: Colors.black, fontSize: 18),
                     hintText:hintText,
                     border: InputBorder.none),
               ),
             ),
-          ),
         );
       
         })

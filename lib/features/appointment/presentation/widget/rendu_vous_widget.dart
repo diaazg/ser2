@@ -33,7 +33,7 @@ class RenduVousWidget extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
         height: size.height * 0.17,
         width: size.width * 0.9,
         decoration: BoxDecoration(
@@ -56,7 +56,7 @@ class RenduVousWidget extends StatelessWidget {
                 child: Text(
                   renduVous.turn.toString(),
                   style: const TextStyle(
-                      fontSize: 50,
+                      fontSize: 40,
                       fontWeight: FontWeight.w900,
                       color: Colors.white),
                 ),

@@ -86,6 +86,13 @@ class DropFillBox extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Center(
                 child: DropdownButtonFormField(
+                  value: listTypes == ListTypes.wilaya
+                      ? bloc.wilayat[0]
+                      : listTypes == ListTypes.commune
+                          ? bloc.communes[0]
+                          : listTypes == ListTypes.gender
+                              ? bloc.gender[0]
+                              : bloc.bloodCategory[0],
                   validator: (val) =>
                       (state is BoxValidateState) ? null : errMessage,
                   items: listTypes == ListTypes.wilaya
@@ -122,12 +129,12 @@ class DropFillBox extends StatelessWidget {
                                         overflow: TextOverflow.fade),
                                   );
                                 }).toList(),
-                  onChanged: (value) {
+                  onChanged: (valueChoosed) {
                     listTypes == ListTypes.wilaya
-                        ? bloc.setWilaya(value.toString())
+                        ? bloc.setWilaya(valueChoosed.toString())
                         : listTypes == ListTypes.commune
-                            ? bloc.setCommune(value.toString())
-                            : bloc.setInput(value.toString());
+                            ? bloc.setCommune(valueChoosed.toString())
+                            : bloc.setInput(valueChoosed.toString());
                   },
                   decoration: InputDecoration(
                       hintStyle: Kcolors.fontMain

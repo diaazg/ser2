@@ -21,12 +21,12 @@ class AddMedicDay extends StatelessWidget {
       onTap: chooseDay,
       child: Container(
         color: isChoose ? const Color(0xFF6694F6) : Colors.white,
-        height: 40,
+        padding: EdgeInsets.symmetric(vertical: 5),
         width: size.width * 0.12,
         child: Center(
           child: Text(
             day,
-            style: Kcolors.fontMain.copyWith(color: Colors.black),
+            style: Kcolors.fontMain.copyWith(color: Colors.black,fontSize: 18),
           ),
         ),
       ),

@@ -61,7 +61,7 @@ class ProfileDashboard extends StatelessWidget {
                       child: Column(
                         children: [
                           ProfilePicture(
-                            imgUrl: state.userModelInfo!.img,
+                            imgUrl: state.userModelInfo.img,
                             height: 150,
                             width: 150,
                           ),

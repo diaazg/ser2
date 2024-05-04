@@ -47,7 +47,7 @@ class AddMedicin extends StatelessWidget {
       backgroundColor: const Color(0xFFEAEBEC),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -218,65 +218,67 @@ class AddMedicin extends StatelessWidget {
               SizedBox(
                 height: size.height * 0.02,
               ),
-              AppoButton(
-                  size: size,
-                  title: 'save',
-                  color: const Color(0xFF496CCE),
-                  fontColor: Colors.white,
-                  buttonFunc: () async {
-                    medicineName.validateMedicine();
-                    startDate.validateStartDate();
-                    endDate.validateEndDate();
-                    doseSize.validateDoseQuantity();
-                    typesBloc.validateType();
-                    Future.delayed(const Duration(milliseconds: 100), () async {
-                      List<String> choosenDays = [];
-                      if (_formkey.currentState!.validate() &&
-                          _addMedicineBloc.validateDay() && dose.validateDos()) {
-                        _addMedicineBloc.choosenDays.forEach((key, value) {
-                          if (value) {
-                            choosenDays.add(key);
+              Center(
+                child: AppoButton(
+                    size: size,
+                    title: 'save',
+                    color: const Color(0xFF496CCE),
+                    fontColor: Colors.white,
+                    buttonFunc: () async {
+                      medicineName.validateMedicine();
+                      startDate.validateStartDate();
+                      endDate.validateEndDate();
+                      doseSize.validateDoseQuantity();
+                      typesBloc.validateType();
+                      Future.delayed(const Duration(milliseconds: 100), () async {
+                        List<String> choosenDays = [];
+                        if (_formkey.currentState!.validate() &&
+                            _addMedicineBloc.validateDay() && dose.validateDos()) {
+                          _addMedicineBloc.choosenDays.forEach((key, value) {
+                            if (value) {
+                              choosenDays.add(key);
+                            }
+                          });
+                          
+                         List<String>? dosesList = [];
+                         dose.myDoses.forEach((key, value) { 
+                          if (value != null) {
+                            String time = '${value.hour.toString()}:${value.minute.toString()}';
+                            dosesList.add(time);
                           }
-                        });
-                        
-                       List<String>? dosesList = [];
-                       dose.myDoses.forEach((key, value) { 
-                        if (value != null) {
-                          String time = '${value.hour.toString()}:${value.minute.toString()}';
-                          dosesList.add(time);
+                          }); 
+                       
+                
+                          MedicineRepoImp repo = MedicineRepoImp(uid: uid);
+                          MedicineModel medicineModel = MedicineModel(
+                              id: 'id',
+                              medicineName: medicineName.input!,
+                              startDate: DateFormat("dd-MM-yyyy")
+                                  .parseStrict(startDate.startDate!),
+                              endDate: DateFormat("dd-MM-yyyy")
+                                  .parseStrict(endDate.endDate!),
+                              days: choosenDays,
+                              type: typesBloc.input!,
+                              doseSize: double.parse(doseSize.input!),
+                              doses: dosesList);
+                          var response = await repo.addMedicine(medicineModel);
+                          response.fold((l) {
+                            ScaffoldMessenger.of(context).showSnackBar(setErr);
+                          }, (r) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(successSnack);
+                            _formkey.currentState!.reset();
+                          });
+                        } else if (_formkey.currentState!.validate() && _addMedicineBloc.validateDay()) {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(doseSnack);
+                        }else if(_formkey.currentState!.validate() ){
+                            ScaffoldMessenger.of(context)
+                              .showSnackBar(daysErrSnack);
                         }
-                        }); 
-                     
-
-                        MedicineRepoImp repo = MedicineRepoImp(uid: uid);
-                        MedicineModel medicineModel = MedicineModel(
-                            id: 'id',
-                            medicineName: medicineName.input!,
-                            startDate: DateFormat("dd-MM-yyyy")
-                                .parseStrict(startDate.startDate!),
-                            endDate: DateFormat("dd-MM-yyyy")
-                                .parseStrict(endDate.endDate!),
-                            days: choosenDays,
-                            type: typesBloc.input!,
-                            doseSize: double.parse(doseSize.input!),
-                            doses: dosesList);
-                        var response = await repo.addMedicine(medicineModel);
-                        response.fold((l) {
-                          ScaffoldMessenger.of(context).showSnackBar(setErr);
-                        }, (r) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(successSnack);
-                          _formkey.currentState!.reset();
-                        });
-                      } else if (_formkey.currentState!.validate() && _addMedicineBloc.validateDay()) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(doseSnack);
-                      }else if(_formkey.currentState!.validate() ){
-                          ScaffoldMessenger.of(context)
-                            .showSnackBar(daysErrSnack);
-                      }
-                    });
-                  })
+                      });
+                    }),
+              )
             ],
           ),
         ),

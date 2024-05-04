@@ -50,6 +50,7 @@ class BoxBloc extends Cubit<BoxState> implements BoxAbstract {
     city = wilayaChoosed;
     String wilayaName = '';
     communes.clear();
+    
     for (var element in allSet) {
       wilayaName = element["name"];
       if(wilayaName == wilayaChoosed){
@@ -60,6 +61,7 @@ class BoxBloc extends Cubit<BoxState> implements BoxAbstract {
         break;
       }
     }
+    
     emit(BoxInitState());
     
   }
