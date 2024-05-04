@@ -37,8 +37,6 @@ class AddMedicin extends StatelessWidget {
 
   final AddMedicineBloc _addMedicineBloc = AddMedicineBloc();
 
-
-  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -122,14 +120,13 @@ class AddMedicin extends StatelessWidget {
                                 ),
                               ),
                               GestureDetector(
-                                 onTap: () {
+                                onTap: () {
                                   showTimePicker(
                                           context: context,
                                           initialTime: const TimeOfDay(
                                               hour: 8, minute: 30))
                                       .then((value) {
                                     dose.setDose(value, 2);
-                                    
                                   });
                                 },
                                 child: DoseWidget(
@@ -140,8 +137,7 @@ class AddMedicin extends StatelessWidget {
                                 ),
                               ),
                               GestureDetector(
-                                 onTap: () {
-                                  
+                                onTap: () {
                                   showTimePicker(
                                           context: context,
                                           initialTime: const TimeOfDay(
@@ -149,7 +145,6 @@ class AddMedicin extends StatelessWidget {
                                       .then((value) {
                                     dose.setDose(value, 3);
                                   });
-                                 
                                 },
                                 child: DoseWidget(
                                   size: size,
@@ -230,50 +225,62 @@ class AddMedicin extends StatelessWidget {
                       endDate.validateEndDate();
                       doseSize.validateDoseQuantity();
                       typesBloc.validateType();
-                      Future.delayed(const Duration(milliseconds: 100), () async {
+                      Future.delayed(const Duration(milliseconds: 100),
+                          () async {
                         List<String> choosenDays = [];
                         if (_formkey.currentState!.validate() &&
-                            _addMedicineBloc.validateDay() && dose.validateDos()) {
-                          _addMedicineBloc.choosenDays.forEach((key, value) {
-                            if (value) {
-                              choosenDays.add(key);
-                            }
-                          });
-                          
-                         List<String>? dosesList = [];
-                         dose.myDoses.forEach((key, value) { 
-                          if (value != null) {
-                            String time = '${value.hour.toString()}:${value.minute.toString()}';
-                            dosesList.add(time);
+                            _addMedicineBloc.validateDay() &&
+                            dose.validateDos()) {
+                          final startDateTime = DateFormat('dd-MM-yyyy')
+                              .parse(startDate.startDate!);
+                          final endDateTime =
+                              DateFormat('dd-MM-yyyy').parse(endDate.endDate!);
+                          if (startDateTime.isBefore(endDateTime)) {
+                            _addMedicineBloc.choosenDays.forEach((key, value) {
+                              if (value) {
+                                choosenDays.add(key);
+                              }
+                            });
+
+                            List<String>? dosesList = [];
+                            dose.myDoses.forEach((key, value) {
+                              if (value != null) {
+                                String time =
+                                    '${value.hour.toString()}:${value.minute.toString()}';
+                                dosesList.add(time);
+                              }
+                            });
+
+                            MedicineRepoImp repo = MedicineRepoImp(uid: uid);
+                            MedicineModel medicineModel = MedicineModel(
+                                id: 'id',
+                                medicineName: medicineName.input!,
+                                startDate: DateFormat("dd-MM-yyyy")
+                                    .parseStrict(startDate.startDate!),
+                                endDate: DateFormat("dd-MM-yyyy")
+                                    .parseStrict(endDate.endDate!),
+                                days: choosenDays,
+                                type: typesBloc.input!,
+                                doseSize: double.parse(doseSize.input!),
+                                doses: dosesList);
+                            var response =
+                                await repo.addMedicine(medicineModel);
+                            response.fold((l) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(setErr);
+                            }, (r) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(successSnack);
+                              _formkey.currentState!.reset();
+                            });
+                          } else {
+                             ScaffoldMessenger.of(context).showSnackBar(dateOrder);
                           }
-                          }); 
-                       
-                
-                          MedicineRepoImp repo = MedicineRepoImp(uid: uid);
-                          MedicineModel medicineModel = MedicineModel(
-                              id: 'id',
-                              medicineName: medicineName.input!,
-                              startDate: DateFormat("dd-MM-yyyy")
-                                  .parseStrict(startDate.startDate!),
-                              endDate: DateFormat("dd-MM-yyyy")
-                                  .parseStrict(endDate.endDate!),
-                              days: choosenDays,
-                              type: typesBloc.input!,
-                              doseSize: double.parse(doseSize.input!),
-                              doses: dosesList);
-                          var response = await repo.addMedicine(medicineModel);
-                          response.fold((l) {
-                            ScaffoldMessenger.of(context).showSnackBar(setErr);
-                          }, (r) {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(successSnack);
-                            _formkey.currentState!.reset();
-                          });
-                        } else if (_formkey.currentState!.validate() && _addMedicineBloc.validateDay()) {
+                        } else if (_formkey.currentState!.validate() &&
+                            _addMedicineBloc.validateDay()) {
+                          ScaffoldMessenger.of(context).showSnackBar(doseSnack);
+                        } else if (_formkey.currentState!.validate()) {
                           ScaffoldMessenger.of(context)
-                              .showSnackBar(doseSnack);
-                        }else if(_formkey.currentState!.validate() ){
-                            ScaffoldMessenger.of(context)
                               .showSnackBar(daysErrSnack);
                         }
                       });

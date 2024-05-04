@@ -78,70 +78,67 @@ class DropFillBox extends StatelessWidget {
         bloc: bloc,
         builder: (context, state) {
           return Container(
-            height: size.height * height,
+             padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
             width: size.width * width,
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(20)),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Center(
-                child: DropdownButtonFormField(
-                  value: listTypes == ListTypes.wilaya
-                      ? bloc.wilayat[0]
+            child: Center(
+              child: DropdownButtonFormField(
+                value: listTypes == ListTypes.wilaya
+                    ? bloc.wilayat[0]
+                    : listTypes == ListTypes.commune
+                        ? bloc.communes[0]
+                        : listTypes == ListTypes.gender
+                            ? bloc.gender[0]
+                            : bloc.bloodCategory[0],
+                validator: (val) =>
+                    (state is BoxValidateState) ? null : errMessage,
+                items: listTypes == ListTypes.wilaya
+                    ? bloc.wilayat
+                        .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value, overflow: TextOverflow.fade),
+                        );
+                      }).toList()
+                    : listTypes == ListTypes.commune
+                        ? bloc.communes
+                            .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value, overflow: TextOverflow.fade),
+                            );
+                          }).toList()
+                        : listTypes == ListTypes.gender
+                            ? bloc.gender.map<DropdownMenuItem<String>>(
+                                (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value,
+                                      overflow: TextOverflow.fade),
+                                );
+                              }).toList()
+                            : bloc.bloodCategory
+                                .map<DropdownMenuItem<String>>(
+                                    (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value,
+                                      overflow: TextOverflow.fade),
+                                );
+                              }).toList(),
+                onChanged: (valueChoosed) {
+                  listTypes == ListTypes.wilaya
+                      ? bloc.setWilaya(valueChoosed.toString())
                       : listTypes == ListTypes.commune
-                          ? bloc.communes[0]
-                          : listTypes == ListTypes.gender
-                              ? bloc.gender[0]
-                              : bloc.bloodCategory[0],
-                  validator: (val) =>
-                      (state is BoxValidateState) ? null : errMessage,
-                  items: listTypes == ListTypes.wilaya
-                      ? bloc.wilayat
-                          .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value, overflow: TextOverflow.fade),
-                          );
-                        }).toList()
-                      : listTypes == ListTypes.commune
-                          ? bloc.communes
-                              .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value, overflow: TextOverflow.fade),
-                              );
-                            }).toList()
-                          : listTypes == ListTypes.gender
-                              ? bloc.gender.map<DropdownMenuItem<String>>(
-                                  (String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value,
-                                        overflow: TextOverflow.fade),
-                                  );
-                                }).toList()
-                              : bloc.bloodCategory
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value,
-                                        overflow: TextOverflow.fade),
-                                  );
-                                }).toList(),
-                  onChanged: (valueChoosed) {
-                    listTypes == ListTypes.wilaya
-                        ? bloc.setWilaya(valueChoosed.toString())
-                        : listTypes == ListTypes.commune
-                            ? bloc.setCommune(valueChoosed.toString())
-                            : bloc.setInput(valueChoosed.toString());
-                  },
-                  decoration: InputDecoration(
-                      hintStyle: Kcolors.fontMain
-                          .copyWith(color: Colors.black, fontSize: 15),
-                      hintText: hintText,
-                      border: InputBorder.none),
-                ),
+                          ? bloc.setCommune(valueChoosed.toString())
+                          : bloc.setInput(valueChoosed.toString());
+                },
+                decoration: InputDecoration(
+                    hintStyle: Kcolors.fontMain
+                        .copyWith(color: Colors.black, fontSize: 15),
+                    hintText: hintText,
+                    border: InputBorder.none),
               ),
             ),
           );

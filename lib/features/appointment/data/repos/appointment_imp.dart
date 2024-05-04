@@ -75,6 +75,7 @@ class AppointmentRepo extends AppointmentRepoAbs {
           await aptDoc.update(
               {'Nb': nbr - 1, 'Mr1': '$formattedHour:$formattedMinute'});
           await storeInstance.collection('Reservation').add(RenduVousModel(
+                  renduVousId: '',
                   doctorId: medcinUid,
                   maladId: maladUid,
                   turn: nbr,
@@ -103,6 +104,7 @@ class AppointmentRepo extends AppointmentRepoAbs {
           await aptDoc.update(
               {'Nb': nbr - 1, 'Ev1': '$formattedHour:$formattedMinute'});
           await storeInstance.collection('Reservation').add(RenduVousModel(
+                  renduVousId:'',
                   doctorId: medcinUid,
                   maladId: maladUid,
                   turn: nbr,
@@ -158,7 +160,7 @@ class AppointmentRepo extends AppointmentRepoAbs {
       List<RenduVousModel> renduVousList = querySnapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
-        return RenduVousModel.fromJson(data);
+        return RenduVousModel.fromJson(data,doc.id);
       }).toList();
       return right(renduVousList);
     } on FirebaseAuthException catch (e) {

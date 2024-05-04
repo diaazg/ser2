@@ -81,35 +81,10 @@ class _HomePageState extends State<HomePage> {
                 }
               ),
               SizedBox(
-                height: size.height * 0.1 * 0.2,
+                height: size.height * 0.1 * 0.4,
               ),
-              GestureDetector(
-                onTap: () {
-                  /*                 Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AllSpecial())); */
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Text('voir tout'),
-                    SizedBox(
-                      width: size.width * 0.1 * 0.1,
-                    ),
-                    Container(
-                        height: 30,
-                        width: 30,
-                        decoration:
-                            BoxDecoration(color: Kcolors.blueBackground),
-                        child: const Icon(
-                          Icons.navigate_next,
-                          color: Colors.white,
-                        ))
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: size.height * 0.1 * 0.2,
-              ),
+             
+             
               SizedBox(
                 height: size.height * 0.14,
                 width: size.width,

@@ -77,7 +77,7 @@ class DoseSizeWidget extends StatelessWidget {
           bloc: doseSize,
           builder: (context, state) {
             return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
              
               width: size.width * 0.4,
               decoration: BoxDecoration(

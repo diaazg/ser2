@@ -70,5 +70,22 @@ SnackBar daysErrSnack = const SnackBar(
     behavior: SnackBarBehavior.floating,
     margin: EdgeInsets.all(5),
   );
+
+         SnackBar dateOrder = const SnackBar(
+    content: Text('Date de début doit être antérieure à la date de fin'),
+    backgroundColor: Colors.red,
+    elevation: 10,
+    behavior: SnackBarBehavior.floating,
+    margin: EdgeInsets.all(5),
+  );
+
+
+    SnackBar deleteAptSuccess= const SnackBar(
+    content: Text('Reservation supprimer'),
+    backgroundColor: Colors.green,
+    elevation: 10,
+    behavior: SnackBarBehavior.floating,
+    margin: EdgeInsets.all(5),
+  );
   
   

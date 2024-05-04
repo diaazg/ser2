@@ -33,6 +33,7 @@ class MyAppointment extends StatelessWidget {
                         itemCount: state.aptList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return RenduVousWidget(
+                            bloc: bloc,
                             size: size,
                             renduVous: state.aptList[index],
                           );

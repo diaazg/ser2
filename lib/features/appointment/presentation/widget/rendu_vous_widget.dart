@@ -1,23 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ser2/core/utiles/constants.dart';
+import 'package:ser2/core/utiles/snacks.dart';
 import 'package:ser2/features/appointment/data/models/my_rendu_vous.dart';
+import 'package:ser2/features/appointment/presentation/logic/my_appointements/my_apt_bloc.dart';
 import 'package:ser2/features/appointment/presentation/view/apt_doctor_profile.dart';
 
 class RenduVousWidget extends StatelessWidget {
   const RenduVousWidget({
     super.key,
     required this.size,
-    required this.renduVous,
+    required this.renduVous, required this.bloc,
   });
 
   final Size size;
   final RenduVousModel renduVous;
+  final MyAptBloc bloc;
 
-  bool isRed(DateTime date){
-    if(DateTime.now().isAfter(date)){
+  bool isRed(DateTime date) {
+    if (DateTime.now().isAfter(date)) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -25,11 +29,32 @@ class RenduVousWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onLongPress: () async {
+         if(isRed(renduVous.dateTime)){
+                  DocumentReference documentReference = FirebaseFirestore.instance
+            .collection('Reservation')
+            .doc(renduVous.renduVousId);
+
+        try {
+          
+          await documentReference.delete();
+           ScaffoldMessenger.of(context)
+                                  .showSnackBar(deleteAptSuccess);
+          bloc.getMyApt();
+          
+        } catch (e) {
+          ScaffoldMessenger.of(context)
+                                  .showSnackBar(setErr);
+        }
+         }
+      },
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>  DoctorAptProfile(docId: renduVous.doctorId,)));
+                builder: (context) => DoctorAptProfile(
+                      docId: renduVous.doctorId,
+                    )));
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
@@ -37,11 +62,14 @@ class RenduVousWidget extends StatelessWidget {
         height: size.height * 0.17,
         width: size.width * 0.9,
         decoration: BoxDecoration(
-           border: isRed(renduVous.dateTime)?Border.all(
-      width: 1,
-      color: Colors.red,
-    ):null,
-            color: Colors.white, borderRadius: BorderRadius.circular(20)),
+            border: isRed(renduVous.dateTime)
+                ? Border.all(
+                    width: 1,
+                    color: Colors.red,
+                  )
+                : null,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

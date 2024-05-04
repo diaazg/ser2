@@ -51,8 +51,12 @@ class AuthRepoImp extends AuthRepo {
       DocumentReference documentReference =
           storeInstance.collection('users').doc(uid);
       userModelReg.uid = uid;
+      var userModelJson = userModelReg.toJson();
+
+// Remove the password field from the JSON object
+userModelJson.remove('password');
       
-      await documentReference.set(userModelReg.toJson());
+      await documentReference.set(userModelJson);
       return right(userModelReg);
     } on FirebaseAuthException catch (e) {
       return left(FirebaseFailure.fromCode(e.code));

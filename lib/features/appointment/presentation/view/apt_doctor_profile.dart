@@ -119,7 +119,7 @@ class DoctorAptProfile extends StatelessWidget {
                               height: size.height * 0.04,
                             ),
                             Text(
-                              'About',
+                              'phone',
                               style: Kcolors.fontMain.copyWith(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w900),
@@ -127,7 +127,7 @@ class DoctorAptProfile extends StatelessWidget {
                             SizedBox(
                               height: size.height * 0.04,
                             ),
-                            Text(' ${data['about']}')
+                            Text(' ${data['phone']}')
                           ],
                         ),
                         SizedBox(

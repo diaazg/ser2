@@ -19,4 +19,6 @@ class MyAptBloc extends Cubit<MyAptState> {
       emit(MyAptSuccess(aptList: success));
     });
   }
+
+
 }

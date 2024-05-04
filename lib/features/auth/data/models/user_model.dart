@@ -55,7 +55,7 @@ class UserModelInfo extends UserModel {
       img: json['img'],
       uid: json['uid'] as String,
       email: json['email'] as String,
-      password: json['password'] as String,
+      password: '',
       fullName: json['fullName'] as String,
       dateOfBirth:  (json['dateOfBirth'] as Timestamp).toDate(),
       weight: json['weight'] as double,

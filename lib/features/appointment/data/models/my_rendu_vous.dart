@@ -6,21 +6,23 @@ class RenduVousModel {
   final int turn;
   final bool state;
   final DateTime dateTime;
+  final String renduVousId;
 
-  RenduVousModel( 
-      {
+  RenduVousModel(  
+      {required this.renduVousId,
         required this.dateTime,
         required this.doctorId,
       required this.maladId,
       required this.turn,
       required this.state});
 
-  factory RenduVousModel.fromJson(Map<String, dynamic> json) => RenduVousModel(
+  factory RenduVousModel.fromJson(Map<String, dynamic> json,id) => RenduVousModel(
+   
       dateTime: (json['Date'] as Timestamp).toDate(),
       doctorId: json['DoctorId'],
       maladId: json['MaladeId'],
       turn: json['Trun'],
-      state: json['state']);
+      state: json['state'], renduVousId: id);
 
   Map<String, dynamic> toJson() =>
       {'DoctorId': doctorId, 'MaladeId': maladId, 'Trun': turn, 'state': state,'Date':dateTime};
