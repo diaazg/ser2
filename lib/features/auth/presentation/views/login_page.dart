@@ -119,6 +119,7 @@ class LoginPage extends StatelessWidget {
                                       },
                                       child: Text('Inscrire',
                                           style: Kcolors.fontMain.copyWith(
+                                            fontSize: 18,
                                               color: Colors.white,
                                               fontWeight: FontWeight.w900))),
                                 ),

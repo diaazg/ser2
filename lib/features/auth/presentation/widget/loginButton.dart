@@ -57,7 +57,7 @@ class LoginButton extends StatelessWidget {
       builder: (context,state) {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          width: size.width * 0.3,
+          width: size.width * 0.35,
           decoration: BoxDecoration(
               color: const Color(0xFF6694F6),
               borderRadius: BorderRadius.circular(25)),
@@ -78,7 +78,7 @@ class LoginButton extends StatelessWidget {
               },
               child: Text('Connecter',
                   style: Kcolors.fontMain
-                      .copyWith(color: Colors.white, fontWeight: FontWeight.w900))),
+                      .copyWith(color: Colors.white, fontWeight: FontWeight.w900,fontSize: 18))),
         );
      
       },
