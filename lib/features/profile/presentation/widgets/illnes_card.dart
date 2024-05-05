@@ -57,11 +57,6 @@ class IllnessCard extends StatelessWidget {
               ),
             ],
           ),
-          const Icon(
-            Icons.navigate_next,
-            color: Colors.black38,
-            size: 50,
-          )
         ],
       ),
     );

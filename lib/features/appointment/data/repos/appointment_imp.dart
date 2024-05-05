@@ -79,7 +79,7 @@ class AppointmentRepo extends AppointmentRepoAbs {
                   doctorId: medcinUid,
                   maladId: maladUid,
                   turn: nbr,
-                  state: true,
+                  state: false,
                   dateTime: date)
               .toJson());
           return right(nbr);
@@ -108,7 +108,7 @@ class AppointmentRepo extends AppointmentRepoAbs {
                   doctorId: medcinUid,
                   maladId: maladUid,
                   turn: nbr,
-                  state: true,
+                  state: false,
                   dateTime: date)
               .toJson());
           return right(nbr);
@@ -154,7 +154,7 @@ class AppointmentRepo extends AppointmentRepoAbs {
     
       QuerySnapshot querySnapshot = await doctorsCollection
           .where('MaladeId', isEqualTo: userId)
-          .where('state', isEqualTo: true)
+          .where('state', isEqualTo: false)
           .get();
          
       List<RenduVousModel> renduVousList = querySnapshot.docs.map((doc) {
